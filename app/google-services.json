@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "891622753010",
+    "firebase_url": "https://cabtap-6933d.firebaseio.com",
+    "project_id": "cabtap-6933d",
+    "storage_bucket": "cabtap-6933d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:891622753010:android:8e43f10647f8d3fc",
+        "android_client_info": {
+          "package_name": "com.aindong.cabtap"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "891622753010-f0qgqd9u2p9bphh8v8a27h16k12jpkei.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCkQsAnUjasGsecoJTHtkPXJMN0MM2IO-A"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
