@@ -25,6 +25,7 @@
         android:layout_marginBottom="@dimen/description_margin"/>
     
     <Button
+        android:id="@+id/btn_login"
         android:theme="@style/PrimaryButton"
         android:textSize="@dimen/text_size"
         android:layout_gravity="center_horizontal"
@@ -33,6 +34,7 @@
         android:text="@string/log_in"/>
 
     <Button
+        android:id="@+id/btn_register"
         android:theme="@style/DangerButton"
         android:textSize="@dimen/text_size"
         android:layout_gravity="center_horizontal"
