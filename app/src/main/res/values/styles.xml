@@ -19,4 +19,18 @@
         <item name="android:textColorPrimaryInverse">@android:color/black</item>
     </style>
 
+    <style name="CustomButtons" parent="Theme.AppCompat.Light">
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
+
+    <style name="PrimaryButton" parent="CustomButtons">
+        <item name="colorControlHighlight">@color/colorPrimaryDark</item>
+        <item name="colorButtonNormal">@color/colorPrimary</item>
+    </style>
+
+    <style name="DangerButton" parent="CustomButtons">
+        <item name="colorControlHighlight">@color/colorDarkAccent</item>
+        <item name="colorButtonNormal">@color/colorAccent</item>
+    </style>
+
 </resources>
