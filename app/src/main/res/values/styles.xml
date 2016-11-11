@@ -33,4 +33,10 @@
         <item name="colorButtonNormal">@color/colorAccent</item>
     </style>
 
+    <style name="IconButtonsWhite" parent="CustomButtons">
+        <item name="colorControlHighlight">@color/colorDarkAccent</item>
+        <item name="colorButtonNormal">@color/colorWhite</item>
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
+
 </resources>

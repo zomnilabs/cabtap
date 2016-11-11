@@ -5,4 +5,5 @@
     <dimen name="logo_height">159dp</dimen>
     <dimen name="text_size">30sp</dimen>
     <dimen name="description_margin">30dp</dimen>
+    <dimen name="text_size_small">15sp</dimen>
 </resources>

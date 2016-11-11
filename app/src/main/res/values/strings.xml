@@ -3,4 +3,9 @@
     <string name="app_tag_description">Taking you to your destination..</string>
     <string name="log_in">LOG IN</string>
     <string name="register_now">REGISTER NOW!</string>
+    <string name="driver_maintenance">Driver Maintenance</string>
+    <string name="vehicle_maintenance">Vehicle Maintenance</string>
+    <string name="expense_tracking">Expense Tracking</string>
+    <string name="maintenance">Maintenance</string>
+    <string name="reports">Reports</string>
 </resources>

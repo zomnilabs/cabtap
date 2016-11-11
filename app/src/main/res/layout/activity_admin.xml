@@ -10,4 +10,81 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.alleoindong.cabtap.admin.AdminActivity">
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:layout_weight="1"
+                android:id="@+id/btn_driver_maintenance"
+                android:theme="@style/IconButtonsWhite"
+                android:textSize="@dimen/text_size_small"
+                android:text="@string/driver_maintenance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/ic_driver" />
+
+            <Button
+                android:layout_weight="1"
+                android:id="@+id/btn_vehicle_maintenance"
+                android:theme="@style/IconButtonsWhite"
+                android:textSize="@dimen/text_size_small"
+                android:text="@string/vehicle_maintenance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/ic_vehicle" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:layout_weight="1"
+                android:id="@+id/btn_expense_tracking"
+                android:theme="@style/IconButtonsWhite"
+                android:textSize="@dimen/text_size_small"
+                android:text="@string/expense_tracking"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/ic_expenses" />
+
+            <Button
+                android:layout_weight="1"
+                android:id="@+id/btn_maintenance"
+                android:theme="@style/IconButtonsWhite"
+                android:textSize="@dimen/text_size_small"
+                android:text="@string/maintenance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/ic_maintenance" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:layout_weight="1"
+                android:id="@+id/btn_reports"
+                android:theme="@style/IconButtonsWhite"
+                android:textSize="@dimen/text_size_small"
+                android:text="@string/reports"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:drawableTop="@drawable/ic_reports" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+
 </RelativeLayout>
