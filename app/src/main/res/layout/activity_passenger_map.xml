@@ -6,11 +6,23 @@
     android:layout_height="match_parent"
     tools:context="com.example.alleoindong.cabtap.user.PassengerMapActivity">
 
-
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:id="@+id/map"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+    </fragment>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageButton
+            android:background="@null"
+            android:layout_gravity="bottom|right"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:src="@drawable/ic_book_now" />
+    </FrameLayout>
 
 </RelativeLayout>

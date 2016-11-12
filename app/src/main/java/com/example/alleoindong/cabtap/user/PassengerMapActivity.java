@@ -77,6 +77,7 @@ public class PassengerMapActivity extends AppCompatActivity implements
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        googleMap.getUiSettings().setMapToolbarEnabled(false);
         mMap = googleMap;
 
         // Check permission
@@ -85,6 +86,8 @@ public class PassengerMapActivity extends AppCompatActivity implements
 
             // Ask for permission
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSION_ACCESS_FINE_LOCATION);
+
+            return;
         }
 
         googleMap.setMyLocationEnabled(true);
@@ -121,9 +124,6 @@ public class PassengerMapActivity extends AppCompatActivity implements
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
 
         if (mLastLocation != null) {
-            mLatitude.setText(String.valueOf(mLastLocation.getLatitude()));
-            mLongitude.setText(String.valueOf(mLastLocation.getLongitude()));
-
             mlatlng = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
             MarkerOptions markerOptions = new MarkerOptions();
             markerOptions.position(mlatlng);
