@@ -3,11 +3,17 @@
     <string name="app_tag_description">Taking you to your destination..</string>
     <string name="log_in">LOG IN</string>
     <string name="register_now">REGISTER NOW!</string>
+    <string name="passenger">PASSENGER</string>
     <string name="driver_maintenance">Driver Maintenance</string>
     <string name="vehicle_maintenance">Vehicle Maintenance</string>
     <string name="expense_tracking">Expense Tracking</string>
     <string name="maintenance">Maintenance</string>
     <string name="reports">Reports</string>
+    <string name="register_first_name">First Name</string>
+    <string name="register_last_name">Last Name</string>
+    <string name="register_email">Email Address</string>
+    <string name="register_password">Password</string>
+    <string name="register_confirm_password">Confirm Password</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
