@@ -3,6 +3,7 @@
     <string name="app_tag_description">Taking you to your destination..</string>
     <string name="log_in">LOG IN</string>
     <string name="register_now">REGISTER NOW!</string>
+    <string name="forgot_password">Forgot your password?</string>
     <string name="passenger">PASSENGER</string>
     <string name="driver_maintenance">Driver Maintenance</string>
     <string name="vehicle_maintenance">Vehicle Maintenance</string>
