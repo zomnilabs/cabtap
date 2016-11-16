@@ -10,10 +10,11 @@
         android:layout_marginTop="100dp">
 
         <EditText
+            android:theme="@style/EditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
-            android:id="@+id/textEmailAddress"
+            android:id="@+id/email_address"
             android:textSize="24sp"
             android:textColor="@color/colorBlack"
             android:ems="10"
@@ -21,10 +22,11 @@
             android:fontFamily="monospace" />
 
         <EditText
+            android:theme="@style/EditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
-            android:id="@+id/textPassword"
+            android:id="@+id/password"
             android:textSize="24sp"
             android:textColor="@color/colorBlack"
             android:ems="10"

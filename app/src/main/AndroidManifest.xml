@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.alleoindong.cabtap">
 
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -28,15 +28,16 @@
         <activity android:name=".PassengerLoginActivity" />
         <activity android:name=".admin.AdminActivity" />
         <activity android:name=".admin.DriverMaintenanceActivity" />
-        <activity android:name=".user.PassengerMapActivity"/>
+        <activity android:name=".user.PassengerMapActivity" />
 
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyD96FdTg_lXLY0z0oD1B0aMGkLHi-OtmCc"/>
+            android:value="AIzaSyD96FdTg_lXLY0z0oD1B0aMGkLHi-OtmCc" />
+
+        <activity android:name=".BaseActivity"></activity>
     </application>
 
 </manifest>

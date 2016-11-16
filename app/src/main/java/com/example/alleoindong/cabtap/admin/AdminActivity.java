@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
 
+import com.example.alleoindong.cabtap.BaseActivity;
 import com.example.alleoindong.cabtap.R;
 import com.example.alleoindong.cabtap.user.PassengerMapActivity;
 
