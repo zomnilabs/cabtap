@@ -51,6 +51,7 @@ public class PassengerLoginActivity extends BaseActivity {
             if (aBoolean) {
                 Intent intent = new Intent(getApplicationContext(), AdminActivity.class);
                 startActivity(intent);
+                finish();
             }
         }
     };
