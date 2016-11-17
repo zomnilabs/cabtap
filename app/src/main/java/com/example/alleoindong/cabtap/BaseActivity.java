@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.alleoindong.cabtap.admin.AdminActivity;
@@ -13,8 +14,13 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import rx.Observable;
+import rx.subjects.PublishSubject;
+import rx.subjects.Subject;
+
 public class BaseActivity extends AppCompatActivity {
     protected boolean isAuthenticated = false;
+    protected Subject<Boolean, Boolean> authenticationObservable = PublishSubject.create();
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -39,6 +45,9 @@ public class BaseActivity extends AppCompatActivity {
                     // not connected or signed out
                     isAuthenticated = false;
                 }
+
+                authenticationObservable.onNext(isAuthenticated);
+//                Log.i("EmailLogin", String.valueOf(isAuthenticated));
             }
         };
     }

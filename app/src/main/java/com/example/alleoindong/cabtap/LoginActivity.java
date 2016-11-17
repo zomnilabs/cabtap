@@ -1,12 +1,8 @@
 package com.example.alleoindong.cabtap;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
-
-import com.example.alleoindong.cabtap.PassengerLoginActivity;
-import com.example.alleoindong.cabtap.RegisterActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,7 +18,6 @@ public class LoginActivity extends BaseActivity {
         setContentView(R.layout.activity_login);
 
         ButterKnife.bind(this);
-
     }
 
     @OnClick(R.id.btn_login) void loginClick() {
