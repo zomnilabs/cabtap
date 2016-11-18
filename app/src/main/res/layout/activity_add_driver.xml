@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:id="@+id/activity_add_driver"
+    android:layout_height="match_parent"
+    tools:context="com.example.alleoindong.cabtap.admin.AddDriverActivity">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1">
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size"
+            android:id="@+id/textView"
+            android:text="@string/driver"
+            android:layout_marginLeft="160dp"
+            android:layout_marginTop="15dp"
+            android:textColor="@color/colorBlack"
+            android:layout_width="110dp" />
+
+        <ImageView
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/ic_registration"
+            android:layout_height="60dp"
+            android:layout_weight="0.21"
+            android:layout_width="110dp" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="30dp">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/textFirstName"
+            android:hint="@string/register_first_name"
+            android:fontFamily="monospace"
+            android:textSize="24sp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:textSize="24sp"
+            android:textColor="@color/colorBlack"
+            android:ems="10"
+            android:id="@+id/textLastName"
+            android:hint="@string/register_last_name"
+            android:fontFamily="monospace" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:textSize="24sp"
+            android:textColor="@color/colorBlack"
+            android:ems="10"
+            android:id="@+id/textAddress"
+            android:hint="@string/address_add_driver"
+            android:fontFamily="monospace" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:textSize="24sp"
+            android:textColor="@color/colorBlack"
+            android:ems="10"
+            android:id="@+id/textContactNo"
+            android:hint="@string/contact_no"
+            android:fontFamily="monospace" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:textSize="24sp"
+            android:textColor="@color/colorBlack"
+            android:ems="10"
+            android:id="@+id/textBirthdate"
+            android:hint="@string/birthdate"
+            android:fontFamily="monospace" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:textSize="24sp"
+            android:textColor="@color/colorBlack"
+            android:ems="10"
+            android:id="@+id/textEmail"
+            android:hint="@string/register_email"
+            android:fontFamily="monospace" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:textSize="24sp"
+            android:textColor="@color/colorBlack"
+            android:ems="10"
+            android:id="@+id/textPassword"
+            android:hint="@string/register_password"
+            android:fontFamily="monospace" />
+
+        <Button
+            android:id="@+id/btn_register"
+            android:theme="@style/DangerButton"
+            android:textSize="@dimen/text_size"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_driver"
+            />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

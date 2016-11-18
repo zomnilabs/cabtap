@@ -37,7 +37,8 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyD96FdTg_lXLY0z0oD1B0aMGkLHi-OtmCc" />
 
-        <activity android:name=".BaseActivity"></activity>
+        <activity android:name=".BaseActivity" />
+        <activity android:name=".admin.AddDriverActivity"></activity>
     </application>
 
 </manifest>

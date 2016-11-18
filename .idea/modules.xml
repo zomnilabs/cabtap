@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/CabTap.iml" filepath="$PROJECT_DIR$/CabTap.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cabtap.iml" filepath="$PROJECT_DIR$/cabtap.iml" />
     </modules>
   </component>
 </project>
