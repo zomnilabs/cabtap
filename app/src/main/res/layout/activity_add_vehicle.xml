@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_add_vehicle"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.alleoindong.cabtap.admin.AddVehicleActivity">
+
+    <TextView
+        android:theme="@styles/EditTextStyle"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_size"
+        android:id="@+id/text_plate_number"
+        android:hint="@string/add_plate"
+        android:layout_marginLeft="160dp"
+        android:layout_marginTop="15dp"
+        android:textColor="@color/colorBlack"
+        android:layout_width="110dp" />
+
+</RelativeLayout>
