@@ -1,14 +1,20 @@
 package com.example.alleoindong.cabtap.admin;
 
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.support.annotation.NonNull;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.example.alleoindong.cabtap.R;
 import com.example.alleoindong.cabtap.models.User;
@@ -21,6 +27,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.UUID;
 
 import butterknife.BindView;
@@ -37,6 +45,8 @@ public class AddDriverActivity extends AppCompatActivity {
     @BindView(R.id.driver_email) EditText mEmail;
     @BindView(R.id.driver_password) EditText mPassword;
     @BindView(R.id.btn_save_driver_loading) ProgressBar mProgress;
+    private DialogFragment datePickerDialog;
+    private SimpleDateFormat dateFormatter;
 
     protected FirebaseApp mApp;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -51,19 +61,7 @@ public class AddDriverActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mApp = FirebaseApp.initializeApp(this);
-
-//        mAuthListener = new FirebaseAuth.AuthStateListener() {
-//            @Override
-//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-//                FirebaseUser user = firebaseAuth.getCurrentUser();
-//                if (user != null) {
-//                    // User is signed in
-//                    Log.i("CREATE_DRIVER", user.getUid());
-//                } else {
-//                    // User is signed out
-//                }
-//            }
-//        };
+        this.setDateTimeField();
     }
 
     @Override
@@ -90,6 +88,19 @@ public class AddDriverActivity extends AppCompatActivity {
         mSaveDriver.setEnabled(!isShown);
         mSaveDriver.setText(isShown ? "" : getString(R.string.add_driver));
         mProgress.setVisibility(isShown ? View.VISIBLE : View.INVISIBLE);
+    }
+
+    private void setDateTimeField() {
+        mDateBirth.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    datePickerDialog.show(getSupportFragmentManager(), "Select a date");
+                }
+            }
+        });
+
+        datePickerDialog = new DatePickerDialogTheme4();
     }
 
     private String createUser(String email, String password) {
@@ -123,5 +134,28 @@ public class AddDriverActivity extends AppCompatActivity {
         });
 
         return "";
+    }
+
+    public static class DatePickerDialogTheme4 extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            final Calendar calendar = Calendar.getInstance();
+            int year = calendar.get(Calendar.YEAR);
+            int month = calendar.get(Calendar.MONTH);
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+            DatePickerDialog datepickerdialog = new DatePickerDialog(getActivity(),
+                    R.style.datepicker, this, year, month, day);
+
+            return datepickerdialog;
+        }
+
+        public void onDateSet(DatePicker view, int year, int month, int day) {
+
+            EditText birthDate = (EditText) getActivity().findViewById(R.id.driver_date_birth);
+
+            birthDate.setText(year + "-" + (month + 1) + "-" + day);
+        }
     }
 }

@@ -19,6 +19,12 @@
         <item name="android:textColorPrimaryInverse">@android:color/black</item>
     </style>
 
+    <style name="datepicker" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
     <style name="EditTextStyle" parent="Theme.AppCompat.Light">
         <item name="android:textColor">@color/colorBlack</item>
         <item name="colorButtonNormal">@color/colorPrimary</item>

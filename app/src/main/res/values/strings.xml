@@ -26,4 +26,6 @@
     <string name="auth_failed">Failed to login</string>
     <string name="loading_button">Loading</string>
     <string name="menu_logout">Logout</string>
+    <string name="search_driver_title">Search Driver</string>
+    <string name="search_hint_driver">Enter Driver Name</string>
 </resources>

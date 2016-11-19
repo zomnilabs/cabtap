@@ -11,6 +11,7 @@ public class User {
     public String uid;
     public String email;
     public String password;
+    public UserProfile userProfile;
 
     public User() {
 
@@ -22,8 +23,9 @@ public class User {
         this.password = password;
     }
 
-    public User(String uid, String email) {
+    public User(String uid, String email, UserProfile userProfile) {
         this.uid = uid;
         this.email = email;
+        this.userProfile = userProfile;
     }
 }
