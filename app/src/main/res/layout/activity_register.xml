@@ -37,6 +37,7 @@
         android:paddingTop="30dp">
 
         <EditText
+            android:theme="@style/EditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
@@ -47,6 +48,7 @@
             android:textSize="24sp" />
 
         <EditText
+            android:theme="@style/EditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
@@ -58,6 +60,7 @@
             android:fontFamily="monospace" />
 
         <EditText
+            android:theme="@style/EditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
@@ -69,6 +72,7 @@
             android:fontFamily="monospace" />
 
         <EditText
+            android:theme="@style/EditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
@@ -80,6 +84,7 @@
             android:fontFamily="monospace" />
 
         <EditText
+            android:theme="@style/EditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
@@ -96,8 +101,9 @@
             android:theme="@style/DangerButton"
             android:textSize="@dimen/text_size"
             android:layout_gravity="center_horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="300dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="20dp"
             android:text="@string/register_now"
             />
 

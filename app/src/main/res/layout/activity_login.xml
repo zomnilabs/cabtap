@@ -29,8 +29,8 @@
         android:theme="@style/PrimaryButton"
         android:textSize="@dimen/text_size"
         android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="70dp"
         android:text="@string/log_in"/>
 
     <Button
@@ -38,8 +38,8 @@
         android:theme="@style/DangerButton"
         android:textSize="@dimen/text_size"
         android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:layout_height="70dp"
         android:text="@string/register_now"/>
 
 </LinearLayout>
