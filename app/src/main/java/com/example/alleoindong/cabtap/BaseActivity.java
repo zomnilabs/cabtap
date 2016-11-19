@@ -72,9 +72,6 @@ public class BaseActivity extends AppCompatActivity {
                     role = null;
                     isAuthenticated = false;
                 }
-
-                authenticationObservable.onNext(isAuthenticated);
-//                Log.i("EmailLogin", String.valueOf(isAuthenticated));
             }
         };
     }

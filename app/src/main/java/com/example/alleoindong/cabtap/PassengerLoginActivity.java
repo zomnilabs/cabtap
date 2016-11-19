@@ -45,23 +45,27 @@ public class PassengerLoginActivity extends BaseActivity {
         public void onNext(Boolean aBoolean) {
             Log.i("EmailLogin", aBoolean.toString());
 
-            if (! aBoolean) {
+            if (! aBoolean || role == null) {
                 mLogin.setEnabled(true);
                 mLogin.setText(R.string.log_in);
             }
 
             if (aBoolean) {
                 Log.i("USER_LOGIN", role);
+                Intent intent;
 
-                if (role == "admin") {
-                    Intent intent = new Intent(getApplicationContext(), AdminActivity.class);
-                    startActivity(intent);
-                } else if (role == "admin") {
-                    Intent intent = new Intent(getApplicationContext(), DriverMapActivity.class);
-                    startActivity(intent);
-                } else {
-                    Intent intent = new Intent(getApplicationContext(), PassengerMapActivity.class);
-                    startActivity(intent);
+                switch (role) {
+                    case "admin":
+                        intent = new Intent(getApplicationContext(), AdminActivity.class);
+                        startActivity(intent);
+                        break;
+                    case "driver":
+                        intent = new Intent(getApplicationContext(), DriverMapActivity.class);
+                        startActivity(intent);
+                        break;
+                    default:
+                        intent = new Intent(getApplicationContext(), PassengerMapActivity.class);
+                        startActivity(intent);
                 }
 
                 finish();
