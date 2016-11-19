@@ -17,7 +17,7 @@
         android:layout_marginTop="20dp">
 
         <TextView
-            android:theme="@styles/EditTextStyle"
+            android:theme="@style/EditTextStyle"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_size"
             android:id="@+id/text_plate_number"
