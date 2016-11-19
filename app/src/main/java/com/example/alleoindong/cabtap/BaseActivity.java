@@ -84,6 +84,10 @@ public class BaseActivity extends AppCompatActivity {
                         if (!task.isSuccessful()) {
                             Toast.makeText(getApplicationContext(), R.string.auth_failed,
                                     Toast.LENGTH_SHORT).show();
+
+                            isAuthenticated = false;
+                            role = null;
+                            authenticationObservable.onNext(isAuthenticated);
                         }
                     }
                 });

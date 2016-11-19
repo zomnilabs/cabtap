@@ -1,5 +1,6 @@
 package com.example.alleoindong.cabtap;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -28,6 +29,7 @@ public class PassengerLoginActivity extends BaseActivity {
     @BindView(R.id.btn_login) Button mLogin;
     @BindView(R.id.email_address) EditText mEmailAddress;
     @BindView(R.id.password) EditText mPassword;
+    private ProgressDialog loginProgress;
 
     // Observe changes to authentication
     protected Subscriber<Boolean> authenticationSubscriber = new Subscriber<Boolean>() {
@@ -48,6 +50,7 @@ public class PassengerLoginActivity extends BaseActivity {
             if (! aBoolean || role == null) {
                 mLogin.setEnabled(true);
                 mLogin.setText(R.string.log_in);
+                loginProgress.dismiss();
             }
 
             if (aBoolean) {
@@ -78,6 +81,11 @@ public class PassengerLoginActivity extends BaseActivity {
         setContentView(R.layout.activity_passenger_login);
         setTitle("Login");
         ButterKnife.bind(this);
+
+        loginProgress = new ProgressDialog(this, R.style.ProgressDialog);
+        loginProgress.setTitle("Please wait...");
+        loginProgress.setCancelable(false);
+
     }
 
     @Override
@@ -102,6 +110,7 @@ public class PassengerLoginActivity extends BaseActivity {
         // disable the button
         mLogin.setEnabled(false);
         mLogin.setText(R.string.loading_button);
+        loginProgress.show();
 
         // authenticate user
         this.authenticate(email, password);
