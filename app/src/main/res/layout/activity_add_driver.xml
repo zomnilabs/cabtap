@@ -7,32 +7,6 @@
     tools:context="com.example.alleoindong.cabtap.admin.AddDriverActivity">
 
     <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:weightSum="1">
-
-        <TextView
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/text_size"
-            android:id="@+id/textView"
-            android:text="@string/driver"
-            android:layout_marginLeft="160dp"
-            android:layout_marginTop="15dp"
-            android:textColor="@color/colorBlack"
-            android:layout_width="110dp" />
-
-        <ImageView
-            android:layout_gravity="center_horizontal"
-            android:src="@drawable/ic_registration"
-            android:layout_height="60dp"
-            android:layout_weight="0.21"
-            android:layout_width="110dp" />
-
-    </LinearLayout>
-
-
-    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -41,90 +15,111 @@
         android:paddingTop="30dp">
 
         <EditText
+            android:theme="@style/EditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:ems="10"
-            android:id="@+id/textFirstName"
+            android:id="@+id/driver_first_name"
             android:hint="@string/register_first_name"
             android:fontFamily="monospace"
             android:textSize="24sp" />
 
         <EditText
+            android:theme="@style/EditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:textSize="24sp"
             android:textColor="@color/colorBlack"
             android:ems="10"
-            android:id="@+id/textLastName"
+            android:id="@+id/driver_last_name"
             android:hint="@string/register_last_name"
             android:fontFamily="monospace" />
 
         <EditText
+            android:theme="@style/EditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:textSize="24sp"
             android:textColor="@color/colorBlack"
             android:ems="10"
-            android:id="@+id/textAddress"
+            android:id="@+id/driver_address"
             android:hint="@string/address_add_driver"
             android:fontFamily="monospace" />
 
         <EditText
+            android:theme="@style/EditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
+            android:inputType="numberSigned"
             android:textSize="24sp"
             android:textColor="@color/colorBlack"
             android:ems="10"
-            android:id="@+id/textContactNo"
+            android:id="@+id/driver_contact_number"
             android:hint="@string/contact_no"
             android:fontFamily="monospace" />
 
         <EditText
+            android:theme="@style/EditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
+            android:inputType="date"
             android:textSize="24sp"
             android:textColor="@color/colorBlack"
             android:ems="10"
-            android:id="@+id/textBirthdate"
+            android:id="@+id/driver_date_birth"
             android:hint="@string/birthdate"
             android:fontFamily="monospace" />
 
         <EditText
+            android:theme="@style/EditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
             android:textSize="24sp"
             android:textColor="@color/colorBlack"
             android:ems="10"
-            android:id="@+id/textEmail"
+            android:id="@+id/driver_email"
             android:hint="@string/register_email"
             android:fontFamily="monospace" />
 
         <EditText
+            android:theme="@style/EditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:textSize="24sp"
             android:textColor="@color/colorBlack"
             android:ems="10"
-            android:id="@+id/textPassword"
+            android:id="@+id/driver_password"
             android:hint="@string/register_password"
             android:fontFamily="monospace" />
-
-        <Button
-            android:id="@+id/btn_register"
-            android:theme="@style/DangerButton"
-            android:textSize="@dimen/text_size"
-            android:layout_gravity="center_horizontal"
+        
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/add_driver"
-            />
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="36dp">
+
+            <Button
+                android:id="@+id/btn_save_driver"
+                android:theme="@style/DangerButton"
+                android:textSize="@dimen/text_size"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="@dimen/btn_width"
+                android:layout_height="@dimen/btn_height"
+                android:text="@string/add_driver" />
+
+            <ProgressBar
+                android:id="@+id/btn_save_driver_loading"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_centerInParent="true"
+                android:visibility="gone" />
+
+        </RelativeLayout>
 
     </LinearLayout>
 
