@@ -112,7 +112,6 @@
                 android:text="@string/register_now" />
 
             <ProgressBar
-
                 android:id="@+id/btn_register_loading"
                 android:layout_width="300dp"
                 android:layout_height="70dp"
