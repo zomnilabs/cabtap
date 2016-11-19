@@ -64,6 +64,7 @@ public class RegisterActivity extends BaseActivity {
 
         if (! password.equals(confirmPassword)) {
             Toast.makeText(this, "Passwords does not match", Toast.LENGTH_SHORT).show();
+            this.onShowLoader(false);
 
             return;
         }

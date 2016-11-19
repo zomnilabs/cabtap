@@ -101,16 +101,15 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="36dp">
 
-        <Button
-            android:id="@+id/btn_register"
-            android:theme="@style/DangerButton"
-            android:textSize="@dimen/text_size"
-            android:layout_gravity="center_horizontal"
-            android:layout_width="300dp"
-            android:layout_height="70dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/register_now"
-            />
+            <Button
+                android:id="@+id/btn_register"
+                android:theme="@style/DangerButton"
+                android:textSize="@dimen/text_size"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="@dimen/btn_width"
+                android:layout_height="@dimen/btn_height"
+                android:layout_marginTop="20dp"
+                android:text="@string/register_now" />
 
             <ProgressBar
                 android:id="@+id/btn_register_loading"
