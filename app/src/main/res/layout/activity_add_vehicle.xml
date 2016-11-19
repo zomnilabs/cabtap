@@ -13,7 +13,8 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp">
 
         <TextView
             android:theme="@styles/EditTextStyle"
@@ -30,10 +31,10 @@
             android:theme="@style/DangerButton"
             android:textSize="@dimen/text_size"
             android:layout_gravity="center_horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/save"
-            />
+            android:layout_width="300dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="100dp"
+            android:text="@string/save" />
 
     </LinearLayout>
 
