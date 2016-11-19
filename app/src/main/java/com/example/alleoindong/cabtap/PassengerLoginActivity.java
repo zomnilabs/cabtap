@@ -10,6 +10,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.alleoindong.cabtap.admin.AdminActivity;
+import com.example.alleoindong.cabtap.driver.DriverMapActivity;
+import com.example.alleoindong.cabtap.user.PassengerMapActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -49,8 +51,19 @@ public class PassengerLoginActivity extends BaseActivity {
             }
 
             if (aBoolean) {
-                Intent intent = new Intent(getApplicationContext(), AdminActivity.class);
-                startActivity(intent);
+                Log.i("USER_LOGIN", role);
+
+                if (role == "admin") {
+                    Intent intent = new Intent(getApplicationContext(), AdminActivity.class);
+                    startActivity(intent);
+                } else if (role == "admin") {
+                    Intent intent = new Intent(getApplicationContext(), DriverMapActivity.class);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(getApplicationContext(), PassengerMapActivity.class);
+                    startActivity(intent);
+                }
+
                 finish();
             }
         }

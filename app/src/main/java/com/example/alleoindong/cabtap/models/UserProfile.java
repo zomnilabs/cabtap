@@ -32,4 +32,12 @@ public class UserProfile {
         this.dateBirth = dateBirth;
         this.role = role;
     }
+
+    public UserProfile(String id, String uid, String firstName, String lastName, String role) {
+        this.id = id;
+        this.uid = uid;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.role = role;
+    }
 }
