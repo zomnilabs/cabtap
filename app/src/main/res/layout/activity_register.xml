@@ -95,6 +95,11 @@
             android:hint="@string/register_confirm_password"
             android:fontFamily="monospace" />
 
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="36dp">
 
         <Button
             android:id="@+id/btn_register"
@@ -106,6 +111,14 @@
             android:layout_marginTop="20dp"
             android:text="@string/register_now"
             />
+
+            <ProgressBar
+                android:id="@+id/btn_register_loading"
+                android:layout_width="@dimen/btn_width"
+                android:layout_height="@dimen/btn_height"
+                android:layout_centerInParent="true"
+                android:visibility="gone" />
+        </RelativeLayout>
 
     </LinearLayout>
 </LinearLayout>
