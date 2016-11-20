@@ -1,5 +1,6 @@
 package com.example.alleoindong.cabtap;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -11,7 +12,10 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.alleoindong.cabtap.admin.AdminActivity;
+import com.example.alleoindong.cabtap.driver.DriverMapActivity;
 import com.example.alleoindong.cabtap.models.UserProfile;
+import com.example.alleoindong.cabtap.user.PassengerMapActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -24,6 +28,7 @@ import java.util.UUID;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import rx.Subscriber;
 
 public class RegisterActivity extends BaseActivity {
     @BindView(R.id.first_name) EditText mFirstName;
@@ -33,6 +38,45 @@ public class RegisterActivity extends BaseActivity {
     @BindView(R.id.confirm_password) EditText mConfirmPassword;
     @BindView(R.id.btn_register) Button mRegister;
     @BindView(R.id.btn_register_loading) ProgressBar mProgress;
+
+    // Observe changes to authentication
+    protected Subscriber<Boolean> authenticationSubscriber = new Subscriber<Boolean>() {
+        @Override
+        public void onCompleted() {
+
+        }
+
+        @Override
+        public void onError(Throwable e) {
+
+        }
+
+        @Override
+        public void onNext(Boolean aBoolean) {
+            Log.i("EmailLogin", aBoolean.toString());
+
+            if (aBoolean) {
+                Log.i("USER_LOGIN", role);
+                Intent intent;
+
+                switch (role) {
+                    case "admin":
+                        intent = new Intent(getApplicationContext(), AdminActivity.class);
+                        startActivity(intent);
+                        break;
+                    case "driver":
+                        intent = new Intent(getApplicationContext(), DriverMapActivity.class);
+                        startActivity(intent);
+                        break;
+                    default:
+                        intent = new Intent(getApplicationContext(), PassengerMapActivity.class);
+                        startActivity(intent);
+                }
+
+                finish();
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +116,7 @@ public class RegisterActivity extends BaseActivity {
         this.createUser(email, password);
     }
 
-    private String createUser(String email, String password) {
+    private String createUser(final String email, String password) {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this,
@@ -89,13 +133,14 @@ public class RegisterActivity extends BaseActivity {
                         String role = "passenger";
 
                         UserProfile user = new UserProfile(id, uid, firstName,
-                                lastName, role);
+                                lastName, role, email);
 
                         FirebaseDatabase database = FirebaseDatabase.getInstance();
                         DatabaseReference usersRef = database.getReference("users");
                         usersRef.child(uid).setValue(user);
 
                         onShowLoader(false);
+                        finish();
                     }
                 });
 

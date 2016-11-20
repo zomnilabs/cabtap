@@ -164,6 +164,12 @@ public class DriverMaintenanceActivity extends AppCompatActivity {
 
         public void setContactNnumber(String text) {
             TextView field = (TextView) mView.findViewById(R.id.contact_number);
+            field.setText(text);
+        }
+
+        public void setEmail(String text) {
+            TextView field = (TextView) mView.findViewById(R.id.email);
+            field.setText(text);
         }
 
     }

@@ -6,6 +6,8 @@ import android.util.Log;
 import android.widget.Button;
 
 import com.example.alleoindong.cabtap.admin.AdminActivity;
+import com.example.alleoindong.cabtap.driver.DriverMapActivity;
+import com.example.alleoindong.cabtap.user.PassengerMapActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,14 +34,29 @@ public class LoginActivity extends BaseActivity {
         public void onNext(Boolean aBoolean) {
             Log.i("EmailLogin", aBoolean.toString());
 
-            if (! aBoolean) {
+            if (! aBoolean || role == null) {
                 mLogin.setEnabled(true);
                 mLogin.setText(R.string.log_in);
             }
 
             if (aBoolean) {
-                Intent intent = new Intent(getApplicationContext(), AdminActivity.class);
-                startActivity(intent);
+                Log.i("USER_LOGIN", role);
+                Intent intent;
+
+                switch (role) {
+                    case "admin":
+                        intent = new Intent(getApplicationContext(), AdminActivity.class);
+                        startActivity(intent);
+                        break;
+                    case "driver":
+                        intent = new Intent(getApplicationContext(), DriverMapActivity.class);
+                        startActivity(intent);
+                        break;
+                    default:
+                        intent = new Intent(getApplicationContext(), PassengerMapActivity.class);
+                        startActivity(intent);
+                }
+
                 finish();
             }
         }

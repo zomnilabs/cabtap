@@ -103,7 +103,7 @@ public class AddDriverActivity extends AppCompatActivity {
         datePickerDialog = new DatePickerDialogTheme4();
     }
 
-    private String createUser(String email, String password) {
+    private String createUser(final String email, String password) {
         FirebaseAuth mAuth = FirebaseAuth.getInstance(mApp);
 
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this,
@@ -123,7 +123,7 @@ public class AddDriverActivity extends AppCompatActivity {
                 String role = "driver";
 
                 UserProfile user = new UserProfile(id, uid, firstName,
-                        lastName, address, contactNumber, dateBirth, role);
+                        lastName, address, contactNumber, dateBirth, role, email);
 
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference usersRef = database.getReference("users");

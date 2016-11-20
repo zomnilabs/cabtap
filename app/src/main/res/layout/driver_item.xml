@@ -29,6 +29,12 @@
 
     </LinearLayout>
 
+    <TextView
+        android:text="alleo@cabtap.com"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/email" />
+
 
     <TextView
         android:text="San antonio Village, Makati City"
