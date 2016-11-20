@@ -116,7 +116,7 @@ public class RegisterActivity extends BaseActivity {
         this.createUser(email, password);
     }
 
-    private String createUser(String email, String password) {
+    private String createUser(final String email, String password) {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this,
@@ -133,7 +133,7 @@ public class RegisterActivity extends BaseActivity {
                         String role = "passenger";
 
                         UserProfile user = new UserProfile(id, uid, firstName,
-                                lastName, role);
+                                lastName, role, email);
 
                         FirebaseDatabase database = FirebaseDatabase.getInstance();
                         DatabaseReference usersRef = database.getReference("users");

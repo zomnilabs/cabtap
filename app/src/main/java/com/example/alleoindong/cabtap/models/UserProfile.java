@@ -16,13 +16,14 @@ public class UserProfile {
     public String contactNumber;
     public String dateBirth;
     public String role;
+    public String email;
 
     public UserProfile() {
 
     }
 
     public UserProfile(String id, String uid, String firstName, String lastName,
-                       String address, String contactNumber, String dateBirth, String role) {
+                       String address, String contactNumber, String dateBirth, String role, String email) {
         this.id = id;
         this.uid = uid;
         this.firstName = firstName;
@@ -33,7 +34,7 @@ public class UserProfile {
         this.role = role;
     }
 
-    public UserProfile(String id, String uid, String firstName, String lastName, String role) {
+    public UserProfile(String id, String uid, String firstName, String lastName, String role, String email) {
         this.id = id;
         this.uid = uid;
         this.firstName = firstName;
