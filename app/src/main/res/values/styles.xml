@@ -48,7 +48,7 @@
 
     <style name="DangerButton" parent="CustomButtons">
         <item name="colorControlHighlight">@color/colorDarkAccent</item>
-        <item name="colorButtonNormal">@color/colorAccent</item>
+        <item name="colorButtonNormal">@color/colorOrange</item>
     </style>
 
     <style name="IconButtonsWhite" parent="CustomButtons">
