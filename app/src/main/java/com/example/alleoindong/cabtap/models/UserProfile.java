@@ -32,6 +32,7 @@ public class UserProfile {
         this.contactNumber = contactNumber;
         this.dateBirth = dateBirth;
         this.role = role;
+        this.email = email;
     }
 
     public UserProfile(String id, String uid, String firstName, String lastName, String role, String email) {
@@ -40,5 +41,6 @@ public class UserProfile {
         this.firstName = firstName;
         this.lastName = lastName;
         this.role = role;
+        this.email = email;
     }
 }

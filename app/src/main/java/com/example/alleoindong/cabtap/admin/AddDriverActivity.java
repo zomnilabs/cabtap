@@ -130,6 +130,7 @@ public class AddDriverActivity extends AppCompatActivity {
                 usersRef.child(uid).setValue(user);
 
                 onShowLoader(false);
+                finish();
             }
         });
 
