@@ -91,6 +91,7 @@ public class DriverMaintenanceActivity extends AppCompatActivity {
                 viewHolder.setName(model.firstName + " " + model.lastName);
                 viewHolder.setContactNnumber(model.contactNumber);
                 viewHolder.setAddress(model.address);
+                viewHolder.setEmail(model.email);
             }
 
             @Override
