@@ -48,7 +48,8 @@
         <activity android:name=".BaseActivity" />
         <activity android:name=".admin.AddDriverActivity" />
         <activity android:name=".admin.AddVehicleActivity" />
-        <activity android:name=".driver.DriverMapActivity"></activity>
+        <activity android:name=".driver.DriverMapActivity" />
+        <activity android:name=".admin.VehicleMaintenanceActivity"></activity>
     </application>
 
 </manifest>

@@ -17,50 +17,53 @@
         android:layout_height="match_parent"
         android:layout_marginTop="20dp">
 
-        <TextView
+        <EditText
             android:theme="@style/EditTextStyle"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/text_size"
-            android:id="@+id/text_plate_number"
+            android:inputType="textPersonName"
+            android:textSize="24sp"
+            android:textColor="@color/colorBlack"
+            android:ems="10"
+            android:id="@+id/add_plate"
             android:hint="@string/add_plate"
-            android:textAppearance="@style/TextAppearance.FontPath"
-            android:layout_marginTop="15dp"
-            android:textColor="@color/colorBlack"
-            android:layout_width="match_parent" />
+            android:textAppearance="@style/TextAppearance.FontPath" />
 
-        <TextView
+        <EditText
             android:theme="@style/EditTextStyle"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/text_size"
-            android:id="@+id/make"
+            android:inputType="textPersonName"
+            android:textSize="24sp"
+            android:textColor="@color/colorBlack"
+            android:ems="10"
+            android:id="@+id/add_make"
             android:hint="@string/add_make"
-            android:textAppearance="@style/TextAppearance.FontPath"
-            android:layout_marginTop="15dp"
-            android:textColor="@color/colorBlack"
-            android:layout_width="match_parent" />
+            android:textAppearance="@style/TextAppearance.FontPath" />
 
-        <TextView
+        <EditText
             android:theme="@style/EditTextStyle"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/text_size"
-            android:id="@+id/model"
+            android:inputType="textPersonName"
+            android:textSize="24sp"
+            android:textColor="@color/colorBlack"
+            android:ems="10"
+            android:id="@+id/add_model"
             android:hint="@string/add_model"
-            android:textAppearance="@style/TextAppearance.FontPath"
-            android:layout_marginTop="15dp"
-            android:textColor="@color/colorBlack"
-            android:layout_width="match_parent" />
+            android:textAppearance="@style/TextAppearance.FontPath" />
 
-        <TextView
+        <EditText
             android:theme="@style/EditTextStyle"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/text_size"
-            android:id="@+id/year"
-            android:hint="@string/add_year"
-            android:textAppearance="@style/TextAppearance.FontPath"
-            android:layout_marginTop="15dp"
+            android:inputType="textPersonName"
+            android:textSize="24sp"
             android:textColor="@color/colorBlack"
-            android:layout_width="match_parent" />
-
+            android:ems="10"
+            android:id="@+id/add_year"
+            android:hint="@string/add_year"
+            android:textAppearance="@style/TextAppearance.FontPath" />
         <Button
             android:id="@+id/btn_add_vehicle"
             android:textAppearance="@style/TextAppearance.FontPath"
