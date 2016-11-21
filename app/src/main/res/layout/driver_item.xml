@@ -10,6 +10,8 @@
         android:orientation="horizontal">
 
         <TextView
+            android:textAllCaps="true"
+            android:textStyle="bold"
             android:text="Full Name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

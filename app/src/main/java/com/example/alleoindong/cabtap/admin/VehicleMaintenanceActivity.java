@@ -19,7 +19,7 @@ import android.widget.Toast;
 
 import com.example.alleoindong.cabtap.DividerItemDecoration;
 import com.example.alleoindong.cabtap.R;
-import com.example.alleoindong.cabtap.models.UserProfile;
+import com.example.alleoindong.cabtap.models.Vehicle;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -42,38 +42,15 @@ public class VehicleMaintenanceActivity extends AppCompatActivity {
 
     private DatabaseReference mDatabase;
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-//        ValueEventListener usersListener = new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                for (DataSnapshot userProfiles : dataSnapshot.getChildren()) {
-//                    UserProfile userProfile = userProfiles.getValue(UserProfile.class);
-//                    Log.i("USERPROFILE", userProfile.firstName);
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        };
-//
-//        mDatabase.addValueEventListener(usersListener);
-    }
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vehicle_maintenance);
-        setTitle("User Maintenance");
+        setTitle("Vehicle Maintenance");
 
         // Handle search intent
         handleIntent(getIntent());
 
-        mDatabase = FirebaseDatabase.getInstance().getReference("users");
-        Query mDrivers = mDatabase.orderByChild("role").equalTo("driver");
+        mDatabase = FirebaseDatabase.getInstance().getReference("vehicles");
 
         ButterKnife.bind(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -83,14 +60,15 @@ public class VehicleMaintenanceActivity extends AppCompatActivity {
         mRcvDrivers.setLayoutManager(mLayoutManager);
         mRcvDrivers.addItemDecoration(new DividerItemDecoration(this, R.drawable.divider));
 
-        mAdapter = new FirebaseRecyclerAdapter<UserProfile, UserProfileHolder>(UserProfile.class,
-                R.layout.vehicle_item, UserProfileHolder.class, mDrivers) {
+        mAdapter = new FirebaseRecyclerAdapter<Vehicle, VehicleViewHolder>(Vehicle.class,
+                R.layout.vehicle_item, VehicleViewHolder.class, mDatabase) {
 
             @Override
-            protected void populateViewHolder(UserProfileHolder viewHolder, UserProfile model, int position) {
-                viewHolder.setName(model.firstName + " " + model.lastName);
-                viewHolder.setContactNnumber(model.contactNumber);
-                viewHolder.setAddress(model.address);
+            protected void populateViewHolder(VehicleViewHolder viewHolder, Vehicle model, int position) {
+                viewHolder.setMake(model.make);
+                viewHolder.setModel(model.model);
+                viewHolder.setPlateNumber(model.plateNumber);
+                viewHolder.setYear(model.year);
             }
 
             @Override
@@ -143,32 +121,32 @@ public class VehicleMaintenanceActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public static class UserProfileHolder extends RecyclerView.ViewHolder {
+    public static class VehicleViewHolder extends RecyclerView.ViewHolder {
         View mView;
 
-        public UserProfileHolder(View itemView) {
+        public VehicleViewHolder(View itemView) {
             super(itemView);
 
             mView = itemView;
         }
 
-        public void setName(String name) {
-            TextView field = (TextView) mView.findViewById(R.id.full_name);
+        public void setPlateNumber(String name) {
+            TextView field = (TextView) mView.findViewById(R.id.plate_number);
             field.setText(name);
         }
 
-        public void setAddress(String text) {
-            TextView field = (TextView) mView.findViewById(R.id.address);
+        public void setMake(String text) {
+            TextView field = (TextView) mView.findViewById(R.id.make);
             field.setText(text);
         }
 
-        public void setContactNnumber(String text) {
-            TextView field = (TextView) mView.findViewById(R.id.contact_number);
+        public void setModel(String text) {
+            TextView field = (TextView) mView.findViewById(R.id.model);
             field.setText(text);
         }
 
-        public void setEmail(String text) {
-            TextView field = (TextView) mView.findViewById(R.id.email);
+        public void setYear(String text) {
+            TextView field = (TextView) mView.findViewById(R.id.year);
             field.setText(text);
         }
 
