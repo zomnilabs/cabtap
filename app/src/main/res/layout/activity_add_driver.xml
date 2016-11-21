@@ -22,7 +22,7 @@
             android:ems="10"
             android:id="@+id/driver_first_name"
             android:hint="@string/register_first_name"
-            android:fontFamily="monospace"
+            android:textAppearance="@style/TextAppearance.FontPath"
             android:textSize="24sp" />
 
         <EditText
@@ -35,7 +35,7 @@
             android:ems="10"
             android:id="@+id/driver_last_name"
             android:hint="@string/register_last_name"
-            android:fontFamily="monospace" />
+            android:textAppearance="@style/TextAppearance.FontPath" />
 
         <EditText
             android:theme="@style/EditTextStyle"
@@ -47,7 +47,7 @@
             android:ems="10"
             android:id="@+id/driver_address"
             android:hint="@string/address_add_driver"
-            android:fontFamily="monospace" />
+            android:textAppearance="@style/TextAppearance.FontPath" />
 
         <EditText
             android:theme="@style/EditTextStyle"
@@ -59,7 +59,7 @@
             android:ems="10"
             android:id="@+id/driver_contact_number"
             android:hint="@string/contact_no"
-            android:fontFamily="monospace" />
+            android:textAppearance="@style/TextAppearance.FontPath" />
 
         <EditText
             android:theme="@style/EditTextStyle"
@@ -71,7 +71,7 @@
             android:ems="10"
             android:id="@+id/driver_date_birth"
             android:hint="@string/birthdate"
-            android:fontFamily="monospace" />
+            android:textAppearance="@style/TextAppearance.FontPath" />
 
         <EditText
             android:theme="@style/EditTextStyle"
@@ -83,7 +83,7 @@
             android:ems="10"
             android:id="@+id/driver_email"
             android:hint="@string/register_email"
-            android:fontFamily="monospace" />
+            android:textAppearance="@style/TextAppearance.FontPath" />
 
         <EditText
             android:theme="@style/EditTextStyle"
@@ -95,7 +95,7 @@
             android:ems="10"
             android:id="@+id/driver_password"
             android:hint="@string/register_password"
-            android:fontFamily="monospace" />
+            android:textAppearance="@style/TextAppearance.FontPath" />
         
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -105,6 +105,7 @@
 
             <Button
                 android:id="@+id/btn_save_driver"
+                android:textAppearance="@style/TextAppearance.FontPath"
                 android:theme="@style/DangerButton"
                 android:textSize="@dimen/text_size"
                 android:layout_gravity="center_horizontal"

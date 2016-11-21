@@ -8,6 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/backrepeat"
     tools:context="com.example.alleoindong.cabtap.admin.AdminActivity">
 
     <LinearLayout
@@ -24,6 +25,7 @@
                 android:layout_weight="1"
                 android:id="@+id/btn_driver_maintenance"
                 android:theme="@style/IconButtonsWhite"
+                android:textAppearance="@style/TextAppearance.FontPath"
                 android:textSize="@dimen/text_size_small"
                 android:text="@string/driver_maintenance"
                 android:layout_width="match_parent"
@@ -34,6 +36,7 @@
                 android:layout_weight="1"
                 android:id="@+id/btn_vehicle_maintenance"
                 android:theme="@style/IconButtonsWhite"
+                android:textAppearance="@style/TextAppearance.FontPath"
                 android:textSize="@dimen/text_size_small"
                 android:text="@string/vehicle_maintenance"
                 android:layout_width="match_parent"
@@ -50,6 +53,7 @@
                 android:layout_weight="1"
                 android:id="@+id/btn_expense_tracking"
                 android:theme="@style/IconButtonsWhite"
+                android:textAppearance="@style/TextAppearance.FontPath"
                 android:textSize="@dimen/text_size_small"
                 android:text="@string/expense_tracking"
                 android:layout_width="match_parent"
@@ -60,6 +64,7 @@
                 android:layout_weight="1"
                 android:id="@+id/btn_maintenance"
                 android:theme="@style/IconButtonsWhite"
+                android:textAppearance="@style/TextAppearance.FontPath"
                 android:textSize="@dimen/text_size_small"
                 android:text="@string/maintenance"
                 android:layout_width="match_parent"
@@ -76,6 +81,7 @@
                 android:layout_weight="1"
                 android:id="@+id/btn_reports"
                 android:theme="@style/IconButtonsWhite"
+                android:textAppearance="@style/TextAppearance.FontPath"
                 android:textSize="@dimen/text_size_small"
                 android:text="@string/reports"
                 android:layout_width="wrap_content"

@@ -10,13 +10,13 @@
         android:orientation="horizontal">
 
         <TextView
-            android:textAllCaps="true"
-            android:textStyle="bold"
             android:text="Full Name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/full_name"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:textAppearance="@style/TextAppearance.FontPath"
+            android:textColor="@color/colorGray" />
 
         <TextView
             android:text="123123123123123"
@@ -25,7 +25,9 @@
             android:id="@+id/contact_number"
             android:layout_weight="1"
             android:textAlignment="textEnd"
-            android:layout_gravity="end|right"/>
+            android:layout_gravity="end|right"
+            android:textAppearance="@style/TextAppearance.FontPath"
+            android:textColor="@color/colorGray" />
 
     </LinearLayout>
 
@@ -33,12 +35,16 @@
         android:text="alleo@cabtap.com"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/email" />
+        android:id="@+id/email"
+        android:textAppearance="@style/TextAppearance.FontPath"
+        android:textColor="@color/colorGray" />
 
 
     <TextView
         android:text="San antonio Village, Makati City"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/address" />
+        android:id="@+id/address"
+        android:textAppearance="@style/TextAppearance.FontPath"
+        android:textColor="@color/colorGray" />
 </LinearLayout>

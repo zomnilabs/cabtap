@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">CabTap</string>
     <string name="app_tag_description">Taking you to your destination..</string>
-    <string name="log_in">LOG IN</string>
+    <string name="log_in">LOGIN</string>
     <string name="register_now">REGISTER NOW!</string>
     <string name="forgot_password">Forgot your password?</string>
     <string name="passenger">PASSENGER</string>
@@ -21,6 +21,9 @@
     <string name="contact_no">Contact Number</string>
     <string name="add_driver">ADD DRIVER</string>
     <string name="add_plate">Plate Number</string>
+    <string name="add_make">Make</string>
+    <string name="add_model">Model</string>
+    <string name="add_year">Year</string>
     <string name="save">SAVE</string>
 
     <!-- TODO: Remove or change this placeholder text -->
