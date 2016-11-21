@@ -32,6 +32,11 @@ public class BaseActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
+    public static String uid = "";
+    public static String fullName = "";
+    public static String firstName = "";
+    public static String email = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +60,10 @@ public class BaseActivity extends AppCompatActivity {
                             // connected and authenticated
                             isAuthenticated = true;
                             role = userProfile.role;
+                            BaseActivity.uid = userProfile.uid;
+                            BaseActivity.fullName = userProfile.firstName + " " + userProfile.lastName;
+                            BaseActivity.firstName = userProfile.firstName;
+                            BaseActivity.email = userProfile.email;
 
                             authenticationObservable.onNext(isAuthenticated);
                         }
