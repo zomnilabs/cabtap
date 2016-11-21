@@ -67,7 +67,7 @@ public class DriverMaintenanceActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_driver_maintenance);
-        setTitle("User Maintenance");
+        setTitle("Driver Maintenance");
 
         // Handle search intent
         handleIntent(getIntent());
