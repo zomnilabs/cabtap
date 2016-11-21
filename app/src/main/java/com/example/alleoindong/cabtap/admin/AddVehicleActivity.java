@@ -2,7 +2,10 @@ package com.example.alleoindong.cabtap.admin;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 
 import com.example.alleoindong.cabtap.R;
 import com.example.alleoindong.cabtap.models.Vehicle;
@@ -24,6 +27,9 @@ public class AddVehicleActivity extends AppCompatActivity {
     @BindView(R.id.add_model) EditText mModel;
     @BindView(R.id.add_year) EditText mYear;
 
+    @BindView(R.id.btn_add_vehicle) Button mAddVehicle;
+    @BindView(R.id.btn_add_vehicle_loading) ProgressBar mProgress;
+
     public DatabaseReference mVehicleRef;
 
     @Override
@@ -36,13 +42,23 @@ public class AddVehicleActivity extends AppCompatActivity {
     }
 
     @OnClick(R.id.btn_add_vehicle) void addVehicle() {
+        this.onShowLoader(true);
+
         String plateNumber = mPlateNumber.getText().toString();
         String make = mMake.getText().toString();
         String model = mModel.getText().toString();
         String year = mYear.getText().toString();
 
         Vehicle vehicle = new Vehicle(plateNumber, make, model, year);
+
+        onShowLoader(false);
         this.saveVehicle(vehicle);
+    }
+
+    public void onShowLoader(boolean isShown) {
+        mAddVehicle.setEnabled(!isShown);
+        mAddVehicle.setText(isShown ? "" : getString(R.string.save));
+        mProgress.setVisibility(isShown ? View.VISIBLE : View.INVISIBLE);
     }
 
     private void saveVehicle(final Vehicle vehicle) {

@@ -64,16 +64,31 @@
             android:id="@+id/add_year"
             android:hint="@string/add_year"
             android:textAppearance="@style/TextAppearance.FontPath" />
-        <Button
-            android:id="@+id/btn_add_vehicle"
-            android:textAppearance="@style/TextAppearance.FontPath"
-            android:theme="@style/DangerButton"
-            android:textSize="@dimen/text_size"
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_width="300dp"
-            android:layout_height="70dp"
-            android:layout_marginTop="100dp"
-            android:text="@string/save" />
+            android:layout_marginTop="36dp">
+
+            <Button
+                android:id="@+id/btn_add_vehicle"
+                android:textAppearance="@style/TextAppearance.FontPath"
+                android:theme="@style/DangerButton"
+                android:textSize="@dimen/text_size"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="300dp"
+                android:layout_height="@dimen/btn_height"
+                android:text="@string/save" />
+
+            <ProgressBar
+                android:id="@+id/btn_add_vehicle_loading"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_centerInParent="true"
+                android:visibility="gone" />
+
+        </RelativeLayout>
 
     </LinearLayout>
 
