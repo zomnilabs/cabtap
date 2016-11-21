@@ -8,4 +8,5 @@
     android:background="@color/colorPrimary"
     app:titleTextColor="@color/colorWhite"
     app:subtitleTextColor="@color/colorWhite"
-    app:theme="@style/AppTheme.Toolbar" />
+    app:theme="@style/AppTheme.Toolbar"
+    app:popupTheme="@style/Theme.AppCompat.Light.NoActionBar"/>
