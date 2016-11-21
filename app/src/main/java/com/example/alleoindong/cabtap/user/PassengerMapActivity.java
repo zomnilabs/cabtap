@@ -29,6 +29,10 @@ import com.example.alleoindong.cabtap.R;
 import com.example.alleoindong.cabtap.admin.AdminActivity;
 import com.example.alleoindong.cabtap.driver.DriverMapActivity;
 import com.example.alleoindong.cabtap.models.DrawerMenu;
+import com.firebase.geofire.GeoFire;
+import com.firebase.geofire.GeoLocation;
+import com.firebase.geofire.GeoQuery;
+import com.firebase.geofire.GeoQueryEventListener;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -38,11 +42,15 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -70,10 +78,14 @@ public class PassengerMapActivity extends BaseActivity implements
     public Location mLastLocation;
     public LatLng mlatlng;
     public Marker mCurrentLocation;
+    public ArrayList<Marker> mVehicles;
     public LocationRequest mLocationRequest;
     public TextView mLatitude;
     public TextView mLongitude;
     public Bitmap mMarkerIcon;
+    public GeoQuery geoQuery;
+    public GeoFire geoFire;
+    private DatabaseReference mGeofireRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,7 +125,81 @@ public class PassengerMapActivity extends BaseActivity implements
         mDrawerList.setAdapter(new DrawerMenuAdapter(getApplicationContext(), mDrawerMenu));
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
+        mVehicles = new ArrayList<Marker>();
+
+        mGeofireRef = FirebaseDatabase.getInstance().getReference("geofire");
+        geoFire = new GeoFire(mGeofireRef);
+
         initializeProfileInfo();
+    }
+
+    public void getNearbyVehicles(double lat, double lng) {
+        geoQuery = geoFire.queryAtLocation(new GeoLocation(lat, lng), 1);
+    }
+
+    private void addVehicleMarker(String key, GeoLocation location) {
+        LatLng latLng = new LatLng(location.latitude, location.longitude);
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(latLng);
+        markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_cab));
+        Marker marker = mMap.addMarker(markerOptions);
+        marker.setTag(key);
+
+        mVehicles.add(marker);
+    }
+
+    private void vehicleMoved(String key, GeoLocation location) {
+        int index = findMarker(key);
+
+        Marker marker = mVehicles.get(index);
+        LatLng latLng = new LatLng(location.latitude, location.longitude);
+        marker.setPosition(latLng);
+
+        mVehicles.set(index, marker);
+    }
+
+    private int findMarker(String key) {
+        int index = 0;
+
+        for (Marker marker : mVehicles) {
+            Log.i("FIND_MARKER", marker.getTag() + " : " + key);
+
+            if (marker.getTag() == key) {
+                return mVehicles.indexOf(marker);
+            }
+        }
+
+        return index;
+    }
+
+    private void geoQueryEventListener() {
+        geoQuery.addGeoQueryEventListener(new GeoQueryEventListener() {
+            @Override
+            public void onKeyEntered(String key, GeoLocation location) {
+                Log.i("VEHICLES", String.format("Key %s entered the search area at [%f,%f]", key, location.latitude, location.longitude));
+                addVehicleMarker(key, location);
+            }
+
+            @Override
+            public void onKeyExited(String key) {
+
+            }
+
+            @Override
+            public void onKeyMoved(String key, GeoLocation location) {
+                vehicleMoved(key, location);
+            }
+
+            @Override
+            public void onGeoQueryReady() {
+
+            }
+
+            @Override
+            public void onGeoQueryError(DatabaseError error) {
+
+            }
+        });
     }
 
     private void initializeProfileInfo() {
@@ -235,13 +321,16 @@ public class PassengerMapActivity extends BaseActivity implements
             MarkerOptions markerOptions = new MarkerOptions();
             markerOptions.position(mlatlng);
             markerOptions.title("My Current Position");
-//            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
+            markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_marker));
             mCurrentLocation = mMap.addMarker(markerOptions);
 
             CameraPosition cameraPosition = new CameraPosition.Builder()
                     .target(mlatlng).zoom(16).build();
 
             mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+            getNearbyVehicles(mLastLocation.getLatitude(), mLastLocation.getLongitude());
+            geoQueryEventListener();
         }
 
         mLocationRequest = new LocationRequest();
@@ -272,12 +361,14 @@ public class PassengerMapActivity extends BaseActivity implements
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(mlatlng);
         markerOptions.title("My Current Position");
-//        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
+        markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_marker));
         mCurrentLocation = mMap.addMarker(markerOptions);
 
         CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(mlatlng).zoom(16).build();
 
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+        getNearbyVehicles(location.getLatitude(), location.getLongitude());
     }
 }

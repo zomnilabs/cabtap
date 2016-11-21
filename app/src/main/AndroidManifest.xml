@@ -26,8 +26,8 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".PassengerLoginActivity" />
-        <activity android:name=".admin.AdminActivity" />
-        <activity android:name=".admin.DriverMaintenanceActivity">
+        <activity android:name=".admin.AdminActivity" android:theme="@style/AppTheme.DarkActionBar" />
+        <activity android:name=".admin.DriverMaintenanceActivity" android:theme="@style/AppTheme.DarkActionBar">
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/driver_searchable" />
@@ -44,6 +44,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".BaseActivity" />
+        <activity android:name=".admin.AddDriverActivity" android:theme="@style/AppTheme.DarkActionBar" />
+        <activity android:name=".admin.AddVehicleActivity" android:theme="@style/AppTheme.DarkActionBar" />
+        <activity android:name=".driver.DriverMapActivity" />
+        <activity android:name=".admin.VehicleMaintenanceActivity" android:theme="@style/AppTheme.DarkActionBar" />
 
         <meta-data
             android:name="com.google.android.gms.version"
@@ -51,12 +56,6 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyD96FdTg_lXLY0z0oD1B0aMGkLHi-OtmCc" />
-
-        <activity android:name=".BaseActivity" />
-        <activity android:name=".admin.AddDriverActivity" />
-        <activity android:name=".admin.AddVehicleActivity" />
-        <activity android:name=".driver.DriverMapActivity" />
-        <activity android:name=".admin.VehicleMaintenanceActivity"></activity>
     </application>
 
 </manifest>

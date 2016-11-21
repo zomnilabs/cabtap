@@ -16,6 +16,8 @@ import android.widget.TextView;
 
 import com.example.alleoindong.cabtap.BaseActivity;
 import com.example.alleoindong.cabtap.R;
+import com.firebase.geofire.GeoFire;
+import com.firebase.geofire.GeoLocation;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -30,6 +32,10 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
 
 public class DriverMapActivity extends BaseActivity implements
         OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
@@ -45,6 +51,9 @@ public class DriverMapActivity extends BaseActivity implements
     public TextView mLatitude;
     public TextView mLongitude;
     public Bitmap mMarkerIcon;
+
+    private DatabaseReference mGeofireRef;
+    private GeoFire mGeoFire;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +73,13 @@ public class DriverMapActivity extends BaseActivity implements
                     .addApi(LocationServices.API)
                     .build();
         }
+
+        mGeofireRef = FirebaseDatabase.getInstance().getReference("geofire");
+        mGeoFire = new GeoFire(mGeofireRef);
+    }
+
+    private void setGeoFireLocation(double lat, double lng) {
+        mGeoFire.setLocation("BH1234", new GeoLocation(lat, lng));
     }
 
     @Override
@@ -158,6 +174,8 @@ public class DriverMapActivity extends BaseActivity implements
                     .target(mlatlng).zoom(16).build();
 
             mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+            setGeoFireLocation(mLastLocation.getLatitude(), mLastLocation.getLongitude());
         }
 
         mLocationRequest = new LocationRequest();
@@ -193,6 +211,8 @@ public class DriverMapActivity extends BaseActivity implements
 
         CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(mlatlng).zoom(16).build();
+
+        setGeoFireLocation(location.getLatitude(), location.getLongitude());
 
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
     }
