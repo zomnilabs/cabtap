@@ -26,8 +26,12 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".PassengerLoginActivity" />
-        <activity android:name=".admin.AdminActivity" android:theme="@style/AppTheme.DarkActionBar" />
-        <activity android:name=".admin.DriverMaintenanceActivity" android:theme="@style/AppTheme.DarkActionBar">
+        <activity
+            android:name=".admin.AdminActivity"
+            android:theme="@style/AppTheme.DarkActionBar" />
+        <activity
+            android:name=".admin.DriverMaintenanceActivity"
+            android:theme="@style/AppTheme.DarkActionBar">
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/driver_searchable" />
@@ -36,7 +40,6 @@
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
         </activity>
-
         <activity android:name=".user.PassengerMapActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -45,11 +48,15 @@
             </intent-filter>
         </activity>
         <activity android:name=".BaseActivity" />
-        <activity android:name=".admin.AddDriverActivity" android:theme="@style/AppTheme.DarkActionBar" />
-        <activity android:name=".admin.AddVehicleActivity" android:theme="@style/AppTheme.DarkActionBar" />
-        <activity android:name=".admin.VehicleMaintenanceActivity" android:theme="@style/AppTheme.DarkActionBar" />
-
-
+        <activity
+            android:name=".admin.AddDriverActivity"
+            android:theme="@style/AppTheme.DarkActionBar" />
+        <activity
+            android:name=".admin.AddVehicleActivity"
+            android:theme="@style/AppTheme.DarkActionBar" />
+        <activity
+            android:name=".admin.VehicleMaintenanceActivity"
+            android:theme="@style/AppTheme.DarkActionBar" />
         <activity android:name=".driver.DriverMapActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -64,6 +71,8 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyD96FdTg_lXLY0z0oD1B0aMGkLHi-OtmCc" />
+
+        <activity android:name=".user.RideBookingActivity" android:theme="@style/AppTheme.DarkActionBar"></activity>
     </application>
 
 </manifest>

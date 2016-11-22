@@ -26,6 +26,13 @@
     <string name="add_year">Year</string>
     <string name="assign_driver">Assign Driver</string>
     <string name="save">SAVE</string>
+    <string name="booking_details">PLEASE COMPLETE THE DETAILS:</string>
+    <string name="pickup_time">Pick-up Time (h:m:s)</string>
+    <string name="pickup_date">Pick-up Date (mm/dd/yyyy)</string>
+    <string name="destination">Destination</string>
+    <string name="pickup_point">Pick-up Point</string>
+    <string name="estimate_fare_rate">Estimated Fare Rate:</string>
+    <string name="book_now">BOOK NOW!</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

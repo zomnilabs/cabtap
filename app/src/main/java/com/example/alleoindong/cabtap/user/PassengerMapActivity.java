@@ -20,6 +20,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -56,6 +58,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import rx.Subscriber;
 
 public class PassengerMapActivity extends BaseActivity implements
@@ -66,6 +69,8 @@ public class PassengerMapActivity extends BaseActivity implements
     private ArrayList<DrawerMenu> mDrawerMenu;
 
     @BindView(R.id.toolbar) Toolbar toolbar;
+
+    @BindView(R.id.passenger_book_now) ImageView mBookNow;
 
     @BindView(R.id.drawer_layout) DrawerLayout mDrawerLayout;
     @BindView(R.id.left_drawer) ListView mDrawerList;
@@ -372,4 +377,11 @@ public class PassengerMapActivity extends BaseActivity implements
 
         getNearbyVehicles(location.getLatitude(), location.getLongitude());
     }
+
+    @OnClick(R.id.passenger_book_now) void bookClick() {
+        Intent intent = new Intent(this, RideBookingActivity.class);
+        startActivity(intent);
+    }
+
+
 }
