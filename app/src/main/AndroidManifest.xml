@@ -75,13 +75,14 @@
         <activity
             android:name=".user.RideBookingActivity"
             android:theme="@style/AppTheme.DarkActionBar" />
-        <activity android:name=".driver.MainEmergencyActivity" >
+        <activity android:name=".driver.MainEmergencyActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".user.PassengerHelpActivity" android:theme="@style/AppTheme.DarkActionBar"></activity>
     </application>
 
 </manifest>

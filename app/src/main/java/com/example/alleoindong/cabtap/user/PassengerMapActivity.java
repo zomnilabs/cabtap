@@ -71,6 +71,7 @@ public class PassengerMapActivity extends BaseActivity implements
     @BindView(R.id.toolbar) Toolbar toolbar;
 
     @BindView(R.id.passenger_book_now) ImageView mBookNow;
+    @BindView(R.id.passenger_help) ImageView mHelp;
 
     @BindView(R.id.drawer_layout) DrawerLayout mDrawerLayout;
     @BindView(R.id.left_drawer) ListView mDrawerList;
@@ -380,6 +381,11 @@ public class PassengerMapActivity extends BaseActivity implements
 
     @OnClick(R.id.passenger_book_now) void bookClick() {
         Intent intent = new Intent(this, RideBookingActivity.class);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.passenger_help) void helpClick() {
+        Intent intent = new Intent(this, PassengerHelpActivity.class);
         startActivity(intent);
     }
 

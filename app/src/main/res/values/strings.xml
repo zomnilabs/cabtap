@@ -39,6 +39,12 @@
     <string name="criminal_case">CRIMINAL CASE</string>
     <string name="others">OTHERS</string>
 
+    <string name="help_1">How to book a ride?</string>
+    <string name="help_2">How to create an account in PayMaya?</string>
+    <string name="help_3">How to pay through PayMaya?</string>
+    <string name="help_4">How to pay with cash?</string>
+    <string name="help_5">Where can I access my exact location?</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="auth_failed">Failed to login</string>
