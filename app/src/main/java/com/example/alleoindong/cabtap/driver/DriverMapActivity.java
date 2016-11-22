@@ -22,6 +22,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.alleoindong.cabtap.BaseActivity;
 import com.example.alleoindong.cabtap.DrawerMenuAdapter;
@@ -133,29 +134,11 @@ public class DriverMapActivity extends BaseActivity implements
         mGeofireRef = FirebaseDatabase.getInstance().getReference("geofire");
         geoFire = new GeoFire(mGeofireRef);
 
-        getAssignedVehicle();
         initializeProfileInfo();
     }
 
-    private void getAssignedVehicle() {
-        DatabaseReference vehiclesRef = FirebaseDatabase.getInstance().getReference("vehicles");
-        Query assignedVehicleQuery = vehiclesRef.orderByChild("uid").equalTo(BaseActivity.uid);
-
-        assignedVehicleQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Vehicle vehicle = dataSnapshot.getValue(Vehicle.class);
-                DriverMapActivity.assignedPlateNumber = vehicle.plateNumber;
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
-
     private void setGeoFireLocation(double lat, double lng) {
+        Log.i("PLATENUMBER", "plateNumber: " + DriverMapActivity.assignedPlateNumber);
         geoFire.setLocation(DriverMapActivity.assignedPlateNumber, new GeoLocation(lat, lng));
     }
 
@@ -258,6 +241,8 @@ public class DriverMapActivity extends BaseActivity implements
 
             mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
+            setGeoFireLocation(mLastLocation.getLatitude(), mLastLocation.getLongitude());
+
         }
 
         mLocationRequest = new LocationRequest();
@@ -295,6 +280,7 @@ public class DriverMapActivity extends BaseActivity implements
                 .target(mlatlng).zoom(16).build();
 
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        setGeoFireLocation(location.getLatitude(), location.getLongitude());
 
     }
 

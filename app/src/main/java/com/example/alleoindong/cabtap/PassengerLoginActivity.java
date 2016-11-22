@@ -12,12 +12,19 @@ import android.widget.Toast;
 
 import com.example.alleoindong.cabtap.admin.AdminActivity;
 import com.example.alleoindong.cabtap.driver.DriverMapActivity;
+import com.example.alleoindong.cabtap.models.Vehicle;
 import com.example.alleoindong.cabtap.user.PassengerMapActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -61,17 +68,16 @@ public class PassengerLoginActivity extends BaseActivity {
                     case "admin":
                         intent = new Intent(getApplicationContext(), AdminActivity.class);
                         startActivity(intent);
+                        finish();
                         break;
                     case "driver":
-                        intent = new Intent(getApplicationContext(), DriverMapActivity.class);
-                        startActivity(intent);
+                        getAssignedVehicle();
                         break;
                     default:
                         intent = new Intent(getApplicationContext(), PassengerMapActivity.class);
                         startActivity(intent);
+                        finish();
                 }
-
-                finish();
             }
         }
     };
@@ -114,5 +120,40 @@ public class PassengerLoginActivity extends BaseActivity {
 
         // authenticate user
         this.authenticate(email, password);
+    }
+
+    private void getAssignedVehicle() {
+        DatabaseReference vehiclesRef = FirebaseDatabase.getInstance().getReference("vehicles");
+        Query assignedVehicleQuery = vehiclesRef.orderByChild("uid").equalTo(BaseActivity.uid);
+
+        assignedVehicleQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Vehicle vehicle = dataSnapshot.getValue(Vehicle.class);
+                if (vehicle == null) {
+                    Toast.makeText(PassengerLoginActivity.this, "You are not assigned into a vehicle", Toast.LENGTH_SHORT).show();
+                    loginProgress.dismiss();
+                    return;
+                }
+
+                if (vehicle.plateNumber == null) {
+                    Toast.makeText(PassengerLoginActivity.this, "You are not assigned into a vehicle", Toast.LENGTH_SHORT).show();
+                    loginProgress.dismiss();
+                    return;
+                }
+
+                Log.i("VEHICLE", "plate: " + vehicle.plateNumber);
+                DriverMapActivity.assignedPlateNumber = vehicle.plateNumber;
+
+                Intent intent = new Intent(getApplicationContext(), DriverMapActivity.class);
+                startActivity(intent);
+                finish();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(PassengerLoginActivity.this, "You are not assigned into a vehicle", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
