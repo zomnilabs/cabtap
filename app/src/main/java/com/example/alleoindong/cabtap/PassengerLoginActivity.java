@@ -133,12 +133,16 @@ public class PassengerLoginActivity extends BaseActivity {
                 if (vehicle == null) {
                     Toast.makeText(PassengerLoginActivity.this, "You are not assigned into a vehicle", Toast.LENGTH_SHORT).show();
                     loginProgress.dismiss();
+                    mLogin.setEnabled(true);
+                    mLogin.setText(R.string.log_in);
                     return;
                 }
 
                 if (vehicle.plateNumber == null) {
                     Toast.makeText(PassengerLoginActivity.this, "You are not assigned into a vehicle", Toast.LENGTH_SHORT).show();
                     loginProgress.dismiss();
+                    mLogin.setEnabled(true);
+                    mLogin.setText(R.string.log_in);
                     return;
                 }
 

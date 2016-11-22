@@ -122,6 +122,7 @@ public class AddVehicleActivity extends AppCompatActivity implements AdapterView
         mDriversAdapter = new DriversAdapter(this, mDriverList);
         mDriversAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mAssignedDriver.setAdapter(mDriversAdapter);
+        mAssignedDriver.setOnItemSelectedListener(this);
     }
 
     public void onShowLoader(boolean isShown) {
@@ -151,7 +152,12 @@ public class AddVehicleActivity extends AppCompatActivity implements AdapterView
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        selectedDriverUID = mDriverList.get(position).uid;
+        UserProfile userProfile = mDriverList.get(position);
+        selectedDriverUID = userProfile.uid;
+
+
+        Log.i("SELECTED_CHANGE", userProfile.uid);
+
     }
 
     @Override
