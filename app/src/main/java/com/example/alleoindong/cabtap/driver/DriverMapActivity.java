@@ -1,6 +1,7 @@
 package com.example.alleoindong.cabtap.driver;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.location.Location;
@@ -18,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -51,6 +53,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class DriverMapActivity extends BaseActivity implements
         OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
@@ -60,6 +63,7 @@ public class DriverMapActivity extends BaseActivity implements
     private ArrayList<DrawerMenu> mDrawerMenu;
 
     @BindView(R.id.driver_toolbar) Toolbar toolbar;
+    @BindView(R.id.btn_emergency) ImageView mEmergency;
 
     @BindView(R.id.drawer_layout) DrawerLayout mDrawerLayout;
     @BindView(R.id.left_drawer) ListView mDrawerList;
@@ -297,6 +301,11 @@ public class DriverMapActivity extends BaseActivity implements
         public void onItemClick(AdapterView parent, View view, int position, long id) {
             selectItem(position);
         }
+    }
+
+    @OnClick(R.id.btn_emergency) void bookClick() {
+        Intent intent = new Intent(this, MainEmergencyActivity.class);
+        startActivity(intent);
     }
 
 }

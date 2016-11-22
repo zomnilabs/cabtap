@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include android:id="@+id/emergency_toolbar"
+            layout="@layout/toolbar" />
+
+        <!-- The main content view -->
+        <FrameLayout
+            android:layout_below="@+id/emergency_toolbar"
+            android:id="@+id/content_frame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/activity_main_emergency"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:background="@drawable/backrepeat"
+                tools:context="com.example.alleoindong.cabtap.driver.MainEmergencyActivity">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true">
+
+                    <Button
+                        android:layout_weight="1"
+                        android:id="@+id/btn_engine_failure"
+                        android:theme="@style/IconButtonsWhite"
+                        android:textAppearance="@style/TextAppearance.FontPath"
+                        android:textSize="@dimen/text_size_medium"
+                        android:text="@string/engine_failure"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableTop="@drawable/ic_engine_failure" />
+
+                    <Button
+                        android:layout_weight="1"
+                        android:id="@+id/btn_health_condition"
+                        android:theme="@style/IconButtonsWhite"
+                        android:textAppearance="@style/TextAppearance.FontPath"
+                        android:textSize="@dimen/text_size_medium"
+                        android:text="@string/health_condition"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableTop="@drawable/ic_health_condition" />
+
+                    <Button
+                        android:layout_weight="1"
+                        android:id="@+id/btn_violation"
+                        android:theme="@style/IconButtonsWhite"
+                        android:textAppearance="@style/TextAppearance.FontPath"
+                        android:textSize="@dimen/text_size_medium"
+                        android:text="@string/violation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableTop="@drawable/ic_violation" />
+
+                    <Button
+                        android:layout_weight="1"
+                        android:id="@+id/btn_criminal_case"
+                        android:theme="@style/IconButtonsWhite"
+                        android:textAppearance="@style/TextAppearance.FontPath"
+                        android:textSize="@dimen/text_size_medium"
+                        android:text="@string/criminal_case"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableTop="@drawable/ic_criminal_case" />
+
+                    <TextView
+                        android:textAlignment="center"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_size_medium"
+                        android:text="@string/others"
+                        android:layout_marginBottom="@dimen/description_margin"
+                        android:layout_marginTop="20dp"
+                        android:textColor="@color/colorGray"
+                        android:textAppearance="@style/TextAppearance.FontPath" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </FrameLayout>
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_gravity="start"
+        android:orientation="vertical"
+        android:layout_width="240dp"
+        android:background="@drawable/backrepeat"
+        android:layout_height="match_parent">
+
+        <!-- Profile box -->
+        <LinearLayout
+            android:id="@+id/profile_drawer"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:background="@color/colorPrimary"
+            android:gravity="center_vertical"
+            android:paddingBottom="10dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:layout_gravity="center_horizontal"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:paddingLeft="20dp"
+                android:src="@drawable/ic_user" />
+
+            <LinearLayout
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/drawer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:id="@+id/full_name"
+                    android:textColor="@color/colorWhite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Shohel Rana"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:textAlignment="center"
+                    android:id="@+id/email"
+                    android:textColor="@color/colorWhite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:text="test@gmail.com"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- The navigation drawer -->
+        <ListView android:id="@+id/left_drawer"
+            android:scrollbars="none"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:choiceMode="singleChoice"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="0dp" />
+    </LinearLayout>
+
+</android.support.v4.widget.DrawerLayout>
+

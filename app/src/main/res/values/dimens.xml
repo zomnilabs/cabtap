@@ -6,6 +6,7 @@
     <dimen name="text_size">30sp</dimen>
     <dimen name="description_margin">30dp</dimen>
     <dimen name="text_size_small">15sp</dimen>
+    <dimen name="text_size_medium">24sp</dimen>
     <dimen name="btn_width">200dp</dimen>
     <dimen name="btn_height">70dp</dimen>
 </resources>

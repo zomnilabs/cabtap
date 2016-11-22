@@ -72,7 +72,16 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyD96FdTg_lXLY0z0oD1B0aMGkLHi-OtmCc" />
 
-        <activity android:name=".user.RideBookingActivity" android:theme="@style/AppTheme.DarkActionBar"></activity>
+        <activity
+            android:name=".user.RideBookingActivity"
+            android:theme="@style/AppTheme.DarkActionBar" />
+        <activity android:name=".driver.MainEmergencyActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

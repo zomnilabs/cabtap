@@ -33,6 +33,11 @@
     <string name="pickup_point">Pick-up Point</string>
     <string name="estimate_fare_rate">Estimated Fare Rate:</string>
     <string name="book_now">BOOK NOW!</string>
+    <string name="engine_failure">ENGINE FAILURE</string>
+    <string name="health_condition">HEALTH CONDITIONS</string>
+    <string name="violation">VIOLATION</string>
+    <string name="criminal_case">CRIMINAL CASE</string>
+    <string name="others">OTHERS</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
