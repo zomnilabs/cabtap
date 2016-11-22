@@ -27,6 +27,8 @@ import com.example.alleoindong.cabtap.BaseActivity;
 import com.example.alleoindong.cabtap.DrawerMenuAdapter;
 import com.example.alleoindong.cabtap.R;
 import com.example.alleoindong.cabtap.models.DrawerMenu;
+import com.example.alleoindong.cabtap.models.UserProfile;
+import com.example.alleoindong.cabtap.models.Vehicle;
 import com.example.alleoindong.cabtap.user.PassengerMapActivity;
 import com.firebase.geofire.GeoFire;
 import com.firebase.geofire.GeoLocation;
@@ -46,8 +48,12 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -76,7 +82,6 @@ public class DriverMapActivity extends BaseActivity implements
     public Location mLastLocation;
     public LatLng mlatlng;
     public Marker mCurrentLocation;
-    public ArrayList<Marker> mVehicles;
     public LocationRequest mLocationRequest;
     public TextView mLatitude;
     public TextView mLongitude;
@@ -85,6 +90,8 @@ public class DriverMapActivity extends BaseActivity implements
     public GeoQuery geoQuery;
     private DatabaseReference mGeofireRef;
     private GeoFire geoFire;
+
+    public static String assignedPlateNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,16 +130,33 @@ public class DriverMapActivity extends BaseActivity implements
         mDrawerList.setAdapter(new DrawerMenuAdapter(getApplicationContext(), mDrawerMenu));
         mDrawerList.setOnItemClickListener(new DriverMapActivity.DrawerItemClickListener());
 
-        mVehicles = new ArrayList<Marker>();
-
         mGeofireRef = FirebaseDatabase.getInstance().getReference("geofire");
         geoFire = new GeoFire(mGeofireRef);
 
+        getAssignedVehicle();
         initializeProfileInfo();
     }
 
+    private void getAssignedVehicle() {
+        DatabaseReference vehiclesRef = FirebaseDatabase.getInstance().getReference("vehicles");
+        Query assignedVehicleQuery = vehiclesRef.orderByChild("uid").equalTo(BaseActivity.uid);
+
+        assignedVehicleQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Vehicle vehicle = dataSnapshot.getValue(Vehicle.class);
+                DriverMapActivity.assignedPlateNumber = vehicle.plateNumber;
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     private void setGeoFireLocation(double lat, double lng) {
-        geoFire.setLocation("BH1234", new GeoLocation(lat, lng));
+        geoFire.setLocation(DriverMapActivity.assignedPlateNumber, new GeoLocation(lat, lng));
     }
 
     @Override
