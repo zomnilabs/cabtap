@@ -24,6 +24,7 @@
     <string name="add_make">Make</string>
     <string name="add_model">Model</string>
     <string name="add_year">Year</string>
+    <string name="assign_driver">Assign Driver</string>
     <string name="save">SAVE</string>
 
     <!-- TODO: Remove or change this placeholder text -->

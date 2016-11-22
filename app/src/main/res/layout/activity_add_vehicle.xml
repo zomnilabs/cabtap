@@ -25,6 +25,18 @@
             android:textSize="24sp"
             android:textColor="@color/colorBlack"
             android:ems="10"
+            android:id="@+id/assign_driver"
+            android:hint="@string/assign_driver"
+            android:textAppearance="@style/TextAppearance.FontPath" />
+
+        <EditText
+            android:theme="@style/EditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:textSize="24sp"
+            android:textColor="@color/colorBlack"
+            android:ems="10"
             android:id="@+id/add_plate"
             android:hint="@string/add_plate"
             android:textAppearance="@style/TextAppearance.FontPath" />
