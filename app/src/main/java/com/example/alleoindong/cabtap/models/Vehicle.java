@@ -12,15 +12,17 @@ public class Vehicle {
     public String make;
     public String model;
     public String year;
+    public String uid;
 
     public Vehicle() {
 
     }
 
-    public Vehicle(String plateNumber, String make, String model, String year) {
+    public Vehicle(String plateNumber, String make, String model, String year, String uid) {
         this.plateNumber = plateNumber;
         this.make = make;
         this.model = model;
         this.year = year;
+        this.uid = uid;
     }
 }
