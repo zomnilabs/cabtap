@@ -8,16 +8,27 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.alleoindong.cabtap.BaseActivity;
+import com.example.alleoindong.cabtap.DrawerMenuAdapter;
 import com.example.alleoindong.cabtap.R;
+import com.example.alleoindong.cabtap.models.DrawerMenu;
+import com.example.alleoindong.cabtap.user.PassengerMapActivity;
 import com.firebase.geofire.GeoFire;
 import com.firebase.geofire.GeoLocation;
+import com.firebase.geofire.GeoQuery;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -27,6 +38,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -37,9 +49,22 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class DriverMapActivity extends BaseActivity implements
         OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
         LocationListener {
+
+    //    private String[] mDrawerMenu = {"Notifications", "Scheduled", "History", "Logout"};
+    private ArrayList<DrawerMenu> mDrawerMenu;
+
+    @BindView(R.id.driver_toolbar) Toolbar toolbar;
+
+    @BindView(R.id.drawer_layout) DrawerLayout mDrawerLayout;
+    @BindView(R.id.left_drawer) ListView mDrawerList;
+    @BindView(R.id.full_name) TextView mFullName;
+    @BindView(R.id.email) TextView mEmail;
 
     public static final int MY_PERMISSION_ACCESS_FINE_LOCATION = 1;
     public GoogleMap mMap;
@@ -47,19 +72,29 @@ public class DriverMapActivity extends BaseActivity implements
     public Location mLastLocation;
     public LatLng mlatlng;
     public Marker mCurrentLocation;
+    public ArrayList<Marker> mVehicles;
     public LocationRequest mLocationRequest;
     public TextView mLatitude;
     public TextView mLongitude;
     public Bitmap mMarkerIcon;
 
+    public GeoQuery geoQuery;
     private DatabaseReference mGeofireRef;
-    private GeoFire mGeoFire;
+    private GeoFire geoFire;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_driver_map);
-        setTitle("Driver Map");
+
+        ButterKnife.bind(this);
+
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle("Welcome " + BaseActivity.firstName.toUpperCase() + "!");
+            toolbar.setNavigationIcon(R.drawable.ic_drawer);
+        }
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -74,12 +109,26 @@ public class DriverMapActivity extends BaseActivity implements
                     .build();
         }
 
+        // Menu Items
+        mDrawerMenu = new ArrayList<DrawerMenu>();
+        mDrawerMenu.add(new DrawerMenu("Notifications", R.drawable.ic_notification));
+        mDrawerMenu.add(new DrawerMenu("History", R.drawable.ic_history));
+        mDrawerMenu.add(new DrawerMenu("Logout", R.drawable.ic_logout));
+
+        // DrawerLayout
+        mDrawerList.setAdapter(new DrawerMenuAdapter(getApplicationContext(), mDrawerMenu));
+        mDrawerList.setOnItemClickListener(new DriverMapActivity.DrawerItemClickListener());
+
+        mVehicles = new ArrayList<Marker>();
+
         mGeofireRef = FirebaseDatabase.getInstance().getReference("geofire");
-        mGeoFire = new GeoFire(mGeofireRef);
+        geoFire = new GeoFire(mGeofireRef);
+
+        initializeProfileInfo();
     }
 
     private void setGeoFireLocation(double lat, double lng) {
-        mGeoFire.setLocation("BH1234", new GeoLocation(lat, lng));
+        geoFire.setLocation("BH1234", new GeoLocation(lat, lng));
     }
 
     @Override
@@ -96,6 +145,7 @@ public class DriverMapActivity extends BaseActivity implements
         super.onStop();
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_right, menu);
@@ -111,8 +161,13 @@ public class DriverMapActivity extends BaseActivity implements
             this.logout();
         }
 
+        if (id == android.R.id.home) {
+            mDrawerLayout.openDrawer(GravityCompat.START);
+        }
+
         return super.onOptionsItemSelected(item);
     }
+
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -167,7 +222,7 @@ public class DriverMapActivity extends BaseActivity implements
             MarkerOptions markerOptions = new MarkerOptions();
             markerOptions.position(mlatlng);
             markerOptions.title("My Current Position");
-//            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
+            markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_marker));
             mCurrentLocation = mMap.addMarker(markerOptions);
 
             CameraPosition cameraPosition = new CameraPosition.Builder()
@@ -175,7 +230,6 @@ public class DriverMapActivity extends BaseActivity implements
 
             mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
-            setGeoFireLocation(mLastLocation.getLatitude(), mLastLocation.getLongitude());
         }
 
         mLocationRequest = new LocationRequest();
@@ -206,14 +260,43 @@ public class DriverMapActivity extends BaseActivity implements
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(mlatlng);
         markerOptions.title("My Current Position");
-//        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
+        markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_marker));
         mCurrentLocation = mMap.addMarker(markerOptions);
 
         CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(mlatlng).zoom(16).build();
 
-        setGeoFireLocation(location.getLatitude(), location.getLongitude());
-
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
     }
+
+    private void initializeProfileInfo() {
+        mFullName.setText(BaseActivity.fullName);
+        mEmail.setText(BaseActivity.email);
+
+        Log.i("DRAWER", BaseActivity.fullName);
+    }
+
+    public void selectItem(int position) {
+//        switch (position) {
+//            case 0:
+//                break;
+//            case 1:
+//                break;
+//            case 2:
+//                break;
+//            default:
+//
+//        }
+
+//        mDrawerLayout.closeDrawer(mDrawerList);
+    }
+
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView parent, View view, int position, long id) {
+            selectItem(position);
+        }
+    }
+
 }

@@ -47,8 +47,16 @@
         <activity android:name=".BaseActivity" />
         <activity android:name=".admin.AddDriverActivity" android:theme="@style/AppTheme.DarkActionBar" />
         <activity android:name=".admin.AddVehicleActivity" android:theme="@style/AppTheme.DarkActionBar" />
-        <activity android:name=".driver.DriverMapActivity" android:theme="@style/AppTheme.DarkActionBar" />
         <activity android:name=".admin.VehicleMaintenanceActivity" android:theme="@style/AppTheme.DarkActionBar" />
+
+
+        <activity android:name=".driver.DriverMapActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <meta-data
             android:name="com.google.android.gms.version"

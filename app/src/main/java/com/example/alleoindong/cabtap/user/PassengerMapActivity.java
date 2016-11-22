@@ -83,9 +83,10 @@ public class PassengerMapActivity extends BaseActivity implements
     public TextView mLatitude;
     public TextView mLongitude;
     public Bitmap mMarkerIcon;
+
     public GeoQuery geoQuery;
-    public GeoFire geoFire;
     private DatabaseReference mGeofireRef;
+    private GeoFire geoFire;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
