@@ -138,7 +138,6 @@ public class DriverMapActivity extends BaseActivity implements
     }
 
     private void setGeoFireLocation(double lat, double lng) {
-        Log.i("PLATENUMBER", "plateNumber: " + DriverMapActivity.assignedPlateNumber);
         geoFire.setLocation(DriverMapActivity.assignedPlateNumber, new GeoLocation(lat, lng));
     }
 
