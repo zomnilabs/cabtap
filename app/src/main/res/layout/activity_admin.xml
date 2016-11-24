@@ -41,17 +41,6 @@
 
         <Button
             android:layout_weight="1"
-            android:id="@+id/btn_expense_tracking"
-            android:theme="@style/IconButtonsWhite"
-            android:textAppearance="@style/TextAppearance.FontPath"
-            android:textSize="@dimen/text_size_medium"
-            android:text="@string/expense_tracking"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawableTop="@drawable/ic_expenses" />
-
-        <Button
-            android:layout_weight="1"
             android:id="@+id/btn_maintenance"
             android:theme="@style/IconButtonsWhite"
             android:textAppearance="@style/TextAppearance.FontPath"
@@ -60,6 +49,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableTop="@drawable/ic_maintenance" />
+
+        <Button
+            android:layout_weight="1"
+            android:id="@+id/btn_expense_tracking"
+            android:theme="@style/IconButtonsWhite"
+            android:textAppearance="@style/TextAppearance.FontPath"
+            android:textSize="@dimen/text_size_medium"
+            android:text="@string/expense_tracking"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/ic_expenses" />
 
         <Button
             android:layout_weight="1"
