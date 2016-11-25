@@ -90,7 +90,8 @@
 
         <activity android:name=".user.PayThroughPaymayaActivity" />
         <activity android:name=".user.PayCashActivity" />
-        <activity android:name=".user.ExactLocationActivity"></activity>
+        <activity android:name=".user.ExactLocationActivity"
+            android:theme="@style/AppTheme.DarkActionBar" />
     </application>
 
 </manifest>
