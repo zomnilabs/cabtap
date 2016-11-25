@@ -15,6 +15,7 @@ import butterknife.OnClick;
 
 public class PassengerHelpActivity extends AppCompatActivity {
     @BindView(R.id.how_to_book) TextView mHowToBook;
+    @BindView(R.id.create_paymaya) TextView mCreatePaymaya;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +29,11 @@ public class PassengerHelpActivity extends AppCompatActivity {
 
     @OnClick(R.id.how_to_book) void howToBookClick() {
         Intent intent = new Intent(this, HowToBookActivity.class);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.create_paymaya) void createPaymayaClick() {
+        Intent intent = new Intent(this, CreatePayMayaActivity.class);
         startActivity(intent);
     }
 }

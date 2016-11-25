@@ -91,7 +91,10 @@
         <activity
             android:name=".admin.AddMaintenanceActivity"
             android:theme="@style/AppTheme.DarkActionBar" />
-        <activity android:name=".user.HowToBookActivity" android:theme="@style/AppTheme.DarkActionBar" ></activity>
+        <activity
+            android:name=".user.HowToBookActivity"
+            android:theme="@style/AppTheme.DarkActionBar" />
+        <activity android:name=".user.CreatePayMayaActivity" android:theme="@style/AppTheme.DarkActionBar" ></activity>
     </application>
 
 </manifest>

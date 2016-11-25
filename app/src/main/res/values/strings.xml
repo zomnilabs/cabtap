@@ -53,6 +53,33 @@
     <string name="how_to_book_4">4.	Wait for the estimated fare rate</string>
     <string name="how_to_book_5">5. And click the BOOK NOW! button</string>
 
+    <string name="paymaya_app">APP:</string>
+    <string name="paymaya_card">CARD:</string>
+    <string name="app_paymaya_1">1.	Download the App from App Store or Google Play</string>
+    <string name="app_paymaya_2">2.	Register with your name, email and mobile number</string>
+    <string name="app_paymaya_3">3.	Create a password</string>
+    <string name="app_paymaya_4">4.	Receive a verification via SMS.</string>
+    <string name="app_paymaya_5">5.	Enter verification number</string>
+    <string name="app_paymaya_6">6.	Click VIEW CARD button</string>
+    <string name="app_paymaya_7">7.	Input your address and birthday</string>
+    <string name="app_paymaya_8">8. Receive a confirmation that your account has been activated</string>
+
+    <string name="card_paymaya">1. Buy the card here https://paymaya.com/shop/</string>
+
+    <string name="paymaya_already_have_app">If you already have the app, link the physical card to it:</string>
+    <string name="paymaya_already_have_app_1">1. Go to “My Cards” in the main menu</string>
+    <string name="paymaya_already_have_app_2">2. Tap on “link card” and enter the 16-digit number on the physical card, expiration date and CVV</string>
+
+    <string name="paymaya_dont_have_app">If you don’t have the app yet:</string>
+    <string name="paymaya_dont_have_app_1">3. Activate the physical card via SMS. Text activate (space) card ID number (space) first name/last name and send to 292907969*.</string>
+    <string name="paymaya_dont_have_app_2">*You should have air time load of at least P1.00</string>
+    <string name="paymaya_dont_have_app_3">4. Download the PayMaya app and register with your name, email and mobile number you used to activate the physical card</string>
+    <string name="paymaya_dont_have_app_4">5. Receive a verification code via SMS</string>
+    <string name="paymaya_dont_have_app_5">6. Go to “My Cards” in the app’s main menu</string>
+    <string name="paymaya_dont_have_app_6">7. Tap on the blue PayMaya card</string>
+    <string name="paymaya_dont_have_app_7">8. Nominate a 6-digit PIN* </string>
+    <string name="paymaya_dont_have_app_8">* You may use this for ATM withdrawals</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="auth_failed">Failed to login</string>
