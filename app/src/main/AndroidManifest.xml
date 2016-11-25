@@ -16,7 +16,6 @@
             android:theme="@style/SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -40,13 +39,7 @@
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
         </activity>
-        <activity android:name=".user.PassengerMapActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".user.PassengerMapActivity" />
         <activity android:name=".BaseActivity" />
         <activity
             android:name=".admin.AddDriverActivity"
@@ -57,31 +50,11 @@
         <activity
             android:name=".admin.VehicleMaintenanceActivity"
             android:theme="@style/AppTheme.DarkActionBar" />
-        <activity android:name=".driver.DriverMapActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyD96FdTg_lXLY0z0oD1B0aMGkLHi-OtmCc" />
-
+        <activity android:name=".driver.DriverMapActivity" />
         <activity
             android:name=".user.RideBookingActivity"
             android:theme="@style/AppTheme.DarkActionBar" />
-        <activity android:name=".driver.MainEmergencyActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".driver.MainEmergencyActivity" />
         <activity
             android:name=".user.PassengerHelpActivity"
             android:theme="@style/AppTheme.DarkActionBar" />
@@ -94,7 +67,15 @@
         <activity
             android:name=".user.HowToBookActivity"
             android:theme="@style/AppTheme.DarkActionBar" />
-        <activity android:name=".user.CreatePayMayaActivity" android:theme="@style/AppTheme.DarkActionBar" ></activity>
+
+        <activity android:name=".user.CreatePayMayaActivity" android:theme="@style/AppTheme.DarkActionBar" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyD96FdTg_lXLY0z0oD1B0aMGkLHi-OtmCc" />
     </application>
 
 </manifest>
