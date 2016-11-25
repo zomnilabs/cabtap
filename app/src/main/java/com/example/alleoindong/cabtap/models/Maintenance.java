@@ -10,6 +10,7 @@ public class Maintenance {
     public String maintenance;
     public String cost;
     public String maintenanceDate;
+    public String plateNumber;
 
     public Maintenance() {
 
