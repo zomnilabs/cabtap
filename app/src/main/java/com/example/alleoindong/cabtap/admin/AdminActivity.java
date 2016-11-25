@@ -54,4 +54,9 @@ public class AdminActivity extends BaseActivity {
         Intent intent = new Intent(this, VehicleMaintenanceActivity.class);
         startActivity(intent);
     }
+
+    @OnClick(R.id.btn_maintenance) void maintenanceClick() {
+        Intent intent = new Intent(this, MaintenanceActivity.class);
+        startActivity(intent);
+    }
 }

@@ -85,7 +85,8 @@
         <activity
             android:name=".user.PassengerHelpActivity"
             android:theme="@style/AppTheme.DarkActionBar" />
-        <activity android:name=".admin.MaintenanceActivity"></activity>
+        <activity android:name=".admin.MaintenanceActivity" android:theme="@style/AppTheme.DarkActionBar" />
+        <activity android:name=".admin.AddMaintenanceActivity" android:theme="@style/AppTheme.DarkActionBar"></activity>
     </application>
 
 </manifest>

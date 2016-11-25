@@ -38,6 +38,8 @@
     <string name="violation">VIOLATION</string>
     <string name="criminal_case">CRIMINAL CASE</string>
     <string name="others">OTHERS</string>
+    <string name="select_maintenance">Select maintenance (Change Oil, etc)</string>
+    <string name="maintenance_schedule">Schedule date for maintenance</string>
 
     <string name="help_1">How to book a ride?</string>
     <string name="help_2">How to create an account in PayMaya?</string>
