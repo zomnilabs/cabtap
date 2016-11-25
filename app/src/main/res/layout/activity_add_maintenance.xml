@@ -60,7 +60,7 @@
             android:layout_marginTop="36dp">
 
             <Button
-                android:id="@+id/btn_add_vehicle"
+                android:id="@+id/btn_add_maintenance"
                 android:textAppearance="@style/TextAppearance.FontPath"
                 android:theme="@style/DangerButton"
                 android:textSize="@dimen/text_size"

@@ -60,7 +60,7 @@ public class MaintenanceActivity extends AppCompatActivity {
 
             @Override
             protected void populateViewHolder(MaintenanceActivity.MaintenanceHolder viewHolder, Maintenance model, int position) {
-                viewHolder.setPlateNumber(model.vehicle_id);
+                viewHolder.setPlateNumber(model.plateNumber);
             }
 
             @Override

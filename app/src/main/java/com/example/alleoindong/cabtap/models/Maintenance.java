@@ -6,9 +6,8 @@ package com.example.alleoindong.cabtap.models;
 
 public class Maintenance {
     public String id;
-    public String vehicle_id;
     public String maintenance;
-    public String cost;
+    public double cost;
     public String maintenanceDate;
     public String plateNumber;
 
@@ -16,12 +15,12 @@ public class Maintenance {
 
     }
 
-    public Maintenance(String id, String vehicle_id, String maintenance,
-                       String cost, String maintenanceDate) {
+    public Maintenance(String id, String maintenance,
+                       double cost, String maintenanceDate, String plateNumber) {
         this.id = id;
-        this.vehicle_id = vehicle_id;
         this.maintenance = maintenance;
         this.cost = cost;
         this.maintenanceDate = maintenanceDate;
+        this.plateNumber = plateNumber;
     }
 }
