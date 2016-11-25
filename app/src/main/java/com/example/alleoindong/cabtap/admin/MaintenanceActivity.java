@@ -52,7 +52,7 @@ public class MaintenanceActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mRcvMaintenance.setHasFixedSize(true);
-        mLayoutManager = new GridLayoutManager(this, 4);
+        mLayoutManager = new GridLayoutManager(this, 3);
         mRcvMaintenance.setLayoutManager(mLayoutManager);
 
         mAdapter = new FirebaseRecyclerAdapter<Maintenance, MaintenanceActivity.MaintenanceHolder>(Maintenance.class,
