@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -45,25 +46,21 @@ public class MaintenanceActivity extends AppCompatActivity {
         setContentView(R.layout.activity_maintenance);
         setTitle("Maintenance");
 
-        mDatabase = FirebaseDatabase.getInstance().getReference("vehicles");
+        mDatabase = FirebaseDatabase.getInstance().getReference("maintenance");
 
         ButterKnife.bind(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mRcvMaintenance.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(this);
+        mLayoutManager = new GridLayoutManager(this, 4);
         mRcvMaintenance.setLayoutManager(mLayoutManager);
-        mRcvMaintenance.addItemDecoration(new DividerItemDecoration(this, R.drawable.divider));
 
         mAdapter = new FirebaseRecyclerAdapter<Maintenance, MaintenanceActivity.MaintenanceHolder>(Maintenance.class,
                 R.layout.maintenance_item, MaintenanceActivity.MaintenanceHolder.class, mDatabase) {
 
             @Override
             protected void populateViewHolder(MaintenanceActivity.MaintenanceHolder viewHolder, Maintenance model, int position) {
-                viewHolder.setMake(model.maintenance);
-                viewHolder.setModel(model.cost);
                 viewHolder.setPlateNumber(model.vehicle_id);
-                viewHolder.setYear(model.maintenanceDate);
             }
 
             @Override
@@ -129,22 +126,6 @@ public class MaintenanceActivity extends AppCompatActivity {
             TextView field = (TextView) mView.findViewById(R.id.plate_number);
             field.setText(name);
         }
-
-        public void setMake(String text) {
-            TextView field = (TextView) mView.findViewById(R.id.make);
-            field.setText(text);
-        }
-
-        public void setModel(String text) {
-            TextView field = (TextView) mView.findViewById(R.id.model);
-            field.setText(text);
-        }
-
-        public void setYear(String text) {
-            TextView field = (TextView) mView.findViewById(R.id.year);
-            field.setText(text);
-        }
-
 
     }
 
