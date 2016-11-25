@@ -78,6 +78,12 @@ public class AddVehicleActivity extends AppCompatActivity implements AdapterView
         String year = mYear.getText().toString();
         String uid = selectedDriverUID;
 
+        if ("".equals(plateNumber)) {
+            Toast.makeText(this, "Please input a platenumber", Toast.LENGTH_SHORT).show();
+            this.onShowLoader(false);
+            return;
+        }
+
         if ("".equals(selectedDriverUID) && mDriverList.size() > 0) {
             uid = mDriverList.get(0).uid;
         }
@@ -86,6 +92,25 @@ public class AddVehicleActivity extends AppCompatActivity implements AdapterView
 
         onShowLoader(false);
         this.saveVehicle(vehicle);
+    }
+
+    private void saveVehicle(final Vehicle vehicle) {
+        mVehicleRef = FirebaseDatabase.getInstance().getReference("vehicles");
+
+        Log.i("VEHICLE_MAINTENANCE", "ADDING VEHICLE");
+
+        mVehicleRef.runTransaction(new Transaction.Handler() {
+            @Override
+            public Transaction.Result doTransaction(MutableData mutableData) {
+                mutableData.child(vehicle.plateNumber).setValue(vehicle);
+                return Transaction.success(mutableData);
+            }
+
+            @Override
+            public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
+                finish();
+            }
+        });
     }
 
     private void init() {
@@ -129,25 +154,6 @@ public class AddVehicleActivity extends AppCompatActivity implements AdapterView
         mAddVehicle.setEnabled(!isShown);
         mAddVehicle.setText(isShown ? "" : getString(R.string.save));
         mProgress.setVisibility(isShown ? View.VISIBLE : View.INVISIBLE);
-    }
-
-    private void saveVehicle(final Vehicle vehicle) {
-        mVehicleRef = FirebaseDatabase.getInstance().getReference("vehicles");
-
-        Log.i("VEHICLE_MAINTENANCE", "ADDING VEHICLE");
-
-        mVehicleRef.runTransaction(new Transaction.Handler() {
-            @Override
-            public Transaction.Result doTransaction(MutableData mutableData) {
-                mutableData.child(vehicle.plateNumber).setValue(vehicle);
-                return Transaction.success(mutableData);
-            }
-
-            @Override
-            public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
-                finish();
-            }
-        });
     }
 
     @Override
