@@ -16,6 +16,9 @@ import butterknife.OnClick;
 public class PassengerHelpActivity extends AppCompatActivity {
     @BindView(R.id.how_to_book) TextView mHowToBook;
     @BindView(R.id.create_paymaya) TextView mCreatePaymaya;
+    @BindView(R.id.pay_through_paymaya) TextView mPayThroughPaymaya;
+    @BindView(R.id.pay_cash) TextView mPayCash;
+    @BindView(R.id.exact_location) TextView mExactLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +37,21 @@ public class PassengerHelpActivity extends AppCompatActivity {
 
     @OnClick(R.id.create_paymaya) void createPaymayaClick() {
         Intent intent = new Intent(this, CreatePayMayaActivity.class);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.pay_through_paymaya) void payThroughPaymayaClick() {
+        Intent intent = new Intent(this, PayThroughPaymayaActivity.class);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.pay_cash) void payCashClick() {
+        Intent intent = new Intent(this, PayCashActivity.class);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.exact_location) void exactLocationClick() {
+        Intent intent = new Intent(this, ExactLocationActivity.class);
         startActivity(intent);
     }
 }

@@ -5,13 +5,12 @@ import android.os.Bundle;
 
 import com.example.alleoindong.cabtap.R;
 
-public class CreatePayMayaActivity extends AppCompatActivity {
+public class PayCashActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_pay_maya);
-
-        setTitle("Create PayMaya account");
+        setContentView(R.layout.activity_pay_cash);
+        setTitle("Pay with cash");
     }
 }

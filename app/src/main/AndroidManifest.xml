@@ -25,6 +25,7 @@
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -86,6 +87,10 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyD96FdTg_lXLY0z0oD1B0aMGkLHi-OtmCc" />
+
+        <activity android:name=".user.PayThroughPaymayaActivity" />
+        <activity android:name=".user.PayCashActivity" />
+        <activity android:name=".user.ExactLocationActivity"></activity>
     </application>
 
 </manifest>

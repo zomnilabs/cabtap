@@ -12,6 +12,6 @@ public class HowToBookActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_how_to_book);
 
-        setTitle("HOW TO BOOK");
+        setTitle("How to book");
     }
 }
