@@ -67,6 +67,7 @@
         <item name="colorControlActivated">@color/colorPrimaryDark</item>
     </style>
 
+    <!--Buttons-->
     <style name="CustomButtons" parent="Theme.AppCompat.Light">
         <item name="android:textColor">@color/colorWhite</item>
     </style>
@@ -81,9 +82,15 @@
         <item name="colorButtonNormal">@color/colorOrange</item>
     </style>
 
+    <!--Icons-->
     <style name="IconButtonsWhite" parent="CustomButtons">
         <item name="colorControlHighlight">@color/colorDarkAccent</item>
         <item name="colorButtonNormal">@color/colorWhite</item>
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
+
+    <!--Spinner-->
+    <style name="spinner_dropdown" parent="Widget.AppCompat.Spinner.Underlined">
         <item name="android:textColor">@color/colorBlack</item>
     </style>
 
