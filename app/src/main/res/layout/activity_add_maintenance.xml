@@ -17,11 +17,11 @@
         android:layout_height="match_parent"
         android:layout_marginTop="50dp">
 
-        <EditText
-            android:theme="@style/EditTextStyle"
+        <android.support.v7.widget.AppCompatSpinner
+            style="@style/spinner_dropdown"
+            android:spinnerMode="dropdown"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
             android:textSize="24sp"
             android:textColor="@color/colorBlack"
             android:ems="10"
@@ -29,8 +29,8 @@
             android:hint="@string/add_plate"
             android:textAppearance="@style/TextAppearance.FontPath" />
 
-        <EditText
-            android:theme="@style/EditTextStyle"
+        <android.support.v7.widget.AppCompatSpinner
+            style="@style/spinner_dropdown"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
