@@ -11,9 +11,18 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".SplashScreenActivity"
-            android:theme="@style/SplashScreen">
+        <!--<activity-->
+            <!--android:name=".SplashScreenActivity"-->
+            <!--android:theme="@style/SplashScreen">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        <!--</activity>-->
+        <activity android:name=".SplashScreenSecondActivity"
+            android:theme="@style/SplashScreenSecond">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -67,8 +76,9 @@
         <activity
             android:name=".user.HowToBookActivity"
             android:theme="@style/AppTheme.DarkActionBar" />
-
-        <activity android:name=".user.CreatePayMayaActivity" android:theme="@style/AppTheme.DarkActionBar" />
+        <activity
+            android:name=".user.CreatePayMayaActivity"
+            android:theme="@style/AppTheme.DarkActionBar" />
 
         <meta-data
             android:name="com.google.android.gms.version"
