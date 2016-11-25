@@ -47,6 +47,12 @@
     <string name="help_4">How to pay with cash?</string>
     <string name="help_5">Where can I access my exact location?</string>
 
+    <string name="how_to_book_1">1.	Login with your account</string>
+    <string name="how_to_book_2">2. Click the BOOK A RIDE NOW button</string>
+    <string name="how_to_book_3">3.	Fill up the Book Ride form</string>
+    <string name="how_to_book_4">4.	Wait for the estimated fare rate</string>
+    <string name="how_to_book_5">5. And click the BOOK NOW! button</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="auth_failed">Failed to login</string>

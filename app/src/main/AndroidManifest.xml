@@ -85,8 +85,13 @@
         <activity
             android:name=".user.PassengerHelpActivity"
             android:theme="@style/AppTheme.DarkActionBar" />
-        <activity android:name=".admin.MaintenanceActivity" android:theme="@style/AppTheme.DarkActionBar" />
-        <activity android:name=".admin.AddMaintenanceActivity" android:theme="@style/AppTheme.DarkActionBar"></activity>
+        <activity
+            android:name=".admin.MaintenanceActivity"
+            android:theme="@style/AppTheme.DarkActionBar" />
+        <activity
+            android:name=".admin.AddMaintenanceActivity"
+            android:theme="@style/AppTheme.DarkActionBar" />
+        <activity android:name=".user.HowToBookActivity" android:theme="@style/AppTheme.DarkActionBar" ></activity>
     </application>
 
 </manifest>

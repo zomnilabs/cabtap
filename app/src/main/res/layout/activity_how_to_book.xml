@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_passenger_help"
+    android:id="@+id/activity_how_to_book"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@drawable/backrepeat"
-    tools:context="com.example.alleoindong.cabtap.user.PassengerHelpActivity">
+    tools:context="com.example.alleoindong.cabtap.user.HowToBookActivity">
 
     <LinearLayout
         android:orientation="vertical"
@@ -20,13 +20,12 @@
         android:layout_alignParentStart="true">
 
         <TextView
-            android:id="@+id/how_to_book"
             android:textAlignment="center"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_size_medium"
-            android:text="@string/help_1"
+            android:text="@string/how_to_book_1"
             android:layout_marginTop="50dp"
             android:textColor="@color/colorGray"
             android:textAppearance="@style/TextAppearance.FontPath" />
@@ -37,7 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_size_medium"
-            android:text="@string/help_2"
+            android:text="@string/how_to_book_2"
             android:layout_marginTop="50dp"
             android:textColor="@color/colorGray"
             android:textAppearance="@style/TextAppearance.FontPath" />
@@ -48,7 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_size_medium"
-            android:text="@string/help_3"
+            android:text="@string/how_to_book_3"
             android:layout_marginTop="50dp"
             android:textColor="@color/colorGray"
             android:textAppearance="@style/TextAppearance.FontPath" />
@@ -59,7 +58,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_size_medium"
-            android:text="@string/help_4"
+            android:text="@string/how_to_book_4"
             android:layout_marginTop="50dp"
             android:textColor="@color/colorGray"
             android:textAppearance="@style/TextAppearance.FontPath" />
@@ -70,11 +69,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_size_medium"
-            android:text="@string/help_5"
+            android:text="@string/how_to_book_5"
             android:layout_marginTop="50dp"
             android:textColor="@color/colorGray"
             android:textAppearance="@style/TextAppearance.FontPath" />
 
     </LinearLayout>
+
 
 </RelativeLayout>
