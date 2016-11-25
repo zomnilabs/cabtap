@@ -42,28 +42,6 @@ public class DriverMaintenanceActivity extends AppCompatActivity {
 
     private DatabaseReference mDatabase;
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-//        ValueEventListener usersListener = new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                for (DataSnapshot userProfiles : dataSnapshot.getChildren()) {
-//                    UserProfile userProfile = userProfiles.getValue(UserProfile.class);
-//                    Log.i("USERPROFILE", userProfile.firstName);
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        };
-//
-//        mDatabase.addValueEventListener(usersListener);
-    }
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_driver_maintenance);

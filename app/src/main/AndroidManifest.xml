@@ -82,7 +82,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".user.PassengerHelpActivity" android:theme="@style/AppTheme.DarkActionBar"></activity>
+        <activity
+            android:name=".user.PassengerHelpActivity"
+            android:theme="@style/AppTheme.DarkActionBar" />
+        <activity android:name=".admin.MaintenanceActivity"></activity>
     </application>
 
 </manifest>
