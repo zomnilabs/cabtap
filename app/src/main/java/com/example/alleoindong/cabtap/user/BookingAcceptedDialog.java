@@ -37,7 +37,7 @@ public class BookingAcceptedDialog extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.booking_request, container);
 
-        String plateNumber = getArguments().getString("plateNumber");
+        String plateNumber = getArguments().getString("plateNumber", "No Plate");
 
         ((TextView) view.findViewById(R.id.lbl_platenumber)).setText(plateNumber);
 
