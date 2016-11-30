@@ -51,6 +51,8 @@ public class RideBookingActivity extends AppCompatActivity {
     public SupportPlaceAutocompleteFragment mPlaceAutocompleteDestination;
     public LatLng mPickup;
     public LatLng mDestination;
+    public String mPickupName;
+    public String mDestinationName;
 
     public ArrayList<Vehicle> vehicles;
 
@@ -141,11 +143,14 @@ public class RideBookingActivity extends AppCompatActivity {
         Booking booking = new Booking(id, status, fareEstimate, pickup, destination);
 
         String requestId = UUID.randomUUID().toString();
-        BookingRequest bookingRequest = new BookingRequest(requestId, BaseActivity.uid, "pending", booking);
+        BookingRequest bookingRequest = new BookingRequest(requestId, BaseActivity.uid,
+                mPickupName, mDestinationName, "pending", booking);
 
         for (Vehicle vehicle : vehicles) {
             bookingRequestsRef.child(vehicle.uid).child(requestId).setValue(bookingRequest);
         }
+
+        listenForAcceptedBooking(id);
     }
 
 
@@ -159,6 +164,7 @@ public class RideBookingActivity extends AppCompatActivity {
             public void onPlaceSelected(Place place) {
                 Log.i("PLACE", place.getName().toString() );
                 mPickup = place.getLatLng();
+                mPickupName = place.getName().toString();
 
                 calculateEstimatedFare();
 
@@ -183,6 +189,8 @@ public class RideBookingActivity extends AppCompatActivity {
             public void onPlaceSelected(Place place) {
                 Log.i("PLACE", place.getName().toString() );
                 mDestination = place.getLatLng();
+                mDestinationName = place.getName().toString();
+
                 calculateEstimatedFare();
             }
 
@@ -202,7 +210,14 @@ public class RideBookingActivity extends AppCompatActivity {
         ValueEventListener bookingListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                Booking booking = dataSnapshot.getValue(Booking.class);
 
+                if (booking == null) {
+                    return;
+                }
+
+                Toast.makeText(RideBookingActivity.this, "A driver has accepted your request", Toast.LENGTH_SHORT).show();
+                finish();
             }
 
             @Override

@@ -10,6 +10,8 @@ import com.google.firebase.database.IgnoreExtraProperties;
 public class BookingRequest {
     public String id;
     public String uid;
+    public String pickup;
+    public String destination;
     private String status;
     private Booking booking;
 
@@ -28,6 +30,16 @@ public class BookingRequest {
         this.id = id;
         this.uid = uid;
         this.status = status;
+    }
+
+    public BookingRequest(String id, String uid, String pickup,
+                          String destination, String status, Booking booking) {
+        this.id = id;
+        this.uid = uid;
+        this.pickup = pickup;
+        this.destination = destination;
+        this.status = status;
+        this.booking = booking;
     }
 
     public Booking getBooking() {

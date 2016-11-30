@@ -15,6 +15,35 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
+        <TextView
+            android:textColor="@color/colorBlack"
+            android:text="Pickup:"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:textColor="@color/colorBlack"
+            android:id="@+id/lbl_pickup_location"
+            android:text="Pickup:"
+            android:textSize="18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:textColor="@color/colorBlack"
+            android:text="Destination: "
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:textColor="@color/colorBlack"
+            android:id="@+id/lbl_destination_location"
+            android:text="Destination: "
+            android:textSize="18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <LinearLayout
             android:orientation="horizontal"

@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.alleoindong.cabtap.BaseActivity;
 import com.example.alleoindong.cabtap.R;
@@ -33,11 +34,13 @@ public class BookingRequestDialogFragment extends DialogFragment {
 
     }
 
-    public static BookingRequestDialogFragment newInstance(String title) {
+    public static BookingRequestDialogFragment newInstance(String title, String pickup, String destination) {
         BookingRequestDialogFragment frag = new BookingRequestDialogFragment();
         Bundle args = new Bundle();
 
         args.putString("title", title);
+        args.putString("pickup", pickup);
+        args.putString("destination", destination);
         frag.setArguments(args);
 
         return frag;
@@ -61,6 +64,12 @@ public class BookingRequestDialogFragment extends DialogFragment {
                 rejectBooking();
             }
         });
+
+        String pickup = getArguments().getString("pickup", "No selected");
+        String destination = getArguments().getString("destination", "No selected");
+
+        ((TextView) view.findViewById(R.id.lbl_pickup_location)).setText(pickup);
+        ((TextView) view.findViewById(R.id.lbl_destination_location)).setText(destination);
 
         return view;
     }

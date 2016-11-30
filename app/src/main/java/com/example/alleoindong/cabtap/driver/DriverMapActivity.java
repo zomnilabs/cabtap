@@ -324,9 +324,13 @@ public class DriverMapActivity extends BaseActivity implements
         }
     }
 
-    private void showBookingRequestDialog() {
+    private void showBookingRequestDialog(BookingRequest bookingRequest) {
         FragmentManager fm = getSupportFragmentManager();
-        final BookingRequestDialogFragment mBookingRequestDialogFragment = BookingRequestDialogFragment.newInstance("Passenger Requesting for taxi");
+
+        final BookingRequestDialogFragment mBookingRequestDialogFragment = BookingRequestDialogFragment
+                .newInstance("Passenger Requesting for taxi", bookingRequest.pickup,
+                        bookingRequest.destination);
+
         mBookingRequestDialogFragment.show(fm, "fragment_booking_request");
 
         Handler handler = new Handler();
@@ -362,7 +366,7 @@ public class DriverMapActivity extends BaseActivity implements
                         mCurrentBookingRequest = bookingRequest;
                         BookingRequestDialogFragment.mBookingRequest = bookingRequest;
 
-                        showBookingRequestDialog();
+                        showBookingRequestDialog(bookingRequest);
                     }
                 }
             }
