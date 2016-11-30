@@ -7,21 +7,27 @@ import com.google.firebase.database.IgnoreExtraProperties;
  */
 
 @IgnoreExtraProperties
-public class BookingNotification {
+public class BookingRequest {
     public String id;
     public String uid;
     private String status;
     private Booking booking;
 
-    public BookingNotification() {
+    public BookingRequest() {
 
     }
 
-    public BookingNotification(String id, String uid, String status, Booking booking) {
+    public BookingRequest(String id, String uid, String status, Booking booking) {
         this.id = id;
         this.uid = uid;
         this.status = status;
         this.booking = booking;
+    }
+
+    public BookingRequest(String id, String uid, String status) {
+        this.id = id;
+        this.uid = uid;
+        this.status = status;
     }
 
     public Booking getBooking() {

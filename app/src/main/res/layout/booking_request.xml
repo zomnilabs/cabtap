@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout android:id="@+id/booking_request"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:layout_gravity="center" android:orientation="vertical" android:padding="18sp">
+
+        <TextView
+            android:textColor="@color/colorBlack"
+            android:id="@+id/lbl_your_name"
+            android:text="New Passenger Requesting for a Ride"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:theme="@style/DangerButton"
+                android:layout_weight="1"
+                android:id="@+id/btn_reject_booking"
+                android:text="@string/booking_reject"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <Button
+                android:theme="@style/PrimaryButton"
+                android:layout_weight="1"
+                android:id="@+id/btn_accept_booking"
+                android:text="@string/booking_accept"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

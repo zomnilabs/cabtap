@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.location.Location;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -27,6 +29,7 @@ import android.widget.Toast;
 import com.example.alleoindong.cabtap.BaseActivity;
 import com.example.alleoindong.cabtap.DrawerMenuAdapter;
 import com.example.alleoindong.cabtap.R;
+import com.example.alleoindong.cabtap.models.BookingRequest;
 import com.example.alleoindong.cabtap.models.DrawerMenu;
 import com.example.alleoindong.cabtap.models.UserProfile;
 import com.example.alleoindong.cabtap.models.Vehicle;
@@ -85,10 +88,13 @@ public class DriverMapActivity extends BaseActivity implements
     public Marker mCurrentLocation;
     public LocationRequest mLocationRequest;
 
+    private DatabaseReference mBookingNotificationsRef;
     private DatabaseReference mGeofireRef;
     private GeoFire geoFire;
 
     public static String assignedPlateNumber;
+
+    public BookingRequest mCurrentBookingRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,6 +144,7 @@ public class DriverMapActivity extends BaseActivity implements
         geoFire = new GeoFire(mGeofireRef);
 
         initializeProfileInfo();
+        initListenForBookingRequest();
     }
 
     private void setGeoFireLocation(double lat, double lng) {
@@ -157,7 +164,6 @@ public class DriverMapActivity extends BaseActivity implements
 
         super.onStop();
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -180,7 +186,6 @@ public class DriverMapActivity extends BaseActivity implements
 
         return super.onOptionsItemSelected(item);
     }
-
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -317,6 +322,65 @@ public class DriverMapActivity extends BaseActivity implements
         public void onItemClick(AdapterView parent, View view, int position, long id) {
             selectItem(position);
         }
+    }
+
+    private void showBookingRequestDialog() {
+        FragmentManager fm = getSupportFragmentManager();
+        final BookingRequestDialogFragment mBookingRequestDialogFragment = BookingRequestDialogFragment.newInstance("Passenger Requesting for taxi");
+        mBookingRequestDialogFragment.show(fm, "fragment_booking_request");
+
+        Handler handler = new Handler();
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                if (mBookingRequestDialogFragment.isVisible()) {
+                    mBookingRequestDialogFragment.dismiss();
+
+                    rejectBooking();
+                }
+            }
+        };
+
+        handler.postDelayed(runnable, 10000);
+
+    }
+
+    private void initListenForBookingRequest() {
+        mBookingNotificationsRef = FirebaseDatabase.getInstance()
+                .getReference("booking-requests").child(BaseActivity.uid);
+
+        ValueEventListener bookingRequests = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot request : dataSnapshot.getChildren()) {
+                    BookingRequest bookingRequest = request.getValue(BookingRequest.class);
+
+                    Log.i("REQUEST", bookingRequest.getStatus());
+                    if (bookingRequest.getStatus().equals("pending")) {
+                        Log.i("REQUEST", "new request with pending status");
+
+                        mCurrentBookingRequest = bookingRequest;
+                        BookingRequestDialogFragment.mBookingRequest = bookingRequest;
+
+                        showBookingRequestDialog();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+
+        mBookingNotificationsRef.addValueEventListener(bookingRequests);
+    }
+
+    private void rejectBooking() {
+        mBookingNotificationsRef = FirebaseDatabase.getInstance()
+                .getReference("booking-requests").child(BaseActivity.uid);
+
+        mBookingNotificationsRef.child(mCurrentBookingRequest.id).setValue(null);
     }
 
     @OnClick(R.id.btn_emergency) void bookClick() {
