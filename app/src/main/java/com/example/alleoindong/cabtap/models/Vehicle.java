@@ -30,6 +30,10 @@ public class Vehicle {
 
     @Override
     public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+
         if (obj == this) return true;
 
         if (!(obj instanceof Vehicle)) {
@@ -38,7 +42,7 @@ public class Vehicle {
 
         Vehicle vehicle = (Vehicle) obj;
 
-        return plateNumber == vehicle.plateNumber;
+        return this.plateNumber.equals(vehicle.plateNumber);
     }
 
     @Override

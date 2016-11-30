@@ -78,6 +78,8 @@ public class RideBookingActivity extends AppCompatActivity {
         mGeofireRef = FirebaseDatabase.getInstance().getReference("geofire");
         geoFire = new GeoFire(mGeofireRef);
 
+        vehicles = new ArrayList<Vehicle>();
+
         initPlaceAutocomplete();
         initPlaceAutoCompleteDestination();
     }
@@ -215,7 +217,9 @@ public class RideBookingActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Vehicle vehicle = dataSnapshot.getValue(Vehicle.class);
 
-                addVehicleToList(vehicle);
+                if (vehicle != null) {
+                    addVehicleToList(vehicle);
+                }
             }
 
             @Override
@@ -228,6 +232,8 @@ public class RideBookingActivity extends AppCompatActivity {
     }
 
     private void addVehicleToList(Vehicle vehicle) {
+        Log.i("REQUEST", vehicle.plateNumber);
+
         if (vehicles.contains(vehicle)) {
             return;
         }
