@@ -71,17 +71,6 @@
             <!--android:hint="@string/pickup_date"-->
             <!--android:textAppearance="@style/TextAppearance.FontPath" />-->
 
-        <TextView
-            android:textAlignment="center"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/text_size_medium"
-            android:text="@string/estimate_fare_rate"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:textColor="@color/colorGray"
-            android:textAppearance="@style/TextAppearance.FontPath" />
-
         <EditText
             android:enabled="false"
             android:theme="@style/EditTextStyle"
@@ -90,9 +79,18 @@
             android:inputType="textPersonName"
             android:textSize="24sp"
             android:textColor="@color/colorBlack"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
             android:ems="10"
             android:id="@+id/estimate_fare_rate"
             android:hint="@string/estimate_fare_rate"
+            android:textAppearance="@style/TextAppearance.FontPath" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="@string/estimate_fare_note"
+            android:textColor="@color/colorGray"
             android:textAppearance="@style/TextAppearance.FontPath" />
 
         <RelativeLayout
