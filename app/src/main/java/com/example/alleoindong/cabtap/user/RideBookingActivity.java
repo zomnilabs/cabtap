@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.location.Location;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -216,8 +217,8 @@ public class RideBookingActivity extends AppCompatActivity {
                     return;
                 }
 
+                showBookingRequestDialog(booking);
                 Toast.makeText(RideBookingActivity.this, "A driver has accepted your request", Toast.LENGTH_SHORT).show();
-                finish();
             }
 
             @Override
@@ -227,6 +228,16 @@ public class RideBookingActivity extends AppCompatActivity {
         };
 
         bookingsRef.addValueEventListener(bookingListener);
+    }
+
+    private void showBookingRequestDialog(Booking booking) {
+        FragmentManager fm = getSupportFragmentManager();
+
+        BookingAcceptedDialog bookingAcceptedDialog = BookingAcceptedDialog
+                .newInstance("Passenger Requesting for taxi", booking.plateNumber);
+
+        bookingAcceptedDialog.show(fm, "fragment_booking_accepted");
+
     }
 
     private void getVehicle(String plateNumber) {
