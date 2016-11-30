@@ -218,7 +218,7 @@ public class RideBookingActivity extends AppCompatActivity {
                     return;
                 }
 
-                showBookingRequestDialog(booking);
+                showBookingAcceptedDialog(booking);
                 Toast.makeText(RideBookingActivity.this, "A driver has accepted your request", Toast.LENGTH_SHORT).show();
             }
 
@@ -231,7 +231,7 @@ public class RideBookingActivity extends AppCompatActivity {
         bookingsRef.addValueEventListener(bookingListener);
     }
 
-    private void showBookingRequestDialog(Booking booking) {
+    private void showBookingAcceptedDialog(Booking booking) {
         FragmentManager fm = getSupportFragmentManager();
 
         BookingAcceptedDialog bookingAcceptedDialog = BookingAcceptedDialog
