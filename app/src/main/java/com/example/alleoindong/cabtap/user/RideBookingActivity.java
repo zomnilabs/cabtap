@@ -132,7 +132,13 @@ public class RideBookingActivity extends AppCompatActivity {
         String id = UUID.randomUUID().toString();
         String status = "finding-driver";
         double fareEstimate = Double.parseDouble(mEstimatedFare.getText().toString());
-        Booking booking = new Booking(id, status, fareEstimate, mPickup, mDestination);
+        com.example.alleoindong.cabtap.models.Location pickup = new com.example.alleoindong
+                .cabtap.models.Location(mPickup.latitude, mPickup.longitude);
+
+        com.example.alleoindong.cabtap.models.Location destination = new com.example.alleoindong
+                .cabtap.models.Location(mDestination.latitude, mDestination.longitude);
+
+        Booking booking = new Booking(id, status, fareEstimate, pickup, destination);
 
         String requestId = UUID.randomUUID().toString();
         BookingRequest bookingRequest = new BookingRequest(requestId, BaseActivity.uid, "pending", booking);

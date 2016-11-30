@@ -46,14 +46,28 @@ public class BookingRequestDialogFragment extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.booking_request, container);
+        View view = inflater.inflate(R.layout.booking_request, container);
+
+        ((Button) view.findViewById(R.id.btn_accept_booking)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                acceptBooking();
+            }
+        });
+
+        ((Button) view.findViewById(R.id.btn_reject_booking)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rejectBooking();
+            }
+        });
+
+        return view;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        ButterKnife.bind(view);
 
         // Fetch arguments from bundle and set title
         String title = getArguments().getString("title", "Enter Name");
@@ -61,9 +75,15 @@ public class BookingRequestDialogFragment extends DialogFragment {
 
     }
 
-    @OnClick(R.id.btn_accept_booking) void acceptBooking() {
+    public void acceptBooking() {
         DatabaseReference bookingsRef = FirebaseDatabase.getInstance()
                 .getReference("bookings");
+
+        DatabaseReference requestRef = FirebaseDatabase.getInstance()
+                .getReference("booking-requests")
+                .child(BaseActivity.uid);
+
+        requestRef.setValue(null);
 
         Booking booking = BookingRequestDialogFragment.mBookingRequest.getBooking();
         booking.setPlateNumber(DriverMapActivity.assignedPlateNumber);
@@ -75,7 +95,7 @@ public class BookingRequestDialogFragment extends DialogFragment {
         dismiss();
     }
 
-    @OnClick(R.id.btn_reject_booking) void rejectBooking() {
+    public void rejectBooking() {
         DatabaseReference mBookingNotificationsRef = FirebaseDatabase.getInstance()
                 .getReference("booking-requests").child(BaseActivity.uid);
 

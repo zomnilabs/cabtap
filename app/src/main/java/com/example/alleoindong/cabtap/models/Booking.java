@@ -13,15 +13,15 @@ public class Booking {
     public String plateNumber;
     public String status;
     public double fareEstimate;
-    public LatLng passengerLocation;
-    public LatLng destination;
+    public Location passengerLocation;
+    public Location destination;
 
     public Booking() {
 
     }
 
     public Booking(String id, String status, double fareEstimate,
-                   LatLng passengerLocation, LatLng destination) {
+                   Location passengerLocation, Location destination) {
 
         this.id = id;
         this.status = status;
