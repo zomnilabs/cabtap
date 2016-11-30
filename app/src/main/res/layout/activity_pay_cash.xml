@@ -44,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_size_medium"
-            android:text="@string/pay_cash_1"
+            android:text="@string/pay_cash_2"
             android:layout_marginTop="50dp"
             android:textColor="@color/colorGray"
             android:textAppearance="@style/TextAppearance.FontPath" />

@@ -11,18 +11,20 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <!--<activity-->
-            <!--android:name=".SplashScreenActivity"-->
-            <!--android:theme="@style/SplashScreen">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
-        <!--</activity>-->
-        <activity android:name=".SplashScreenSecondActivity"
+        <!-- <activity -->
+        <!-- android:name=".SplashScreenActivity" -->
+        <!-- android:theme="@style/SplashScreen"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+        <!-- </intent-filter> -->
+        <!-- </activity> -->
+        <activity
+            android:name=".SplashScreenSecondActivity"
             android:theme="@style/SplashScreenSecond">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -90,7 +92,8 @@
 
         <activity android:name=".user.PayThroughPaymayaActivity" />
         <activity android:name=".user.PayCashActivity" />
-        <activity android:name=".user.ExactLocationActivity"
+        <activity
+            android:name=".user.ExactLocationActivity"
             android:theme="@style/AppTheme.DarkActionBar" />
 
         <meta-data
@@ -101,18 +104,18 @@
             android:name=".MyFirebaseMessagingService"
             android:enabled="true">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
         <service
             android:name=".MyFirebaseInstanceIDService"
             android:enabled="true">
             <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
 
+        <activity android:name=".user.BookingHistoryActivity"></activity>
     </application>
 
 </manifest>

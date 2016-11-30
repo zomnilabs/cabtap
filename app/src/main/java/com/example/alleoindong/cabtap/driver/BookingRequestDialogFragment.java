@@ -97,6 +97,8 @@ public class BookingRequestDialogFragment extends DialogFragment {
         Booking booking = BookingRequestDialogFragment.mBookingRequest.getBooking();
         booking.setPlateNumber(DriverMapActivity.assignedPlateNumber);
         booking.setStatus("accepted");
+        booking.passengerLocationName = BookingRequestDialogFragment.mBookingRequest.pickup;
+        booking.destinationName = BookingRequestDialogFragment.mBookingRequest.destination;
 
         // Save to firebase
         bookingsRef.child(BookingRequestDialogFragment.mBookingRequest.uid).child(booking.id).setValue(booking);

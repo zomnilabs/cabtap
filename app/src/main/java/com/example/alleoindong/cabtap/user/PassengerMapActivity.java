@@ -217,18 +217,18 @@ public class PassengerMapActivity extends BaseActivity implements
     }
 
     public void selectItem(int position) {
-//        switch (position) {
-//            case 0:
-//                break;
-//            case 1:
-//                break;
-//            case 2:
-//                break;
-//            default:
-//
-//        }
+        switch (position) {
+            case 0:
+                Intent intent = new Intent(PassengerMapActivity.this, BookingHistoryActivity.class);
+                startActivity(intent);
+                break;
+            case 1:
+                break;
+            default:
 
-//        mDrawerLayout.closeDrawer(mDrawerList);
+        }
+
+        mDrawerLayout.closeDrawer(mDrawerList);
     }
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener {

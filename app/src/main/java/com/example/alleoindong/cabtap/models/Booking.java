@@ -12,6 +12,8 @@ public class Booking {
     public String id;
     public String plateNumber;
     public String status;
+    public String passengerLocationName;
+    public String destinationName;
     public double fareEstimate;
     public Location passengerLocation;
     public Location destination;
@@ -26,6 +28,18 @@ public class Booking {
         this.id = id;
         this.status = status;
         this.fareEstimate = fareEstimate;
+        this.passengerLocation = passengerLocation;
+        this.destination = destination;
+    }
+
+    public Booking(String id, String status, double fareEstimate, String passengerLocationName,
+                   String destinationName, Location passengerLocation, Location destination) {
+
+        this.id = id;
+        this.status = status;
+        this.fareEstimate = fareEstimate;
+        this.passengerLocationName = passengerLocationName;
+        this.destinationName = destinationName;
         this.passengerLocation = passengerLocation;
         this.destination = destination;
     }
