@@ -84,11 +84,7 @@ public class DriverMapActivity extends BaseActivity implements
     public LatLng mlatlng;
     public Marker mCurrentLocation;
     public LocationRequest mLocationRequest;
-    public TextView mLatitude;
-    public TextView mLongitude;
-    public Bitmap mMarkerIcon;
 
-    public GeoQuery geoQuery;
     private DatabaseReference mGeofireRef;
     private GeoFire geoFire;
 
@@ -230,6 +226,10 @@ public class DriverMapActivity extends BaseActivity implements
                 Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
             return;
+        }
+
+        if (mCurrentLocation != null) {
+            mCurrentLocation.remove();
         }
 
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
