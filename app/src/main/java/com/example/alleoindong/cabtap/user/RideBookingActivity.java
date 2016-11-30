@@ -45,7 +45,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class RideBookingActivity extends AppCompatActivity {
+public class RideBookingActivity extends AppCompatActivity implements DialogInterface.OnDismissListener {
     @BindView(R.id.btn_book_now) Button mBookNow;
     @BindView(R.id.btn_book_now_loading) ProgressBar mProgress;
     @BindView(R.id.estimate_fare_rate) EditText mEstimatedFare;
@@ -238,19 +238,6 @@ public class RideBookingActivity extends AppCompatActivity {
                 .newInstance("Passenger Requesting for taxi", booking.plateNumber);
 
         bookingAcceptedDialog.show(fm, "fragment_booking_accepted");
-
-        bookingAcceptedDialog.onDismiss(new DialogInterface() {
-            @Override
-            public void cancel() {
-
-            }
-
-            @Override
-            public void dismiss() {
-                finish();
-            }
-        });
-
     }
 
     private void getVehicle(String plateNumber) {
@@ -338,4 +325,8 @@ public class RideBookingActivity extends AppCompatActivity {
         mProgress.setVisibility(isShown ? View.VISIBLE : View.INVISIBLE);
     }
 
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        finish();
+    }
 }

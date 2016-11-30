@@ -1,5 +1,7 @@
 package com.example.alleoindong.cabtap.user;
 
+import android.app.Activity;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -57,5 +59,15 @@ public class BookingAcceptedDialog extends DialogFragment {
 
         String title = getArguments().getString("title", "Enter Name");
         getDialog().setTitle(title);
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+
+        Activity activity = getActivity();
+        if (activity instanceof DialogInterface.OnDismissListener) {
+            ((DialogInterface.OnDismissListener) activity).onDismiss(dialog);
+        }
     }
 }
