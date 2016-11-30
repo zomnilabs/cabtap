@@ -123,8 +123,8 @@ public class PassengerMapActivity extends BaseActivity implements
 
         // Menu Items
         mDrawerMenu = new ArrayList<DrawerMenu>();
-        mDrawerMenu.add(new DrawerMenu("Notifications", R.drawable.ic_notification));
-        mDrawerMenu.add(new DrawerMenu("Scheduled", R.drawable.ic_schedule));
+//        mDrawerMenu.add(new DrawerMenu("Notifications", R.drawable.ic_notification));
+//        mDrawerMenu.add(new DrawerMenu("Scheduled", R.drawable.ic_schedule));
         mDrawerMenu.add(new DrawerMenu("History", R.drawable.ic_history));
         mDrawerMenu.add(new DrawerMenu("Logout", R.drawable.ic_logout));
 

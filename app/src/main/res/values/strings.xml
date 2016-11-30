@@ -32,6 +32,7 @@
     <string name="destination">Destination</string>
     <string name="pickup_point">Pick-up Point</string>
     <string name="estimate_fare_rate">Estimated Fare Rate:</string>
+    <string name="estimate_fare_note">NOTE: This is only a fare estimate. You need to pay for the taxi fare meter.</string>
     <string name="book_now">BOOK NOW!</string>
     <string name="engine_failure">ENGINE FAILURE</string>
     <string name="health_condition">HEALTH CONDITIONS</string>
