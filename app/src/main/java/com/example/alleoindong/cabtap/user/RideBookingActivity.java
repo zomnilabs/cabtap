@@ -9,32 +9,34 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import com.example.alleoindong.cabtap.BaseActivity;
 import com.example.alleoindong.cabtap.R;
-import com.example.alleoindong.cabtap.admin.AddDriverActivity;
 import com.example.alleoindong.cabtap.models.Booking;
+import com.example.alleoindong.cabtap.models.BookingRequest;
+import com.example.alleoindong.cabtap.models.Vehicle;
+import com.firebase.geofire.GeoFire;
+import com.firebase.geofire.GeoLocation;
+import com.firebase.geofire.GeoQuery;
+import com.firebase.geofire.GeoQueryEventListener;
 import com.google.android.gms.common.api.Status;
-import com.google.android.gms.location.places.AutocompleteFilter;
 import com.google.android.gms.location.places.Place;
-import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.android.gms.location.places.ui.SupportPlaceAutocompleteFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.util.ArrayList;
 import java.util.UUID;
 
 import butterknife.BindView;
@@ -49,7 +51,16 @@ public class RideBookingActivity extends AppCompatActivity {
     public SupportPlaceAutocompleteFragment mPlaceAutocompleteDestination;
     public LatLng mPickup;
     public LatLng mDestination;
+
+    public ArrayList<Vehicle> vehicles;
+
+    public DatabaseReference vehiclesRef;
+    public DatabaseReference bookingRequestsRef;
     public DatabaseReference bookingsRef;
+
+    public GeoQuery geoQuery;
+    private DatabaseReference mGeofireRef;
+    private GeoFire geoFire;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,50 +71,90 @@ public class RideBookingActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        bookingsRef = FirebaseDatabase.getInstance()
-                .getReference("bookings");
+        bookingRequestsRef = FirebaseDatabase.getInstance()
+                .getReference("booking-requests");
+
+        // initialize geofire
+        mGeofireRef = FirebaseDatabase.getInstance().getReference("geofire");
+        geoFire = new GeoFire(mGeofireRef);
 
         initPlaceAutocomplete();
         initPlaceAutoCompleteDestination();
     }
 
-    @OnClick(R.id.btn_book_now) void bookNow() {
-        onShowLoader(true);
+    public void getNearbyVehicles(LatLng location) {
+        geoQuery = geoFire.queryAtLocation(new GeoLocation(location.latitude, location.longitude), 1);
 
-        final String id = UUID.randomUUID().toString();
-        String status = "finding-driver";
-        double fareEstimate = Double.parseDouble(mEstimatedFare.getText().toString());
+        geoQueryEventListener();
+    }
 
-        final Booking booking = new Booking(id, status, fareEstimate, mPickup, mDestination);
-
-        // Save to firebase
-        bookingsRef.runTransaction(new Transaction.Handler() {
+    private void geoQueryEventListener() {
+        geoQuery.addGeoQueryEventListener(new GeoQueryEventListener() {
             @Override
-            public Transaction.Result doTransaction(MutableData mutableData) {
-                mutableData.child(id).setValue(booking);
+            public void onKeyEntered(String key, GeoLocation location) {
+                Log.i("VEHICLES", String.format("Key %s entered the search area at [%f,%f]", key, location.latitude, location.longitude));
 
-                return Transaction.success(mutableData);
+                getVehicle(key);
             }
 
             @Override
-            public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
-                finish();
+            public void onKeyExited(String key) {
+
+            }
+
+            @Override
+            public void onKeyMoved(String key, GeoLocation location) {
+
+            }
+
+            @Override
+            public void onGeoQueryReady() {
+
+            }
+
+            @Override
+            public void onGeoQueryError(DatabaseError error) {
+
             }
         });
     }
+
+    @OnClick(R.id.btn_book_now) void bookNow() {
+        if (vehicles.size() < 0) {
+            Toast.makeText(this, "There is no taxi nearby your selected pickup location", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        onShowLoader(true);
+
+        String id = UUID.randomUUID().toString();
+        String status = "finding-driver";
+        double fareEstimate = Double.parseDouble(mEstimatedFare.getText().toString());
+        Booking booking = new Booking(id, status, fareEstimate, mPickup, mDestination);
+
+        String requestId = UUID.randomUUID().toString();
+        BookingRequest bookingRequest = new BookingRequest(requestId, BaseActivity.uid, "pending", booking);
+
+        for (Vehicle vehicle : vehicles) {
+            bookingRequestsRef.child(vehicle.uid).child(requestId).setValue(bookingRequest);
+        }
+    }
+
 
     public void initPlaceAutocomplete() {
         mPlaceAutocomplete = (SupportPlaceAutocompleteFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.place_autocomplete_fragment);
         mPlaceAutocomplete.setHint("Pickup Location");
-//        mPlaceAutocomplete.setFilter(mAutoCompleteFilter);
 
         mPlaceAutocomplete.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(Place place) {
                 Log.i("PLACE", place.getName().toString() );
                 mPickup = place.getLatLng();
+
                 calculateEstimatedFare();
+
+                getNearbyVehicles(mPickup);
             }
 
             @Override
@@ -112,6 +163,7 @@ public class RideBookingActivity extends AppCompatActivity {
             }
         });
     }
+
     public void initPlaceAutoCompleteDestination() {
         mPlaceAutocompleteDestination = (SupportPlaceAutocompleteFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.place_autocomplete_fragment_destination);
@@ -131,6 +183,56 @@ public class RideBookingActivity extends AppCompatActivity {
                 Log.i("PLACE", "ERROR: " + status);
             }
         });
+    }
+
+    private void listenForAcceptedBooking(String bookingId) {
+        bookingsRef = FirebaseDatabase.getInstance()
+                .getReference("bookings")
+                .child(BaseActivity.uid)
+                .child(bookingId);
+
+        ValueEventListener bookingListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+
+        bookingsRef.addValueEventListener(bookingListener);
+    }
+
+    private void getVehicle(String plateNumber) {
+        vehiclesRef = FirebaseDatabase.getInstance()
+                .getReference("vehicles").child(plateNumber);
+
+        ValueEventListener vehiclesDataListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Vehicle vehicle = dataSnapshot.getValue(Vehicle.class);
+
+                addVehicleToList(vehicle);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+
+        vehiclesRef.addListenerForSingleValueEvent(vehiclesDataListener);
+    }
+
+    private void addVehicleToList(Vehicle vehicle) {
+        if (vehicles.contains(vehicle)) {
+            return;
+        }
+
+        vehicles.add(vehicle);
     }
 
     private double getDistanceInMeters() {

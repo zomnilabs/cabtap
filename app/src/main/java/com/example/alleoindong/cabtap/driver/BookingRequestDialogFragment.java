@@ -65,10 +65,12 @@ public class BookingRequestDialogFragment extends DialogFragment {
         DatabaseReference bookingsRef = FirebaseDatabase.getInstance()
                 .getReference("bookings");
 
-        final Booking booking = BookingRequestDialogFragment.mBookingRequest.getBooking();
+        Booking booking = BookingRequestDialogFragment.mBookingRequest.getBooking();
+        booking.setPlateNumber(DriverMapActivity.assignedPlateNumber);
+        booking.setStatus("accepted");
 
         // Save to firebase
-        bookingsRef.child(booking.id).setValue(booking);
+        bookingsRef.child(BookingRequestDialogFragment.mBookingRequest.uid).child(booking.id).setValue(booking);
 
         dismiss();
     }

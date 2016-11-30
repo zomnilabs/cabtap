@@ -2,6 +2,8 @@ package com.example.alleoindong.cabtap.models;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
+import java.util.Objects;
+
 /**
  * Created by alleoindong on 11/21/16.
  */
@@ -24,5 +26,26 @@ public class Vehicle {
         this.model = model;
         this.year = year;
         this.uid = uid;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+
+        if (!(obj instanceof Vehicle)) {
+            return false;
+        }
+
+        Vehicle vehicle = (Vehicle) obj;
+
+        return plateNumber == vehicle.plateNumber;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 31 * result + plateNumber.hashCode();
+
+        return result;
     }
 }
