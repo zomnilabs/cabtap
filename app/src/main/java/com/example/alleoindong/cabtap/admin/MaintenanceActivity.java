@@ -4,12 +4,14 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -59,8 +61,17 @@ public class MaintenanceActivity extends AppCompatActivity {
                 R.layout.maintenance_item, MaintenanceActivity.MaintenanceHolder.class, mDatabase) {
 
             @Override
-            protected void populateViewHolder(MaintenanceActivity.MaintenanceHolder viewHolder, Maintenance model, int position) {
+            protected void populateViewHolder(MaintenanceActivity.MaintenanceHolder viewHolder, Maintenance model, final int position) {
                 viewHolder.setPlateNumber(model.plateNumber);
+
+                viewHolder.mView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Maintenance maintenance = (Maintenance) mAdapter.getItem(position);
+                        Log.i("Maintenance", maintenance.plateNumber);
+                        showMaintenanceInfoDialog(maintenance);
+                    }
+                });
             }
 
             @Override
@@ -127,6 +138,15 @@ public class MaintenanceActivity extends AppCompatActivity {
             field.setText(name);
         }
 
+    }
+
+    private void showMaintenanceInfoDialog(Maintenance maintenance) {
+        FragmentManager fm = getSupportFragmentManager();
+
+        MaintenanceInformationDialog maintenanceInformationDialog = MaintenanceInformationDialog
+                .newInstance(maintenance);
+
+        maintenanceInformationDialog.show(fm, "fragment_maintenance_info");
     }
 
     private void handleIntent(Intent intent) {

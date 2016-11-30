@@ -35,7 +35,7 @@ public class BookingAcceptedDialog extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.booking_request, container);
+        View view = inflater.inflate(R.layout.booking_accepted_dialog, container);
 
         String plateNumber = getArguments().getString("plateNumber", "No Plate");
 

@@ -2,6 +2,7 @@ package com.example.alleoindong.cabtap.user;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.location.Location;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
@@ -217,7 +218,7 @@ public class RideBookingActivity extends AppCompatActivity {
                     return;
                 }
 
-                showBookingRequestDialog(booking);
+                showBookingAcceptedDialog(booking);
                 Toast.makeText(RideBookingActivity.this, "A driver has accepted your request", Toast.LENGTH_SHORT).show();
             }
 
@@ -230,13 +231,25 @@ public class RideBookingActivity extends AppCompatActivity {
         bookingsRef.addValueEventListener(bookingListener);
     }
 
-    private void showBookingRequestDialog(Booking booking) {
+    private void showBookingAcceptedDialog(Booking booking) {
         FragmentManager fm = getSupportFragmentManager();
 
         BookingAcceptedDialog bookingAcceptedDialog = BookingAcceptedDialog
                 .newInstance("Passenger Requesting for taxi", booking.plateNumber);
 
         bookingAcceptedDialog.show(fm, "fragment_booking_accepted");
+
+        bookingAcceptedDialog.onDismiss(new DialogInterface() {
+            @Override
+            public void cancel() {
+
+            }
+
+            @Override
+            public void dismiss() {
+                finish();
+            }
+        });
 
     }
 
