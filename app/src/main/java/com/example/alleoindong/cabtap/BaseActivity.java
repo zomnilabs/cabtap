@@ -19,6 +19,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import rx.Observable;
 import rx.subjects.PublishSubject;
@@ -36,6 +37,8 @@ public class BaseActivity extends AppCompatActivity {
     public static String fullName = "";
     public static String firstName = "";
     public static String email = "";
+    public static UserProfile currentUser;
+    public static String fcm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +67,11 @@ public class BaseActivity extends AppCompatActivity {
                             BaseActivity.fullName = userProfile.firstName + " " + userProfile.lastName;
                             BaseActivity.firstName = userProfile.firstName;
                             BaseActivity.email = userProfile.email;
+                            BaseActivity.currentUser = userProfile;
+
+                            BaseActivity.fcm = FirebaseInstanceId.getInstance().getToken();
+                            sendRegistrationToServer(BaseActivity.fcm);
+
 
                             authenticationObservable.onNext(isAuthenticated);
                         }
@@ -128,5 +136,17 @@ public class BaseActivity extends AppCompatActivity {
     protected void goBackToLoginActivity() {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
+    }
+
+    private void sendRegistrationToServer(String token) {
+        if (BaseActivity.currentUser == null) {
+            return;
+        }
+
+        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("users");
+        UserProfile userProfile = BaseActivity.currentUser;
+        userProfile.setFcmToken(token);
+
+        usersRef.child(userProfile.uid).setValue(userProfile);
     }
 }

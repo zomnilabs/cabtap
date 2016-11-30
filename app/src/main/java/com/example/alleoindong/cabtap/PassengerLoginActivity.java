@@ -79,6 +79,8 @@ public class PassengerLoginActivity extends BaseActivity {
                         finish();
                 }
             }
+
+            loginProgress.dismiss();
         }
     };
 
@@ -125,11 +127,19 @@ public class PassengerLoginActivity extends BaseActivity {
     private void getAssignedVehicle() {
         DatabaseReference vehiclesRef = FirebaseDatabase.getInstance().getReference("vehicles");
         Query assignedVehicleQuery = vehiclesRef.orderByChild("uid").equalTo(BaseActivity.uid);
+        Log.i("LOGIN", BaseActivity.uid);
 
         assignedVehicleQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Vehicle vehicle = dataSnapshot.getValue(Vehicle.class);
+                Vehicle vehicle = null;
+
+                for (DataSnapshot vehicleSnapshop : dataSnapshot.getChildren()) {
+                    vehicle = vehicleSnapshop.getValue(Vehicle.class);
+                }
+
+                Log.i("LOGIN", "vehicle: " + vehicle.plateNumber);
+
                 if (vehicle == null) {
                     Toast.makeText(PassengerLoginActivity.this, "You are not assigned into a vehicle", Toast.LENGTH_SHORT).show();
                     loginProgress.dismiss();

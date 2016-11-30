@@ -99,6 +99,13 @@ public class DriverMapActivity extends BaseActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_driver_map);
 
+        if (getIntent().getExtras() != null) {
+            for (String key : getIntent().getExtras().keySet()) {
+                Object value = getIntent().getExtras().get(key);
+                Log.d("NOTIFICATION", "Key: " + key + " Value: " + value);
+            }
+        }
+
         ButterKnife.bind(this);
 
         if (toolbar != null) {

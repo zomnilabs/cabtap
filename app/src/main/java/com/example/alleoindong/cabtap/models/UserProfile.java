@@ -17,6 +17,7 @@ public class UserProfile {
     public String dateBirth;
     public String role;
     public String email;
+    public String fcmToken;
 
     public UserProfile() {
 
@@ -42,5 +43,24 @@ public class UserProfile {
         this.lastName = lastName;
         this.role = role;
         this.email = email;
+    }
+
+    public UserProfile(String id, String uid, String firstName,
+                       String lastName, String role, String email, String fcmToken) {
+        this.id = id;
+        this.uid = uid;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.role = role;
+        this.email = email;
+        this.fcmToken = fcmToken;
+    }
+
+    public void setFcmToken(String fcmToken) {
+        this.fcmToken = fcmToken;
+    }
+
+    public String getFcmToken() {
+        return fcmToken;
     }
 }

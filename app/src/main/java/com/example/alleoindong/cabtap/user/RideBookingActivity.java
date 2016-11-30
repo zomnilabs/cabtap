@@ -15,6 +15,7 @@ import android.widget.ProgressBar;
 
 import com.example.alleoindong.cabtap.R;
 import com.example.alleoindong.cabtap.admin.AddDriverActivity;
+import com.example.alleoindong.cabtap.models.Booking;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.AutocompleteFilter;
 import com.google.android.gms.location.places.Place;
@@ -24,30 +25,31 @@ import com.google.android.gms.location.places.ui.SupportPlaceAutocompleteFragmen
 import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class RideBookingActivity extends AppCompatActivity {
     @BindView(R.id.btn_book_now) Button mBookNow;
-//    @BindView(R.id.pickup_date) EditText mPickupDate;
     @BindView(R.id.btn_book_now_loading) ProgressBar mProgress;
     @BindView(R.id.estimate_fare_rate) EditText mEstimatedFare;
-//    private DialogFragment datePickerDialog;
-//    private SimpleDateFormat dateFormatter;
     public SupportPlaceAutocompleteFragment mPlaceAutocomplete;
     public SupportPlaceAutocompleteFragment mPlaceAutocompleteDestination;
-//    public AutocompleteFilter mAutoCompleteFilter;
     public LatLng mPickup;
     public LatLng mDestination;
-
-
-    protected FirebaseApp mApp;
-    private FirebaseAuth.AuthStateListener mAuthListener;
+    public DatabaseReference bookingsRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,16 +60,36 @@ public class RideBookingActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        mApp = FirebaseApp.initializeApp(this);
-//        this.setDateTimeField();
-
-//        mAutoCompleteFilter = new AutocompleteFilter.Builder()
-//            .setTypeFilter(AutocompleteFilter.TYPE_FILTER_REGIONS)
-//            .setCountry("ph")
-//            .build();
+        bookingsRef = FirebaseDatabase.getInstance()
+                .getReference("bookings");
 
         initPlaceAutocomplete();
         initPlaceAutoCompleteDestination();
+    }
+
+    @OnClick(R.id.btn_book_now) void bookNow() {
+        onShowLoader(true);
+
+        final String id = UUID.randomUUID().toString();
+        String status = "finding-driver";
+        double fareEstimate = Double.parseDouble(mEstimatedFare.getText().toString());
+
+        final Booking booking = new Booking(id, status, fareEstimate, mPickup, mDestination);
+
+        // Save to firebase
+        bookingsRef.runTransaction(new Transaction.Handler() {
+            @Override
+            public Transaction.Result doTransaction(MutableData mutableData) {
+                mutableData.child(id).setValue(booking);
+
+                return Transaction.success(mutableData);
+            }
+
+            @Override
+            public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
+                finish();
+            }
+        });
     }
 
     public void initPlaceAutocomplete() {
@@ -162,43 +184,5 @@ public class RideBookingActivity extends AppCompatActivity {
         mBookNow.setText(isShown ? "" : getString(R.string.book_now));
         mProgress.setVisibility(isShown ? View.VISIBLE : View.INVISIBLE);
     }
-
-
-
-//    private void setDateTimeField() {
-//        mPickupDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//            @Override
-//            public void onFocusChange(View v, boolean hasFocus) {
-//                if (hasFocus) {
-//                    datePickerDialog.show(getSupportFragmentManager(), "Select a date");
-//                }
-//            }
-//        });
-//
-//        datePickerDialog = new RideBookingActivity.DatePickerDialogTheme4();
-//    }
-
-//    public static class DatePickerDialogTheme4 extends DialogFragment implements DatePickerDialog.OnDateSetListener {
-//
-//        @Override
-//        public Dialog onCreateDialog(Bundle savedInstanceState) {
-//            final Calendar calendar = Calendar.getInstance();
-//            int year = calendar.get(Calendar.YEAR);
-//            int month = calendar.get(Calendar.MONTH);
-//            int day = calendar.get(Calendar.DAY_OF_MONTH);
-//
-//            DatePickerDialog datepickerdialog = new DatePickerDialog(getActivity(),
-//                    R.style.datepicker, this, year, month, day);
-//
-//            return datepickerdialog;
-//        }
-//
-//        public void onDateSet(DatePicker view, int year, int month, int day) {
-//
-//            EditText pickupDate = (EditText) getActivity().findViewById(R.id.pickup_date);
-//
-//            pickupDate.setText(year + "-" + (month + 1) + "-" + day);
-//        }
-//    }
 
 }
