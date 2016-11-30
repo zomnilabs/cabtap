@@ -227,8 +227,6 @@ public class PassengerMapActivity extends BaseActivity implements
             default:
 
         }
-
-        mDrawerLayout.closeDrawer(mDrawerList);
     }
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener {

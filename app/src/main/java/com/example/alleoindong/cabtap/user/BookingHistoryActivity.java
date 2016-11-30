@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -43,8 +44,8 @@ public class BookingHistoryActivity extends AppCompatActivity {
         // Handle search intent
         handleIntent(getIntent());
 
-        mDatabase = FirebaseDatabase.getInstance().getReference("bookings");
-        Query mHistory = mDatabase.orderByChild("id").equalTo(BaseActivity.uid);
+        mDatabase = FirebaseDatabase.getInstance().getReference("bookings")
+                .child(BaseActivity.uid);
 
         ButterKnife.bind(this);
 
@@ -56,7 +57,7 @@ public class BookingHistoryActivity extends AppCompatActivity {
         nRcvHistory.addItemDecoration(new DividerItemDecoration(this, R.drawable.divider));
 
         mAdapter = new FirebaseRecyclerAdapter<Booking, BookingHistoryActivity.BookingHistory>(Booking.class,
-                R.layout.passenger_history_item, BookingHistoryActivity.BookingHistory.class, mHistory) {
+                R.layout.passenger_history_item, BookingHistoryActivity.BookingHistory.class, mDatabase) {
 
             @Override
             protected void populateViewHolder(BookingHistoryActivity.BookingHistory viewHolder, Booking model, int position) {
@@ -82,6 +83,17 @@ public class BookingHistoryActivity extends AppCompatActivity {
         super.onNewIntent(intent);
 
         handleIntent(intent);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     public static class BookingHistory extends RecyclerView.ViewHolder {
@@ -115,7 +127,7 @@ public class BookingHistoryActivity extends AppCompatActivity {
 
         public void setFareEstimate(Double fare) {
             TextView field = (TextView) mView.findViewById(R.id.fare_estimate);
-            field.setText(String.format("%f",fare));
+            field.setText(String.format("%.2f",fare));
         }
 
     }
