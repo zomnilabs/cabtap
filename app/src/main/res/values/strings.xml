@@ -99,4 +99,7 @@
     <string name="search_hint_driver">Enter Driver Name</string>
     <string name="booking_reject">Reject</string>
     <string name="booking_accept">Accept</string>
+    <string name="booking_cancel">Cancel</string>
+    <string name="booking_start">Start</string>
+    <string name="booking_complete">Complete</string>
 </resources>
