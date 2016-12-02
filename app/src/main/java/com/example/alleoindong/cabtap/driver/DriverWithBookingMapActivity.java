@@ -1,6 +1,7 @@
 package com.example.alleoindong.cabtap.driver;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.support.annotation.NonNull;
@@ -90,13 +91,13 @@ public class DriverWithBookingMapActivity extends BaseActivity implements OnMapR
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.menu_logout) {
-            this.logout();
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -114,20 +115,6 @@ public class DriverWithBookingMapActivity extends BaseActivity implements OnMapR
         }
 
         googleMap.setMyLocationEnabled(true);
-
-        // Add Marker to Passenger Location
-        LatLng passengerLocation = new LatLng(DriverMapActivity.mActiveBooking.passengerLocation.latitude,
-                DriverMapActivity.mActiveBooking.passengerLocation.longitude);
-
-        if (mPassengerLocation != null) {
-            mPassengerLocation.remove();
-        }
-
-        MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(passengerLocation);
-        markerOptions.title("Passenger Location");
-        markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_passenger));
-        mPassengerLocation = mMap.addMarker(markerOptions);
     }
 
     @Override
@@ -165,6 +152,8 @@ public class DriverWithBookingMapActivity extends BaseActivity implements OnMapR
         mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
 
         LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+
+        updatePassengerMarker();
     }
 
     @Override
@@ -189,20 +178,20 @@ public class DriverWithBookingMapActivity extends BaseActivity implements OnMapR
         markerOptions.title("My Current Position");
         markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_marker));
         mCurrentLocation = mMap.addMarker(markerOptions);
-
-        CameraPosition cameraPosition = new CameraPosition.Builder()
-                .target(mlatlng).zoom(16).build();
-
-        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
     }
 
     @OnClick(R.id.btn_cancel_booking) void cancelBookingClick() {
         updateBookingStatus("cancelled");
-        finish();
+        launchDriverMapActivity();
     }
 
     @OnClick(R.id.btn_start_booking) void startBookingClick() {
         updateBookingStatus("started");
+
+        LatLng destinationLatLng = new LatLng(DriverMapActivity.mActiveBooking.destination.latitude,
+                DriverMapActivity.mActiveBooking.destination.longitude);
+
+        mPassengerLocation.setPosition(destinationLatLng);
 
         mCancelBooking.setVisibility(View.GONE);
         mStartBooking.setVisibility(View.GONE);
@@ -212,12 +201,13 @@ public class DriverWithBookingMapActivity extends BaseActivity implements OnMapR
     @OnClick(R.id.btn_complete_booking) void completeBookingClick() {
         updateBookingStatus("completed");
 
-        finish();
+        launchDriverMapActivity();
     }
 
     private void init() {
         initMap();
         initGoogleApiClient();
+        initButtonVisibility();
     }
 
     private void initMap() {
@@ -238,6 +228,74 @@ public class DriverWithBookingMapActivity extends BaseActivity implements OnMapR
         }
     }
 
+    private void updatePassengerMarker() {
+        if (DriverMapActivity.mActiveBooking.status.equals("completed")) {
+            launchDriverMapActivity();
+        }
+
+        if (mPassengerLocation != null) {
+            mPassengerLocation.remove();
+        }
+
+        LatLng location = null;
+
+        MarkerOptions markerOptions = new MarkerOptions();
+
+        if (DriverMapActivity.mActiveBooking.status.equals("accepted")) {
+            markerOptions.title("Passenger Location");
+            markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_passenger));
+
+            location = new LatLng(DriverMapActivity.mActiveBooking.passengerLocation.latitude,
+                    DriverMapActivity.mActiveBooking.passengerLocation.longitude);
+
+            LatLng midPoint = midPoint(mCurrentLocation.getPosition().latitude,
+                    mCurrentLocation.getPosition().longitude, DriverMapActivity.mActiveBooking.passengerLocation.latitude,
+                    DriverMapActivity.mActiveBooking.passengerLocation.longitude);
+
+            float angle = angleBteweenCoordinate(mCurrentLocation.getPosition().latitude,
+                    mCurrentLocation.getPosition().longitude, DriverMapActivity.mActiveBooking.passengerLocation.latitude,
+                    DriverMapActivity.mActiveBooking.passengerLocation.longitude);
+
+            CameraPosition cameraPosition = new CameraPosition.Builder()
+                    .target(midPoint).zoom(12).bearing(angle).build();
+
+            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+        } else {
+            markerOptions.title("Destination Location");
+            markerOptions.icon(BitmapDescriptorFactory.defaultMarker());
+
+            location = new LatLng(DriverMapActivity.mActiveBooking.destination.latitude,
+                    DriverMapActivity.mActiveBooking.destination.longitude);
+
+            LatLng midPoint = midPoint(mCurrentLocation.getPosition().latitude,
+                    mCurrentLocation.getPosition().longitude, DriverMapActivity.mActiveBooking.destination.latitude,
+                    DriverMapActivity.mActiveBooking.destination.longitude);
+
+            float angle = angleBteweenCoordinate(mCurrentLocation.getPosition().latitude,
+                    mCurrentLocation.getPosition().longitude, DriverMapActivity.mActiveBooking.destination.latitude,
+                    DriverMapActivity.mActiveBooking.destination.longitude);
+
+            CameraPosition cameraPosition = new CameraPosition.Builder()
+                    .target(midPoint).zoom(10).bearing(angle).build();
+
+            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        }
+
+        markerOptions.position(location);
+        mPassengerLocation = mMap.addMarker(markerOptions);
+    }
+
+    private void initButtonVisibility() {
+        if (DriverMapActivity.mActiveBooking.status.equals("started")) {
+            setTitle("Going to destination");
+
+            mCancelBooking.setVisibility(View.GONE);
+            mStartBooking.setVisibility(View.GONE);
+            mCompleteBooking.setVisibility(View.VISIBLE);
+        }
+    }
+
     private void updateBookingStatus(String status) {
         DatabaseReference bookingRef = FirebaseDatabase.getInstance().getReference("bookings");
 
@@ -246,5 +304,35 @@ public class DriverWithBookingMapActivity extends BaseActivity implements OnMapR
         bookingRef.child(DriverMapActivity.mActiveBooking.passengerId)
                 .child(DriverMapActivity.mActiveBooking.id)
                 .setValue(DriverMapActivity.mActiveBooking);
+    }
+
+    private LatLng midPoint(double lat1, double long1, double lat2,double long2) {
+        return new LatLng((lat1+lat2)/2, (long1+long2)/2);
+    }
+
+    private float angleBteweenCoordinate(double lat1, double long1, double lat2,
+                                          double long2) {
+
+        double dLon = (long2 - long1);
+
+        double y = Math.sin(dLon) * Math.cos(lat2);
+        double x = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1)
+                * Math.cos(lat2) * Math.cos(dLon);
+
+        double brng = Math.atan2(y, x);
+
+        brng = Math.toDegrees(brng);
+        brng = (brng + 360) % 360;
+        brng = 360 - brng;
+
+        return (float) brng;
+    }
+
+
+    private void launchDriverMapActivity() {
+        DriverMapActivity.mActiveBooking = null;
+        Intent intent = new Intent(this, DriverMapActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
