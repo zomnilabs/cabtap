@@ -54,7 +54,7 @@ public class MaintenanceActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mRcvMaintenance.setHasFixedSize(true);
-        mLayoutManager = new GridLayoutManager(this, 3);
+        mLayoutManager = new LinearLayoutManager(this);
         mRcvMaintenance.setLayoutManager(mLayoutManager);
 
         mAdapter = new FirebaseRecyclerAdapter<Maintenance, MaintenanceActivity.MaintenanceHolder>(Maintenance.class,
@@ -63,6 +63,9 @@ public class MaintenanceActivity extends AppCompatActivity {
             @Override
             protected void populateViewHolder(MaintenanceActivity.MaintenanceHolder viewHolder, Maintenance model, final int position) {
                 viewHolder.setPlateNumber(model.plateNumber);
+                viewHolder.setCost(model.cost);
+                viewHolder.setMaintenanceType(model.maintenance);
+                viewHolder.setScheduleDate(model.maintenanceDate);
 
                 viewHolder.mView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -135,6 +138,21 @@ public class MaintenanceActivity extends AppCompatActivity {
 
         public void setPlateNumber(String name) {
             TextView field = (TextView) mView.findViewById(R.id.plate_number);
+            field.setText(name);
+        }
+
+        public void setScheduleDate(String name) {
+            TextView field = (TextView) mView.findViewById(R.id.maintenance_schedule);
+            field.setText(name);
+        }
+
+        public void setCost(Double name) {
+            TextView field = (TextView) mView.findViewById(R.id.maintenance_cost);
+            field.setText(String.format("%.2f",name));
+        }
+
+        public void setMaintenanceType(String name) {
+            TextView field = (TextView) mView.findViewById(R.id.maintenance_type);
             field.setText(name);
         }
 
