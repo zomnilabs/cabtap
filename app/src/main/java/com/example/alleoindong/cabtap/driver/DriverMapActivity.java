@@ -336,6 +336,7 @@ public class DriverMapActivity extends BaseActivity implements
     private void launchDriverWithBookingMapActivity() {
         Intent intent = new Intent(this, DriverWithBookingMapActivity.class);
         startActivity(intent);
+        finish();
     }
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
@@ -388,8 +389,10 @@ public class DriverMapActivity extends BaseActivity implements
                             continue;
                         }
 
-                        // If status is not accepted
-                        if (! currentBooking.status.equals("accepted")) {
+                        Log.i("BOOKINGS", String.valueOf(!(currentBooking.status.equals("started"))));
+
+                        // If status is not accepted or started
+                        if (! (currentBooking.status.equals("accepted") || currentBooking.status.equals("started"))) {
                             continue;
                         }
 
