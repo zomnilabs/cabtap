@@ -1,6 +1,7 @@
 package com.example.alleoindong.cabtap.driver;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -29,6 +30,7 @@ import android.widget.Toast;
 import com.example.alleoindong.cabtap.BaseActivity;
 import com.example.alleoindong.cabtap.DrawerMenuAdapter;
 import com.example.alleoindong.cabtap.R;
+import com.example.alleoindong.cabtap.models.Booking;
 import com.example.alleoindong.cabtap.models.BookingRequest;
 import com.example.alleoindong.cabtap.models.DrawerMenu;
 import com.example.alleoindong.cabtap.models.UserProfile;
@@ -67,9 +69,8 @@ import butterknife.OnClick;
 
 public class DriverMapActivity extends BaseActivity implements
         OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
-        LocationListener {
+        LocationListener, DialogInterface.OnDismissListener {
 
-    //    private String[] mDrawerMenu = {"Notifications", "Scheduled", "History", "Logout"};
     private ArrayList<DrawerMenu> mDrawerMenu;
 
     @BindView(R.id.driver_toolbar) Toolbar toolbar;
@@ -93,6 +94,7 @@ public class DriverMapActivity extends BaseActivity implements
     private GeoFire geoFire;
 
     public static String assignedPlateNumber;
+    public static Booking mActiveBooking;
 
     public BookingRequest mCurrentBookingRequest;
 
@@ -132,7 +134,6 @@ public class DriverMapActivity extends BaseActivity implements
 
         // Menu Items
         mDrawerMenu = new ArrayList<DrawerMenu>();
-//        mDrawerMenu.add(new DrawerMenu("Notifications", R.drawable.ic_notification));
         mDrawerMenu.add(new DrawerMenu("History", R.drawable.ic_history));
         mDrawerMenu.add(new DrawerMenu("Logout", R.drawable.ic_logout));
 
@@ -315,6 +316,14 @@ public class DriverMapActivity extends BaseActivity implements
 //        }
 
 //        mDrawerLayout.closeDrawer(mDrawerList);
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        if (DriverMapActivity.mActiveBooking != null) {
+            Intent intent = new Intent(this, DriverWithBookingMapActivity.class);
+            startActivity(intent);
+        }
     }
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
