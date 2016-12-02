@@ -118,7 +118,10 @@
         <activity
             android:name=".user.BookingHistoryActivity"
             android:theme="@style/AppTheme.DarkActionBar" />
-        <activity android:name=".driver.DriverWithBookingMapActivity"
+        <activity
+            android:name=".driver.DriverWithBookingMapActivity"
+            android:theme="@style/AppTheme.DarkActionBar" />
+        <activity android:name=".user.PaymentMethodActivity"
             android:theme="@style/AppTheme.DarkActionBar" />
     </application>
 

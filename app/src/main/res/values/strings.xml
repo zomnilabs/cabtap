@@ -90,6 +90,12 @@
     <string name="exact_location_1">1. Go to navigate</string>
     <string name="exact_location_2">2. Make sure your GPS location in your phone is turned on</string>
 
+    <string name="card_number">Card Number</string>
+    <string name="expiry">Expiry (mm/yy)</string>
+    <string name="cvv">CVV</string>
+    <string name="payment_method_notes">This will be your primary card</string>
+    <string name="payment_method_terms">By adding your debit/credit card, you agree to the Terms and conditions</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="auth_failed">Failed to login</string>
