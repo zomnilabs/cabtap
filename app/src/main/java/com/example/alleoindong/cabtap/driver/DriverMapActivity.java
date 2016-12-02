@@ -89,6 +89,7 @@ public class DriverMapActivity extends BaseActivity implements
     public Marker mCurrentLocation;
     public LocationRequest mLocationRequest;
 
+    private DatabaseReference mBookingsRef;
     private DatabaseReference mBookingNotificationsRef;
     private DatabaseReference mGeofireRef;
     private GeoFire geoFire;
@@ -151,6 +152,7 @@ public class DriverMapActivity extends BaseActivity implements
 
         initializeProfileInfo();
         initListenForBookingRequest();
+        initListenForActiveBooking();
     }
 
     private void setGeoFireLocation(double lat, double lng) {
@@ -366,6 +368,46 @@ public class DriverMapActivity extends BaseActivity implements
 
         handler.postDelayed(runnable, 10000);
 
+    }
+
+    private void initListenForActiveBooking() {
+        mBookingsRef = FirebaseDatabase.getInstance()
+                .getReference("bookings");
+
+        ValueEventListener bookingListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot bookings : dataSnapshot.getChildren()) {
+                    for (DataSnapshot booking : bookings.getChildren()) {
+                        Booking currentBooking = booking.getValue(Booking.class);
+
+                        // If plate number not match
+                        if (! currentBooking.plateNumber
+                                .equals(DriverMapActivity.assignedPlateNumber)) {
+
+                            continue;
+                        }
+
+                        // If status is not accepted
+                        if (! currentBooking.status.equals("accepted")) {
+                            continue;
+                        }
+
+                        // Get Active Booking
+                        DriverMapActivity.mActiveBooking = currentBooking;
+                        launchDriverWithBookingMapActivity();
+                        break;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+
+        mBookingsRef.addValueEventListener(bookingListener);
     }
 
     private void initListenForBookingRequest() {
