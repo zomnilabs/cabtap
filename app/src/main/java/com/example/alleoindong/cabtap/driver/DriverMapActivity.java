@@ -112,6 +112,11 @@ public class DriverMapActivity extends BaseActivity implements
 
         ButterKnife.bind(this);
 
+        // Check if there is an active booking
+        if (DriverMapActivity.mActiveBooking != null) {
+            launchDriverWithBookingMapActivity();
+        }
+
         if (toolbar != null) {
             setSupportActionBar(toolbar);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -320,10 +325,15 @@ public class DriverMapActivity extends BaseActivity implements
 
     @Override
     public void onDismiss(DialogInterface dialog) {
+        // Check for active booking
         if (DriverMapActivity.mActiveBooking != null) {
-            Intent intent = new Intent(this, DriverWithBookingMapActivity.class);
-            startActivity(intent);
+            launchDriverWithBookingMapActivity();
         }
+    }
+
+    private void launchDriverWithBookingMapActivity() {
+        Intent intent = new Intent(this, DriverWithBookingMapActivity.class);
+        startActivity(intent);
     }
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
