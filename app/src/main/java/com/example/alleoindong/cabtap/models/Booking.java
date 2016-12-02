@@ -10,6 +10,7 @@ import com.google.firebase.database.IgnoreExtraProperties;
 @IgnoreExtraProperties
 public class Booking {
     public String id;
+    public String passengerId;
     public String plateNumber;
     public String status;
     public String passengerLocationName;
@@ -32,10 +33,12 @@ public class Booking {
         this.destination = destination;
     }
 
-    public Booking(String id, String status, double fareEstimate, String passengerLocationName,
-                   String destinationName, Location passengerLocation, Location destination) {
+    public Booking(String id, String passengerId, String status, double fareEstimate,
+                   String passengerLocationName, String destinationName,
+                   Location passengerLocation, Location destination) {
 
         this.id = id;
+        this.passengerId = passengerId;
         this.status = status;
         this.fareEstimate = fareEstimate;
         this.passengerLocationName = passengerLocationName;
