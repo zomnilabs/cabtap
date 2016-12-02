@@ -9,22 +9,44 @@ android:background="@drawable/backrepeat"
 android:id="@+id/activity_maintenance"
 tools:context="com.example.alleoindong.cabtap.admin.MaintenanceActivity">
 
-<android.support.v7.widget.RecyclerView
-    android:id="@+id/rcv_maintenance"
-    android:scrollbars="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-</android.support.v7.widget.RecyclerView>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
-<android.support.design.widget.FloatingActionButton
-    android:id="@+id/fab_add_maintenance"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    app:fabSize="normal"
-    android:src="@drawable/ic_add_white_24dp"
-    app:layout_anchor="@id/rcv_maintenance"
-    app:layout_anchorGravity="bottom|right|end"
-    app:layout_behavior="com.example.alleoindong.cabtap.behaviors.ScrollAwareFABBehavior"
-    android:layout_margin="16dp" />
+        <android.support.v7.widget.AppCompatSpinner
+            style="@style/spinner_dropdown"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:textSize="24sp"
+            android:textColor="@color/colorBlack"
+            android:ems="10"
+            android:id="@+id/select_maintenance_filter"
+            android:hint="@string/select_maintenance"
+            android:textAppearance="@style/TextAppearance.FontPath" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rcv_maintenance"
+            android:scrollbars="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </android.support.v7.widget.RecyclerView>
+        vbbg
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_add_maintenance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:fabSize="normal"
+        android:src="@drawable/ic_add_white_24dp"
+        app:layout_anchor="@id/rcv_maintenance"
+        app:layout_anchorGravity="bottom|right|end"
+        app:layout_behavior="com.example.alleoindong.cabtap.behaviors.ScrollAwareFABBehavior"
+        android:layout_margin="16dp" />
 
 </android.support.design.widget.CoordinatorLayout>
