@@ -115,8 +115,11 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".user.BookingHistoryActivity"
-            android:theme="@style/AppTheme.DarkActionBar"/>
+        <activity
+            android:name=".user.BookingHistoryActivity"
+            android:theme="@style/AppTheme.DarkActionBar" />
+        <activity android:name=".driver.DriverWithBookingMapActivity"
+            android:theme="@style/AppTheme.DarkActionBar" />
     </application>
 
 </manifest>
