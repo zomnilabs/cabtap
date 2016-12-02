@@ -1,5 +1,7 @@
 package com.example.alleoindong.cabtap.driver;
 
+import android.app.Activity;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -84,6 +86,16 @@ public class BookingRequestDialogFragment extends DialogFragment {
 
     }
 
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+
+        Activity activity = getActivity();
+        if (activity instanceof DialogInterface.OnDismissListener) {
+            ((DialogInterface.OnDismissListener) activity).onDismiss(dialog);
+        }
+    }
+
     public void acceptBooking() {
         DatabaseReference bookingsRef = FirebaseDatabase.getInstance()
                 .getReference("bookings");
@@ -103,6 +115,9 @@ public class BookingRequestDialogFragment extends DialogFragment {
         // Save to firebase
         bookingsRef.child(BookingRequestDialogFragment.mBookingRequest.uid).child(booking.id).setValue(booking);
 
+        // Set as currently active booking
+        DriverMapActivity.mActiveBooking = booking;
+
         dismiss();
     }
 
@@ -111,6 +126,9 @@ public class BookingRequestDialogFragment extends DialogFragment {
                 .getReference("booking-requests").child(BaseActivity.uid);
 
         mBookingNotificationsRef.child(BookingRequestDialogFragment.mBookingRequest.id).setValue(null);
+
+        // Set null to active booking
+        DriverMapActivity.mActiveBooking = null;
 
         dismiss();
     }
