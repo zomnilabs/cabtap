@@ -142,7 +142,8 @@ public class RideBookingActivity extends AppCompatActivity implements DialogInte
         com.example.alleoindong.cabtap.models.Location destination = new com.example.alleoindong
                 .cabtap.models.Location(mDestination.latitude, mDestination.longitude);
 
-        Booking booking = new Booking(id, status, fareEstimate, pickup, destination);
+        Booking booking = new Booking(id, BaseActivity.uid, status,
+                fareEstimate, mPickupName, mDestinationName, pickup, destination);
 
         String requestId = UUID.randomUUID().toString();
         BookingRequest bookingRequest = new BookingRequest(requestId, BaseActivity.uid,
