@@ -138,13 +138,12 @@ public class PassengerLoginActivity extends BaseActivity {
                     vehicle = vehicleSnapshop.getValue(Vehicle.class);
                 }
 
-                Log.i("LOGIN", "vehicle: " + vehicle.plateNumber);
-
                 if (vehicle == null) {
                     Toast.makeText(PassengerLoginActivity.this, "You are not assigned into a vehicle", Toast.LENGTH_SHORT).show();
                     loginProgress.dismiss();
                     mLogin.setEnabled(true);
                     mLogin.setText(R.string.log_in);
+                    logout();
                     return;
                 }
 
@@ -153,10 +152,10 @@ public class PassengerLoginActivity extends BaseActivity {
                     loginProgress.dismiss();
                     mLogin.setEnabled(true);
                     mLogin.setText(R.string.log_in);
+                    logout();
                     return;
                 }
 
-                Log.i("VEHICLE", "plate: " + vehicle.plateNumber);
                 DriverMapActivity.assignedPlateNumber = vehicle.plateNumber;
 
                 Intent intent = new Intent(getApplicationContext(), DriverMapActivity.class);
