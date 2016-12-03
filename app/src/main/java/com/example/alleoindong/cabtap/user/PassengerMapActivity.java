@@ -30,6 +30,7 @@ import com.example.alleoindong.cabtap.DrawerMenuAdapter;
 import com.example.alleoindong.cabtap.R;
 import com.example.alleoindong.cabtap.admin.AdminActivity;
 import com.example.alleoindong.cabtap.driver.DriverMapActivity;
+import com.example.alleoindong.cabtap.models.Booking;
 import com.example.alleoindong.cabtap.models.DrawerMenu;
 import com.firebase.geofire.GeoFire;
 import com.firebase.geofire.GeoLocation;
@@ -50,9 +51,11 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -93,6 +96,9 @@ public class PassengerMapActivity extends BaseActivity implements
     public GeoQuery geoQuery;
     private DatabaseReference mGeofireRef;
     private GeoFire geoFire;
+    private DatabaseReference mBookingsRef;
+
+    public static Booking mActiveBooking;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -386,6 +392,39 @@ public class PassengerMapActivity extends BaseActivity implements
     @OnClick(R.id.passenger_help) void helpClick() {
         Intent intent = new Intent(this, PassengerHelpActivity.class);
         startActivity(intent);
+    }
+
+    private void initListenForActiveBooking() {
+        mBookingsRef = FirebaseDatabase.getInstance()
+                .getReference("bookings").child(BaseActivity.uid);
+
+        ValueEventListener bookingListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot booking : dataSnapshot.getChildren()) {
+                    Booking currentBooking = booking.getValue(Booking.class);
+
+                    // If status is not accepted or started
+                    if (! (currentBooking.status.equals("accepted") || currentBooking.status.equals("started"))) {
+                        continue;
+                    }
+
+                    // Get Active Booking
+                    PassengerMapActivity.mActiveBooking = currentBooking;
+                    Intent intent = new Intent(getApplicationContext(),
+                            PassengerWithBookingActivity.class);
+                    startActivity(intent);
+                    break;
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+
+        mBookingsRef.addValueEventListener(bookingListener);
     }
 
 

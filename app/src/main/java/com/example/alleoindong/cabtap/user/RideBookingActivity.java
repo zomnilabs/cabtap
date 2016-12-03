@@ -3,6 +3,7 @@ package com.example.alleoindong.cabtap.user;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.location.Location;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
@@ -219,6 +220,8 @@ public class RideBookingActivity extends AppCompatActivity implements DialogInte
                     return;
                 }
 
+                PassengerMapActivity.mActiveBooking = booking;
+
                 showBookingAcceptedDialog(booking);
                 Toast.makeText(RideBookingActivity.this, "A driver has accepted your request", Toast.LENGTH_SHORT).show();
             }
@@ -328,6 +331,11 @@ public class RideBookingActivity extends AppCompatActivity implements DialogInte
 
     @Override
     public void onDismiss(DialogInterface dialog) {
+        if (PassengerMapActivity.mActiveBooking != null) {
+            Intent intent = new Intent(this, PassengerWithBookingActivity.class);
+            startActivity(intent);
+        }
+
         finish();
     }
 }
