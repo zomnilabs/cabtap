@@ -14,9 +14,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.alleoindong.cabtap.BaseActivity;
 import com.example.alleoindong.cabtap.R;
+import com.example.alleoindong.cabtap.models.Booking;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -31,8 +33,11 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -54,6 +59,8 @@ public class PassengerWithBookingActivity extends BaseActivity implements
     @BindView(R.id.lbl_pickup_location) TextView mPickup;
     @BindView(R.id.lbl_destination_location) TextView mDestination;
 
+    public DatabaseReference bookingsRef;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +71,9 @@ public class PassengerWithBookingActivity extends BaseActivity implements
 
         // initialize
         init();
+
+        // listen for changes
+        listenForBookingStatusChanges();
 
         mPickup.setText(PassengerMapActivity.mActiveBooking.passengerLocationName);
         mDestination.setText(PassengerMapActivity.mActiveBooking.destinationName);
@@ -182,6 +192,7 @@ public class PassengerWithBookingActivity extends BaseActivity implements
     private void updatePassengerMarker() {
         if (PassengerMapActivity.mActiveBooking.status.equals("completed")) {
             launchPassengerMapActivity();
+            return;
         }
 
         if (mDriverLocation != null) {
@@ -307,5 +318,41 @@ public class PassengerWithBookingActivity extends BaseActivity implements
         Intent intent = new Intent(this, PassengerMapActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    private void listenForBookingStatusChanges() {
+        bookingsRef = FirebaseDatabase.getInstance()
+                .getReference("bookings")
+                .child(BaseActivity.uid)
+                .child(PassengerMapActivity.mActiveBooking.id);
+
+        ValueEventListener bookingListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Booking booking = dataSnapshot.getValue(Booking.class);
+
+                if (booking == null) {
+                    return;
+                }
+
+                if (booking.status.equals("cancelled")) {
+                    launchPassengerMapActivity();
+                }
+
+                PassengerMapActivity.mActiveBooking = booking;
+                Toast.makeText(PassengerWithBookingActivity.this, "A driver has "+booking.status+" your trip", Toast.LENGTH_SHORT).show();
+
+                if (mCurrentLocation != null) {
+                    updatePassengerMarker();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+
+        bookingsRef.addValueEventListener(bookingListener);
     }
 }

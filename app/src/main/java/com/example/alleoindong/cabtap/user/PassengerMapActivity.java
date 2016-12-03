@@ -145,6 +145,7 @@ public class PassengerMapActivity extends BaseActivity implements
         geoFire = new GeoFire(mGeofireRef);
 
         initializeProfileInfo();
+        initListenForActiveBooking();
     }
 
     public void getNearbyVehicles(double lat, double lng) {
@@ -408,6 +409,7 @@ public class PassengerMapActivity extends BaseActivity implements
                 for (DataSnapshot booking : dataSnapshot.getChildren()) {
                     Booking currentBooking = booking.getValue(Booking.class);
 
+                    Log.i("BOOKINGS", String.valueOf(!(currentBooking.status.equals("started"))));
                     // If status is not accepted or started
                     if (! (currentBooking.status.equals("accepted") || currentBooking.status.equals("started"))) {
                         continue;

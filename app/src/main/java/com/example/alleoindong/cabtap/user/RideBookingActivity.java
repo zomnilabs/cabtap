@@ -220,6 +220,14 @@ public class RideBookingActivity extends AppCompatActivity implements DialogInte
                     return;
                 }
 
+                if (! booking.status.equals("accepted")) {
+                    return;
+                }
+
+                if (booking.status.equals("cancelled")) {
+                    finish();
+                }
+
                 PassengerMapActivity.mActiveBooking = booking;
 
                 showBookingAcceptedDialog(booking);

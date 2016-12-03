@@ -231,6 +231,7 @@ public class DriverWithBookingMapActivity extends BaseActivity implements OnMapR
     private void updatePassengerMarker() {
         if (DriverMapActivity.mActiveBooking.status.equals("completed")) {
             launchDriverMapActivity();
+            return;
         }
 
         if (mPassengerLocation != null) {

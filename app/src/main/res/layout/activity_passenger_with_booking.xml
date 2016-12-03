@@ -82,7 +82,7 @@
             <Button
                 android:theme="@style/DangerButton"
                 android:id="@+id/btn_cancel_booking"
-                android:text="@string/booking_complete"
+                android:text="@string/booking_cancel"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </LinearLayout>
