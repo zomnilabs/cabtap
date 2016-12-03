@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_payment_method"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/backrepeat"
+    tools:context="com.example.alleoindong.cabtap.user.PaymentMethodActivity">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp">
+
+        <EditText
+            android:theme="@style/EditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:textSize="24sp"
+            android:textColor="@color/colorBlack"
+            android:ems="10"
+            android:id="@+id/card_number"
+            android:hint="@string/card_number"
+            android:textAppearance="@style/TextAppearance.FontPath" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:theme="@style/EditTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:textSize="24sp"
+                android:textColor="@color/colorBlack"
+                android:ems="10"
+                android:id="@+id/expiry"
+                android:hint="@string/expiry"
+                android:textAppearance="@style/TextAppearance.FontPath" />
+
+            <EditText
+                android:theme="@style/EditTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:textSize="24sp"
+                android:textColor="@color/colorBlack"
+                android:ems="10"
+                android:id="@+id/cvv"
+                android:hint="@string/cvv"
+                android:textAppearance="@style/TextAppearance.FontPath" />
+
+            </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="@string/payment_method_notes"
+            android:textColor="@color/colorGray"
+            android:textAppearance="@style/TextAppearance.FontPath"
+            android:layout_marginTop="50dp" />
+
+        <TextView
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="@string/payment_method_terms"
+            android:textColor="@color/colorGray"
+            android:textAppearance="@style/TextAppearance.FontPath"
+            android:layout_marginTop="30dp" />
+
+        <Button
+            android:id="@+id/btn_save_method"
+            android:textAppearance="@style/TextAppearance.FontPath"
+            android:theme="@style/PrimaryButton"
+            android:textSize="@dimen/text_size"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="300dp"
+            android:layout_height="@dimen/btn_height"
+            android:layout_marginTop="100dp"
+            android:text="@string/save" />
+
+    </LinearLayout>
+
+</RelativeLayout>

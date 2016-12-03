@@ -230,6 +230,10 @@ public class PassengerMapActivity extends BaseActivity implements
                 startActivity(intent);
                 break;
             case 1:
+                Intent intentPayment = new Intent(PassengerMapActivity.this, PaymentMethodActivity.class);
+                startActivity(intentPayment);
+                break;
+            case 2:
                 break;
             default:
 
