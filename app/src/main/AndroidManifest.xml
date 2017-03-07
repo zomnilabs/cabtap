@@ -24,7 +24,7 @@
         <!-- </activity> -->
         <activity
             android:name=".SplashScreenSecondActivity"
-            android:theme="@style/SplashScreenSecond">
+            android:theme="@style/SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

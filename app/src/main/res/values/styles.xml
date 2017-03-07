@@ -6,7 +6,7 @@
     </style>
 
     <style name="SplashScreenSecond" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowBackground">@drawable/splash_second_background</item>
+        <item name="android:windowBackground">@drawable/splash_background</item>
         <item name="windowNoTitle">true</item>
     </style>
 

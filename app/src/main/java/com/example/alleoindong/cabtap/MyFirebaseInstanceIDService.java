@@ -2,6 +2,7 @@ package com.example.alleoindong.cabtap;
 
 import android.util.Log;
 
+import com.example.alleoindong.cabtap.data.remote.models.User;
 import com.example.alleoindong.cabtap.models.UserProfile;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -48,9 +49,7 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
         }
 
         DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("users");
-        UserProfile userProfile = BaseActivity.currentUser;
+        User userProfile = BaseActivity.currentUser;
         userProfile.setFcmToken(token);
-
-        usersRef.child(userProfile.uid).setValue(userProfile);
     }
 }

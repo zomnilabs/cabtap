@@ -40,32 +40,32 @@ public class LoginActivity extends BaseActivity {
 
         @Override
         public void onNext(Boolean aBoolean) {
-            Log.i("EmailLogin", aBoolean.toString());
-
-            if (! aBoolean || role == null) {
-                mLogin.setEnabled(true);
-                mLogin.setText(R.string.log_in);
-            }
-
-            if (aBoolean) {
-                Log.i("USER_LOGIN", role);
-                Intent intent;
-
-                switch (role) {
-                    case "admin":
-                        intent = new Intent(getApplicationContext(), AdminActivity.class);
-                        startActivity(intent);
-                        finish();
-                        break;
-                    case "driver":
-                        getAssignedVehicle();
-                        break;
-                    default:
-                        intent = new Intent(getApplicationContext(), PassengerMapActivity.class);
-                        startActivity(intent);
-                        finish();
-                }
-            }
+//            Log.i("EmailLogin", aBoolean.toString());
+//
+//            if (! aBoolean || role == null) {
+//                mLogin.setEnabled(true);
+//                mLogin.setText(R.string.log_in);
+//            }
+//
+//            if (aBoolean) {
+//                Log.i("USER_LOGIN", role);
+//                Intent intent;
+//
+//                switch (role) {
+//                    case "admin":
+//                        intent = new Intent(getApplicationContext(), AdminActivity.class);
+//                        startActivity(intent);
+//                        finish();
+//                        break;
+//                    case "driver":
+//                        getAssignedVehicle();
+//                        break;
+//                    default:
+//                        intent = new Intent(getApplicationContext(), PassengerMapActivity.class);
+//                        startActivity(intent);
+//                        finish();
+//                }
+//            }
         }
     };
 

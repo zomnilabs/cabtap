@@ -8,6 +8,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.alleoindong.cabtap.admin.AdminActivity;
+import com.example.alleoindong.cabtap.data.remote.models.User;
 import com.example.alleoindong.cabtap.models.UserProfile;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -37,7 +38,8 @@ public class BaseActivity extends AppCompatActivity {
     public static String fullName = "";
     public static String firstName = "";
     public static String email = "";
-    public static UserProfile currentUser;
+//    public static UserProfile currentUser;
+    public static User currentUser;
     public static String fcm;
 
     @Override
@@ -48,67 +50,67 @@ public class BaseActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         // Auth Listener
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-
-                if (user != null) {
-                    DatabaseReference userProfileRef = FirebaseDatabase.getInstance().getReference("users").child(user.getUid());
-                    userProfileRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            UserProfile userProfile = dataSnapshot.getValue(UserProfile.class);
-
-                            // connected and authenticated
-                            isAuthenticated = true;
-                            role = userProfile.role;
-                            BaseActivity.uid = userProfile.uid;
-                            BaseActivity.fullName = userProfile.firstName + " " + userProfile.lastName;
-                            BaseActivity.firstName = userProfile.firstName;
-                            BaseActivity.email = userProfile.email;
-                            BaseActivity.currentUser = userProfile;
-
-                            BaseActivity.fcm = FirebaseInstanceId.getInstance().getToken();
-                            sendRegistrationToServer(BaseActivity.fcm);
-
-
-                            authenticationObservable.onNext(isAuthenticated);
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-                            isAuthenticated = false;
-                            role = null;
-
-                            authenticationObservable.onNext(isAuthenticated);
-                        }
-                    });
-                } else {
-                    // not connected or signed out
-                    role = null;
-                    isAuthenticated = false;
-                }
-            }
-        };
+//        mAuthListener = new FirebaseAuth.AuthStateListener() {
+//            @Override
+//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+//                FirebaseUser user = firebaseAuth.getCurrentUser();
+//
+//                if (user != null) {
+//                    DatabaseReference userProfileRef = FirebaseDatabase.getInstance().getReference("users").child(user.getUid());
+//                    userProfileRef.addListenerForSingleValueEvent(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(DataSnapshot dataSnapshot) {
+//                            UserProfile userProfile = dataSnapshot.getValue(UserProfile.class);
+//
+//                            // connected and authenticated
+//                            isAuthenticated = true;
+//                            role = userProfile.role;
+//                            BaseActivity.uid = userProfile.uid;
+//                            BaseActivity.fullName = userProfile.firstName + " " + userProfile.lastName;
+//                            BaseActivity.firstName = userProfile.firstName;
+//                            BaseActivity.email = userProfile.email;
+//                            BaseActivity.currentUser = userProfile;
+//
+//                            BaseActivity.fcm = FirebaseInstanceId.getInstance().getToken();
+//                            sendRegistrationToServer(BaseActivity.fcm);
+//
+//
+//                            authenticationObservable.onNext(isAuthenticated);
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(DatabaseError databaseError) {
+//                            isAuthenticated = false;
+//                            role = null;
+//
+//                            authenticationObservable.onNext(isAuthenticated);
+//                        }
+//                    });
+//                } else {
+//                    // not connected or signed out
+//                    role = null;
+//                    isAuthenticated = false;
+//                }
+//            }
+//        };
     }
 
-    protected void authenticate(String email, String password) {
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (!task.isSuccessful()) {
-                            Toast.makeText(getApplicationContext(), R.string.auth_failed,
-                                    Toast.LENGTH_SHORT).show();
-
-                            isAuthenticated = false;
-                            role = null;
-                            authenticationObservable.onNext(isAuthenticated);
-                        }
-                    }
-                });
-    }
+//    protected void authenticate(String email, String password) {
+//        mAuth.signInWithEmailAndPassword(email, password)
+//                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<AuthResult> task) {
+//                        if (!task.isSuccessful()) {
+//                            Toast.makeText(getApplicationContext(), R.string.auth_failed,
+//                                    Toast.LENGTH_SHORT).show();
+//
+//                            isAuthenticated = false;
+//                            role = null;
+//                            authenticationObservable.onNext(isAuthenticated);
+//                        }
+//                    }
+//                });
+//    }
 
     protected void logout() {
         mAuth.signOut();
@@ -121,16 +123,16 @@ public class BaseActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        mAuth.addAuthStateListener(mAuthListener);
+//        mAuth.addAuthStateListener(mAuthListener);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
 
-        if (mAuthListener != null) {
-            mAuth.removeAuthStateListener(mAuthListener);
-        }
+//        if (mAuthListener != null) {
+//            mAuth.removeAuthStateListener(mAuthListener);
+//        }
     }
 
     protected void goBackToLoginActivity() {
@@ -138,15 +140,15 @@ public class BaseActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void sendRegistrationToServer(String token) {
-        if (BaseActivity.currentUser == null) {
-            return;
-        }
-
-        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("users");
-        UserProfile userProfile = BaseActivity.currentUser;
-        userProfile.setFcmToken(token);
-
-        usersRef.child(userProfile.uid).setValue(userProfile);
-    }
+//    private void sendRegistrationToServer(String token) {
+//        if (BaseActivity.currentUser == null) {
+//            return;
+//        }
+//
+//        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("users");
+//        UserProfile userProfile = BaseActivity.currentUser;
+//        userProfile.setFcmToken(token);
+//
+//        usersRef.child(userProfile.uid).setValue(userProfile);
+//    }
 }
