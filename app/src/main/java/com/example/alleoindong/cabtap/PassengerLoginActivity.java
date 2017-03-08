@@ -35,7 +35,7 @@ import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import rx.Observer;
+//import rx.Observer;
 import rx.Subscriber;
 
 public class PassengerLoginActivity extends BaseActivity {
@@ -137,6 +137,11 @@ public class PassengerLoginActivity extends BaseActivity {
                 if (statusCode == 200) {
                     User user = response.body();
                     BaseActivity.currentUser = user;
+                    BaseActivity.uid = user.getId().toString();
+                    BaseActivity.firstName = user.getProfile().getFirstName();
+                    BaseActivity.fullName = user.getProfile().getFirstName() + " " + user.getProfile().getLastName();
+                    BaseActivity.fcm = user.getFcmToken();
+
 
                     Intent intent = null;
                     switch (user.getUserGroup()) {
