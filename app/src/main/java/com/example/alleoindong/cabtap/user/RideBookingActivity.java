@@ -18,6 +18,8 @@ import android.widget.Toast;
 
 import com.example.alleoindong.cabtap.BaseActivity;
 import com.example.alleoindong.cabtap.R;
+import com.example.alleoindong.cabtap.data.remote.RetrofitHelper;
+import com.example.alleoindong.cabtap.data.remote.models.Driver;
 import com.example.alleoindong.cabtap.models.Booking;
 import com.example.alleoindong.cabtap.models.BookingRequest;
 import com.example.alleoindong.cabtap.models.Vehicle;
@@ -45,6 +47,9 @@ import java.util.UUID;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RideBookingActivity extends AppCompatActivity implements DialogInterface.OnDismissListener {
     @BindView(R.id.btn_book_now) Button mBookNow;
@@ -57,7 +62,7 @@ public class RideBookingActivity extends AppCompatActivity implements DialogInte
     public String mPickupName;
     public String mDestinationName;
 
-    public ArrayList<Vehicle> vehicles;
+    public ArrayList<Driver> vehicles;
 
     public DatabaseReference vehiclesRef;
     public DatabaseReference bookingRequestsRef;
@@ -83,7 +88,7 @@ public class RideBookingActivity extends AppCompatActivity implements DialogInte
         mGeofireRef = FirebaseDatabase.getInstance().getReference("geofire");
         geoFire = new GeoFire(mGeofireRef);
 
-        vehicles = new ArrayList<Vehicle>();
+        vehicles = new ArrayList<Driver>();
 
         initPlaceAutocomplete();
         initPlaceAutoCompleteDestination();
@@ -133,28 +138,67 @@ public class RideBookingActivity extends AppCompatActivity implements DialogInte
         }
 
         onShowLoader(true);
+        createRemoteBooking();
 
-        String id = UUID.randomUUID().toString();
-        String status = "finding-driver";
-        double fareEstimate = Double.parseDouble(mEstimatedFare.getText().toString());
-        com.example.alleoindong.cabtap.models.Location pickup = new com.example.alleoindong
-                .cabtap.models.Location(mPickup.latitude, mPickup.longitude);
+    }
 
-        com.example.alleoindong.cabtap.models.Location destination = new com.example.alleoindong
-                .cabtap.models.Location(mDestination.latitude, mDestination.longitude);
+    private void createRemoteBooking() {
+        final double fareEstimate = Double.parseDouble(mEstimatedFare.getText().toString());
 
-        Booking booking = new Booking(id, BaseActivity.uid, status,
-                fareEstimate, mPickupName, mDestinationName, pickup, destination);
+        com.example.alleoindong.cabtap.data.remote.models.Booking booking =
+                new com.example.alleoindong.cabtap.data.remote.models.Booking();
 
-        String requestId = UUID.randomUUID().toString();
-        BookingRequest bookingRequest = new BookingRequest(requestId, BaseActivity.uid,
-                mPickupName, mDestinationName, "pending", booking);
+        booking.setPrice(fareEstimate);
+        booking.setPickup(mPickupName);
+        booking.setDestination(mDestinationName);
+        booking.setPickupLat(mPickup.latitude);
+        booking.setPickupLng(mPickup.longitude);
+        booking.setDestinationLat(mDestination.latitude);
+        booking.setDestinationLng(mDestination.longitude);
 
-        for (Vehicle vehicle : vehicles) {
-            bookingRequestsRef.child(vehicle.uid).child(requestId).setValue(bookingRequest);
-        }
+        RetrofitHelper.getInstance().getService().createBooking("Bearer " + BaseActivity.currentUser.getApiToken(), booking).enqueue(new Callback<com.example.alleoindong.cabtap.data.remote.models.Booking>() {
+            @Override
+            public void onResponse(Call<com.example.alleoindong.cabtap.data.remote.models.Booking> call, Response<com.example.alleoindong.cabtap.data.remote.models.Booking> response) {
+                int statusCode = response.code();
 
-        listenForAcceptedBooking(id);
+                if (statusCode != 201) {
+                    Toast.makeText(RideBookingActivity.this, "Failed in creating a booking", Toast.LENGTH_SHORT).show();
+                    onShowLoader(false);
+                    Log.i("Book", String.valueOf(statusCode));
+                    return;
+                }
+
+                String id = response.body().getId().toString();
+
+                String status = "pending";
+                com.example.alleoindong.cabtap.models.Location pickup = new com.example.alleoindong
+                        .cabtap.models.Location(mPickup.latitude, mPickup.longitude);
+
+                com.example.alleoindong.cabtap.models.Location destination = new com.example.alleoindong
+                        .cabtap.models.Location(mDestination.latitude, mDestination.longitude);
+
+                Booking booking = new Booking(id, BaseActivity.uid, status,
+                        fareEstimate, mPickupName, mDestinationName, pickup, destination);
+
+                String requestId = UUID.randomUUID().toString();
+                BookingRequest bookingRequest = new BookingRequest(requestId, BaseActivity.uid,
+                        mPickupName, mDestinationName, "pending", booking);
+
+                for (Driver vehicle : vehicles) {
+                    bookingRequestsRef.child(vehicle.getUser().getId().toString()).child(requestId).setValue(bookingRequest);
+                }
+
+                listenForAcceptedBooking(id);
+            }
+
+            @Override
+            public void onFailure(Call<com.example.alleoindong.cabtap.data.remote.models.Booking> call, Throwable t) {
+                Toast.makeText(RideBookingActivity.this, "Failed to create booking", Toast.LENGTH_SHORT).show();
+                onShowLoader(false);
+
+                t.printStackTrace();
+            }
+        });
     }
 
 
@@ -253,30 +297,42 @@ public class RideBookingActivity extends AppCompatActivity implements DialogInte
     }
 
     private void getVehicle(String plateNumber) {
-        vehiclesRef = FirebaseDatabase.getInstance()
-                .getReference("vehicles").child(plateNumber);
+//        vehiclesRef = FirebaseDatabase.getInstance()
+//                .getReference("vehicles").child(plateNumber);
+//
+//        ValueEventListener vehiclesDataListener = new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                Vehicle vehicle = dataSnapshot.getValue(Vehicle.class);
+//
+//                if (vehicle != null) {
+//                    addVehicleToList(vehicle);
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        };
+//
+//        vehiclesRef.addListenerForSingleValueEvent(vehiclesDataListener);
 
-        ValueEventListener vehiclesDataListener = new ValueEventListener() {
+        RetrofitHelper.getInstance().getService().getVehicleByPlateNumber(plateNumber).enqueue(new Callback<Driver>() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Vehicle vehicle = dataSnapshot.getValue(Vehicle.class);
-
-                if (vehicle != null) {
-                    addVehicleToList(vehicle);
-                }
+            public void onResponse(Call<Driver> call, Response<Driver> response) {
+                addVehicleToList(response.body());
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-
+            public void onFailure(Call<Driver> call, Throwable t) {
+                t.printStackTrace();
             }
-        };
-
-        vehiclesRef.addListenerForSingleValueEvent(vehiclesDataListener);
+        });
     }
 
-    private void addVehicleToList(Vehicle vehicle) {
-        Log.i("REQUEST", vehicle.plateNumber);
+    private void addVehicleToList(Driver vehicle) {
+        Log.i("REQUEST", vehicle.getVehicle().getPlateNumber());
 
         if (vehicles.contains(vehicle)) {
             return;
