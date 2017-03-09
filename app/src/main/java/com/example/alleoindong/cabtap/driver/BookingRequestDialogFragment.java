@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by alleoindong on 11/30/16.
@@ -115,7 +119,21 @@ public class BookingRequestDialogFragment extends DialogFragment {
 
         // Save to firebase
         bookingsRef.child(BookingRequestDialogFragment.mBookingRequest.uid).child(booking.id).setValue(booking);
-        RetrofitHelper.getInstance().getService().changeStatus("Bearer " + BaseActivity.currentUser.getApiToken(), Integer.parseInt(booking.id), "accepted");
+        RetrofitHelper.getInstance().getService()
+                .changeStatus("Bearer " + BaseActivity.currentUser.getApiToken()
+                        , Integer.parseInt(booking.id), "accepted")
+                .enqueue(new Callback<com.example.alleoindong.cabtap.data.remote.models.Booking>() {
+                    @Override
+                    public void onResponse(Call<com.example.alleoindong.cabtap.data.remote.models.Booking> call, Response<com.example.alleoindong.cabtap.data.remote.models.Booking> response) {
+                        int statusCode = response.code();
+                        Log.i("Booking", String.valueOf(statusCode));
+                    }
+
+                    @Override
+                    public void onFailure(Call<com.example.alleoindong.cabtap.data.remote.models.Booking> call, Throwable t) {
+                        t.printStackTrace();
+                    }
+                });
 
         // Set as currently active booking
         DriverMapActivity.mActiveBooking = booking;

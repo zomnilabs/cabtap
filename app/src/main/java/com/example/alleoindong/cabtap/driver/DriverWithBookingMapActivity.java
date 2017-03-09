@@ -11,6 +11,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 import com.example.alleoindong.cabtap.BaseActivity;
 import com.example.alleoindong.cabtap.R;
 import com.example.alleoindong.cabtap.data.remote.RetrofitHelper;
+import com.example.alleoindong.cabtap.data.remote.models.Booking;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -42,6 +44,9 @@ import com.google.firebase.database.ValueEventListener;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DriverWithBookingMapActivity extends BaseActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
@@ -298,7 +303,7 @@ public class DriverWithBookingMapActivity extends BaseActivity implements OnMapR
         }
     }
 
-    private void updateBookingStatus(String status) {
+    private void updateBookingStatus(final String status) {
         DatabaseReference bookingRef = FirebaseDatabase.getInstance().getReference("bookings");
 
         DriverMapActivity.mActiveBooking.setStatus(status);
@@ -310,7 +315,19 @@ public class DriverWithBookingMapActivity extends BaseActivity implements OnMapR
         // Update Remote booking status
         RetrofitHelper.getInstance().getService()
                 .changeStatus("Bearer " + BaseActivity.currentUser.getApiToken(),
-                        Integer.parseInt(DriverMapActivity.mActiveBooking.id), status);
+                        Integer.parseInt(DriverMapActivity.mActiveBooking.id), status)
+                .enqueue(new Callback<Booking>() {
+                    @Override
+                    public void onResponse(Call<Booking> call, Response<Booking> response) {
+                        int statusCode = response.code();
+                        Log.i("Booking", String.valueOf(statusCode));
+                    }
+
+                    @Override
+                    public void onFailure(Call<Booking> call, Throwable t) {
+                        t.printStackTrace();
+                    }
+                });
     }
 
     private LatLng midPoint(double lat1, double long1, double lat2,double long2) {

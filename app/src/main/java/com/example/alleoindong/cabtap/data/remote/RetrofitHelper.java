@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitHelper {
     private static RetrofitHelper instance;
-    private static final String BASE_URL = "http://192.168.0.16:8000/api/";
+    private static final String BASE_URL = "http://cabtap.zomnilabs.com/api/";
 
     private CabtapService cabtapService;
 
