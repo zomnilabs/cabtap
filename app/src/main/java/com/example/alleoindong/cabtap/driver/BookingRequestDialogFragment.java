@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.alleoindong.cabtap.BaseActivity;
 import com.example.alleoindong.cabtap.R;
+import com.example.alleoindong.cabtap.data.remote.RetrofitHelper;
 import com.example.alleoindong.cabtap.models.Booking;
 import com.example.alleoindong.cabtap.models.BookingRequest;
 import com.google.firebase.database.DatabaseReference;
@@ -114,6 +115,7 @@ public class BookingRequestDialogFragment extends DialogFragment {
 
         // Save to firebase
         bookingsRef.child(BookingRequestDialogFragment.mBookingRequest.uid).child(booking.id).setValue(booking);
+        RetrofitHelper.getInstance().getService().changeStatus("Bearer " + BaseActivity.currentUser.getApiToken(), Integer.parseInt(booking.id), "accepted");
 
         // Set as currently active booking
         DriverMapActivity.mActiveBooking = booking;

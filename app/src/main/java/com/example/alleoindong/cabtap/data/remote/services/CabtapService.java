@@ -11,6 +11,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
@@ -35,5 +36,8 @@ public interface CabtapService {
 
     @GET("vehicles/{plate_number}")
     Call<Driver> getVehicleByPlateNumber(@Path("plate_number") String plateNumber);
+
+    @PATCH("bookings/{bookingId}/status/{status}")
+    Call<Booking> changeStatus(@Header("Authorization") String apiToken, @Path("bookingId") Integer bookingId, @Path("status") String status);
 
 }

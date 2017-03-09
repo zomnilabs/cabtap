@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.example.alleoindong.cabtap.BaseActivity;
 import com.example.alleoindong.cabtap.R;
+import com.example.alleoindong.cabtap.data.remote.RetrofitHelper;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -186,7 +187,7 @@ public class DriverWithBookingMapActivity extends BaseActivity implements OnMapR
     }
 
     @OnClick(R.id.btn_start_booking) void startBookingClick() {
-        updateBookingStatus("started");
+        updateBookingStatus("on-trip");
 
         LatLng destinationLatLng = new LatLng(DriverMapActivity.mActiveBooking.destination.latitude,
                 DriverMapActivity.mActiveBooking.destination.longitude);
@@ -305,6 +306,11 @@ public class DriverWithBookingMapActivity extends BaseActivity implements OnMapR
         bookingRef.child(DriverMapActivity.mActiveBooking.passengerId)
                 .child(DriverMapActivity.mActiveBooking.id)
                 .setValue(DriverMapActivity.mActiveBooking);
+
+        // Update Remote booking status
+        RetrofitHelper.getInstance().getService()
+                .changeStatus("Bearer " + BaseActivity.currentUser.getApiToken(),
+                        Integer.parseInt(DriverMapActivity.mActiveBooking.id), status);
     }
 
     private LatLng midPoint(double lat1, double long1, double lat2,double long2) {
