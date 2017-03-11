@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@drawable/backrepeat"
-    tools:context="com.example.alleoindong.cabtap.user.BookingHistoryActivity">
+    tools:context="com.example.alleoindong.cabtap.com.alleoindong.cabtap.user.BookingHistoryActivity">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rcv_passenger_history"

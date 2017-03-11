@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@drawable/backrepeat"
-    tools:context="com.example.alleoindong.cabtap.user.ExactLocationActivity">
+    tools:context="com.example.alleoindong.cabtap.com.alleoindong.cabtap.user.ExactLocationActivity">
 
     <LinearLayout
         android:orientation="vertical"

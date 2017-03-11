@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.alleoindong.cabtap">
+    package="com.alleoindong.cabtap">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -23,7 +23,7 @@
         <!-- </intent-filter> -->
         <!-- </activity> -->
         <activity
-            android:name=".SplashScreenSecondActivity"
+            android:name="com.alleoindong.cabtap.SplashScreenSecondActivity"
             android:theme="@style/SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,16 +32,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name="com.alleoindong.cabtap.LoginActivity"
             android:theme="@style/LoginScreen" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".PassengerLoginActivity" />
+        <activity android:name="com.alleoindong.cabtap.MainActivity" />
+        <activity android:name="com.alleoindong.cabtap.RegisterActivity" />
+        <activity android:name="com.alleoindong.cabtap.PassengerLoginActivity" />
         <activity
-            android:name=".admin.AdminActivity"
+            android:name="com.alleoindong.cabtap.admin.AdminActivity"
             android:theme="@style/AppTheme.DarkActionBar" />
         <activity
-            android:name=".admin.DriverMaintenanceActivity"
+            android:name="com.alleoindong.cabtap.admin.DriverMaintenanceActivity"
             android:theme="@style/AppTheme.DarkActionBar">
             <meta-data
                 android:name="android.app.searchable"
@@ -51,36 +51,36 @@
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
         </activity>
-        <activity android:name=".user.PassengerMapActivity" />
-        <activity android:name=".BaseActivity" />
+        <activity android:name="com.alleoindong.cabtap.user.PassengerMapActivity" />
+        <activity android:name="com.alleoindong.cabtap.BaseActivity" />
         <activity
-            android:name=".admin.AddDriverActivity"
+            android:name="com.alleoindong.cabtap.admin.AddDriverActivity"
             android:theme="@style/AppTheme.DarkActionBar" />
         <activity
-            android:name=".admin.AddVehicleActivity"
+            android:name="com.alleoindong.cabtap.admin.AddVehicleActivity"
             android:theme="@style/AppTheme.DarkActionBar" />
         <activity
-            android:name=".admin.VehicleMaintenanceActivity"
+            android:name="com.alleoindong.cabtap.admin.VehicleMaintenanceActivity"
             android:theme="@style/AppTheme.DarkActionBar" />
-        <activity android:name=".driver.DriverMapActivity" />
+        <activity android:name="com.alleoindong.cabtap.driver.DriverMapActivity" />
         <activity
-            android:name=".user.RideBookingActivity"
+            android:name="com.alleoindong.cabtap.user.RideBookingActivity"
             android:theme="@style/AppTheme.DarkActionBar" />
-        <activity android:name=".driver.MainEmergencyActivity" />
+        <activity android:name="com.alleoindong.cabtap.driver.MainEmergencyActivity" />
         <activity
-            android:name=".user.PassengerHelpActivity"
-            android:theme="@style/AppTheme.DarkActionBar" />
-        <activity
-            android:name=".admin.MaintenanceActivity"
+            android:name="com.alleoindong.cabtap.user.PassengerHelpActivity"
             android:theme="@style/AppTheme.DarkActionBar" />
         <activity
-            android:name=".admin.AddMaintenanceActivity"
+            android:name="com.alleoindong.cabtap.admin.MaintenanceActivity"
             android:theme="@style/AppTheme.DarkActionBar" />
         <activity
-            android:name=".user.HowToBookActivity"
+            android:name="com.alleoindong.cabtap.admin.AddMaintenanceActivity"
             android:theme="@style/AppTheme.DarkActionBar" />
         <activity
-            android:name=".user.CreatePayMayaActivity"
+            android:name="com.alleoindong.cabtap.user.HowToBookActivity"
+            android:theme="@style/AppTheme.DarkActionBar" />
+        <activity
+            android:name="com.alleoindong.cabtap.user.CreatePayMayaActivity"
             android:theme="@style/AppTheme.DarkActionBar" />
 
         <meta-data
@@ -90,10 +90,10 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyD96FdTg_lXLY0z0oD1B0aMGkLHi-OtmCc" />
 
-        <activity android:name=".user.PayThroughPaymayaActivity" />
-        <activity android:name=".user.PayCashActivity" />
+        <activity android:name="com.alleoindong.cabtap.user.PayThroughPaymayaActivity" />
+        <activity android:name="com.alleoindong.cabtap.user.PayCashActivity" />
         <activity
-            android:name=".user.ExactLocationActivity"
+            android:name="com.alleoindong.cabtap.user.ExactLocationActivity"
             android:theme="@style/AppTheme.DarkActionBar" />
 
         <meta-data
@@ -101,14 +101,14 @@
             android:resource="@drawable/cabtap" />
 
         <service
-            android:name=".MyFirebaseMessagingService"
+            android:name="com.alleoindong.cabtap.MyFirebaseMessagingService"
             android:enabled="true">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
         <service
-            android:name=".MyFirebaseInstanceIDService"
+            android:name="com.alleoindong.cabtap.MyFirebaseInstanceIDService"
             android:enabled="true">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
@@ -116,15 +116,18 @@
         </service>
 
         <activity
-            android:name=".user.BookingHistoryActivity"
+            android:name="com.alleoindong.cabtap.user.BookingHistoryActivity"
             android:theme="@style/AppTheme.DarkActionBar" />
         <activity
-            android:name=".driver.DriverWithBookingMapActivity"
+            android:name="com.alleoindong.cabtap.driver.DriverWithBookingMapActivity"
             android:theme="@style/AppTheme.DarkActionBar" />
-        <activity android:name=".user.PaymentMethodActivity"
+        <activity
+            android:name="com.alleoindong.cabtap.user.PaymentMethodActivity"
             android:theme="@style/AppTheme.DarkActionBar" />
-        <activity android:name=".user.PassengerWithBookingActivity"
+        <activity
+            android:name="com.alleoindong.cabtap.user.PassengerWithBookingActivity"
             android:theme="@style/AppTheme.DarkActionBar" />
+        <activity android:name="com.alleoindong.cabtap.user.BookingCompletedActivity"></activity>
     </application>
 
 </manifest>

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:background="@drawable/backrepeat"
-    tools:context=".admin.DriverMaintenanceActivity">
+    tools:context="com.alleoindong.cabtap.admin.DriverMaintenanceActivity">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rcv_drivers"

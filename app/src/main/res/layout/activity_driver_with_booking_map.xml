@@ -4,7 +4,7 @@
     android:id="@+id/activity_driver_with_booking_map"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.alleoindong.cabtap.driver.DriverWithBookingMapActivity">
+    tools:context="com.example.alleoindong.cabtap.com.alleoindong.cabtap.driver.DriverWithBookingMapActivity">
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         android:name="com.google.android.gms.maps.SupportMapFragment"
