@@ -61,6 +61,18 @@
             android:id="@+id/last_name"
             android:hint="@string/register_last_name" />
 
+        <android.support.v7.widget.AppCompatSpinner
+            style="@style/spinner_dropdown"
+            android:spinnerMode="dropdown"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:textColor="@color/colorBlack"
+            android:ems="10"
+            android:id="@+id/gender"
+            android:hint="@string/select_gender"
+            android:textAppearance="@style/TextAppearance.FontPath" />
+
         <EditText
             android:theme="@style/EditTextStyle"
             android:textAppearance="@style/TextAppearance.FontPath"

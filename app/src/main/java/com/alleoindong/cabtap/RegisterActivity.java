@@ -1,20 +1,33 @@
 package com.alleoindong.cabtap;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.AppCompatSpinner;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alleoindong.cabtap.admin.AddVehicleActivity;
 import com.alleoindong.cabtap.data.remote.models.Profile;
 import com.alleoindong.cabtap.data.remote.models.User;
+import com.alleoindong.cabtap.models.UserProfile;
 import com.alleoindong.cabtap.user.PassengerMapActivity;
 import com.alleoindong.cabtap.R;
 import com.alleoindong.cabtap.data.remote.RetrofitHelper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,7 +36,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RegisterActivity extends BaseActivity {
+public class RegisterActivity extends BaseActivity implements AdapterView.OnItemSelectedListener {
     @BindView(R.id.first_name) EditText mFirstName;
     @BindView(R.id.last_name) EditText mLastName;
     @BindView(R.id.email) EditText mEmail;
@@ -31,6 +44,12 @@ public class RegisterActivity extends BaseActivity {
     @BindView(R.id.confirm_password) EditText mConfirmPassword;
     @BindView(R.id.btn_register) Button mRegister;
     @BindView(R.id.btn_register_loading) ProgressBar mProgress;
+    @BindView(R.id.gender) AppCompatSpinner mGender;
+
+    private ArrayList<String> genders;
+    private String selectedGender;
+
+    private GenderAdapter mGenderAdapter;
 
 //    // Observe changes to authentication
 //    protected Subscriber<Boolean> authenticationSubscriber = new Subscriber<Boolean>() {
@@ -78,6 +97,8 @@ public class RegisterActivity extends BaseActivity {
         setTitle("REGISTRATION");
 
         ButterKnife.bind(this);
+
+        initGenderSpinner();
     }
 
     @Override
@@ -108,6 +129,17 @@ public class RegisterActivity extends BaseActivity {
         this.createUser(email, password);
     }
 
+    private void initGenderSpinner() {
+        genders = new ArrayList<String>();
+        genders.add("Male");
+        genders.add("Female");
+
+        mGenderAdapter = new GenderAdapter(this, genders);
+        mGenderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mGender.setAdapter(mGenderAdapter);
+        mGender.setOnItemSelectedListener(this);
+    }
+
     private void createUser(String email, String password) {
         String firstName = mFirstName.getText().toString();
         String lastName = mLastName.getText().toString();
@@ -119,6 +151,7 @@ public class RegisterActivity extends BaseActivity {
         Profile profile = new Profile();
         profile.setFirstName(firstName);
         profile.setLastName(lastName);
+        profile.setGender(selectedGender);
         user.setProfile(profile);
 
         // Register
@@ -190,5 +223,53 @@ public class RegisterActivity extends BaseActivity {
         mRegister.setEnabled(!isShown);
         mRegister.setText(isShown ? "" : getString(R.string.register_now));
         mProgress.setVisibility(isShown ? View.VISIBLE : View.INVISIBLE);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        selectedGender = genders.get(position).toLowerCase();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
+    public class GenderAdapter extends ArrayAdapter<String> {
+
+        public GenderAdapter(Context context, ArrayList<String> objects) {
+            super(context, 0,  objects);
+        }
+
+        @NonNull
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            String gender = this.getItem(position);
+
+            if (convertView == null) {
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.driver_spinner_item, parent, false);
+            }
+
+            TextView spinnerItem = (TextView) convertView.findViewById(R.id.tvSpinnerItem);
+            spinnerItem.setText(gender);
+            spinnerItem.setTag(gender.toLowerCase());
+
+            return convertView;
+        }
+
+        @Override
+        public View getDropDownView(int position, View convertView, ViewGroup parent) {
+            String gender = this.getItem(position);
+
+            if (convertView == null) {
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.driver_spinner_item, parent, false);
+            }
+
+            TextView spinnerItem = (TextView) convertView.findViewById(R.id.tvSpinnerItem);
+            spinnerItem.setText(gender);
+            spinnerItem.setTag(gender.toLowerCase());
+
+            return convertView;
+        }
     }
 }
