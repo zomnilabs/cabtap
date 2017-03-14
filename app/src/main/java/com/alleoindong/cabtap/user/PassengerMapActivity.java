@@ -125,8 +125,8 @@ public class PassengerMapActivity extends BaseActivity implements
 //        mDrawerMenu.add(new DrawerMenu("Notifications", R.drawable.ic_notification));
 //        mDrawerMenu.add(new DrawerMenu("Scheduled", R.drawable.ic_schedule));
         mDrawerMenu.add(new DrawerMenu("History", R.drawable.ic_history));
-        mDrawerMenu.add(new DrawerMenu("Payment Method", R.drawable.ic_card));
-        mDrawerMenu.add(new DrawerMenu("Logout", R.drawable.ic_logout));
+//        mDrawerMenu.add(new DrawerMenu("Payment Method", R.drawable.ic_card));
+//        mDrawerMenu.add(new DrawerMenu("Logout", R.drawable.ic_logout));
 
         // DrawerLayout
         mDrawerList.setAdapter(new DrawerMenuAdapter(getApplicationContext(), mDrawerMenu));
